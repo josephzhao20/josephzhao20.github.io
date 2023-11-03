@@ -13,3 +13,6 @@ class Student {
         return this.choices.some(choice => group.getMemberNames().includes(choice));
     }
 }
+
+// Export the Student class
+export default Student;
