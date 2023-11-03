@@ -4,20 +4,213 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Student Sorter</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- Add your CSS links and scripts here -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+
+        header {
+            background-color: #3498db;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+
+        main {
+            padding: 20px;
+        }
+
+
+        #app {
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+
+        .instructions {
+            list-style-type: decimal;
+            padding-left: 20px;
+        }
+
+
+        .instruction-item {
+            margin-bottom: 20px; /* Add spacing between items */
+        }
+
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+
+        input[type="file"] {
+            display: none;
+        }
+
+
+        button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+
+        /* Add more CSS styles as needed */
+    </style>
 </head>
 <body>
     <header>
         <h1>Welcome to the Super Student Sorter</h1>
     </header>
+
+
     <main>
         <div id="app">
-            <!-- Your instructions and form content go here -->
+            <p>Follow these steps to create groups:</p>
+            <ol class="instructions">
+                <li class="instruction-item">
+                    Create an Excel sheet with the following format:
+                    <table>
+                        <tr>
+                            <th>Student</th>
+                            <th>Choice 1</th>
+                            <th>Choice 2</th>
+                            <th>Choice 3</th>
+                        </tr>
+                        <tr>
+                            <td>Joseph</td>
+                            <td>Steve</td>
+                            <td>Andy</td>
+                            <td>Tim</td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                        <tr>
+                            <td>Steve</td>
+                            <td>Andy</td>
+                            <td>Tim</td>
+                            <td>Joseph</td>
+                        </tr>
+                    </table>
+                </li>
+                <li class="instruction-item">
+                    Save the Excel sheet as .csv.
+                </li>
+                <li class="instruction-item">
+                    Upload the Excel sheet using the button below.
+                </li>
+                <li class="instruction-item">
+                    Wait for your groups to be created.
+                </li>
+                <li class="instruction-item">
+                    If no response is given after ~5 minutes, refresh the page and try again.
+                </li>
+            </ol>
+
+
+            <!-- ... Previous HTML code ... -->
+
+
+<style>
+    /* Center the "Create Student Groups" section */
+    #sec {
+        text-align: center;
+        margin: 0 auto;
+        max-width: 600px; /* Adjust the max-width to your preference */
+    }
+</style>
+
+
+<div id="sec">
+    <h2>Create Student Groups</h2>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="fileInput" name="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+        <button type="submit" id="uploadButton">Upload</button>
+    </form>
+</div>
+
+
+<!-- ... Rest of your HTML code ... -->
+
+
+
+
         </div>
     </main>
+
+
     <footer>
         &copy; 2023 SSS LLC.
     </footer>
-    <script src="main.js"></script>
+
+
+
+
+    <script>
+        // Function to handle file upload
+        function handleFileUpload(event) {
+            event.preventDefault();
+   
+            // Get the file input element
+            const fileInput = document.getElementById('fileInput');
+   
+            // Get the uploaded file
+            const file = fileInput.files[0];
+   
+            if (file) {
+                // Create a FormData object and append the file to it
+                const formData = new FormData();
+                formData.append('file', file);
+   
+                // Make an AJAX request to send the file to the server for processing
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'https://script.google.com/macros/s/AKfycbyGjR1h6jvtHYT5hNg_MJoVNNCxuQ9fsSw15UBiy1zv_TcPpGNOWkX4ekN5b9OY888M/exec', true); // Replace 'process_upload.php' with the URL of your server-side script
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // Handle the response from the server
+                        const response = JSON.parse(xhr.responseText);
+                        if (response.success) {
+                            alert('File uploaded successfully!'); // You can replace this with your desired success message
+                        } else {
+                            alert('File upload failed. Please try again.'); // You can replace this with your desired error message
+                        }
+                    }
+                };
+                xhr.send(formData);
+            } else {
+                alert('Please select a file to upload.');
+            }
+        }
+   
+        // Add an event listener to the upload form
+        const uploadForm = document.getElementById('uploadForm');
+        uploadForm.addEventListener('submit', handleFileUpload);
+    </script>    
+
+
+
+
+
+
+
+
 </body>
 </html>
