@@ -1,38 +1,18 @@
-// Function to handle file upload
-function handleFileUpload(event) {
-    event.preventDefault();
+import Student from './student.js';
+import Group from './group.js';
 
-    // Get the file input element
-    const fileInput = document.getElementById('fileInput');
+// Read student data from the CSV file
+const csv_file = "testList.csv";
+const students_data = {}; // Your code to read the CSV file goes here
 
-    // Get the uploaded file
-    const file = fileInput.files[0];
+// Create Student objects
+const students = Object.entries(students_data).map(([name, choices]) => new Student(name, choices));
 
-    if (file) {
-        // Create a FormData object and append the file to it
-        const formData = new FormData();
-        formData.append('file', file);
+// Calculate the total number of students
+const total_students = students.length;
 
-        // Make an AJAX request to send the file to the server for processing
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'https://script.google.com/macros/s/AKfycbyGjR1h6jvtHYT5hNg_MJoVNNCxuQ9fsSw15UBiy1zv_TcPpGNOWkX4ekN5b9OY888M/exec', true); // Replace 'process_upload.php' with the URL of your server-side script
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                // Handle the response from the server
-                const response = JSON.parse(xhr.responseText);
-                if (response.success) {
-                    alert('File uploaded successfully!'); // You can replace this with your desired success message
-                } else {
-                    alert('File upload failed. Please try again.'); // You can replace this with your desired error message
-                }
-            }
-        };
-        xhr.send(formData);
-    } else {
-        alert('Please select a file to upload.');
-    }
-}
+// Calculate the number of groups needed
+const num_groups = Math.floor(total_students / 5);
+const remaining_students = total_students % 5;
 
-// Add an event listener to the upload form
-const uploadForm = document.getElementById('uploadForm');
-uploadForm.addEventListener('submit', handleFileUpload);
+// Your code for group creation and matching goes here
