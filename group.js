@@ -11,3 +11,6 @@ class Group {
         return this.members.map(member => member.name);
     }
 }
+
+// Export the Group class
+export default Group;
