@@ -5,83 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Student Sorter</title>
     <!-- Add your CSS links and scripts here -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-
-        header {
-            background-color: #3498db;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-        }
-
-
-        main {
-            padding: 20px;
-        }
-
-
-        #app {
-            background-color: #f5f5f5;
-            border-radius: 5px;
-            padding: 20px;
-        }
-
-
-        .instructions {
-            list-style-type: decimal;
-            padding-left: 20px;
-        }
-
-
-        .instruction-item {
-            margin-bottom: 20px; /* Add spacing between items */
-        }
-
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-
-        input[type="file"] {
-            display: none;
-        }
-
-
-        button {
-            background-color: #3498db;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-        }
-
-
-        /* Add more CSS styles as needed */
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
     <header>
         <h1>Welcome to the Super Student Sorter</h1>
     </header>
-
 
     <main>
         <div id="app">
@@ -114,7 +43,7 @@
                 <li class="instruction-item">
                     Save the Excel sheet as .csv.
                 </li>
-                <li class="instruction-item">
+                <li class "instruction-item">
                     Upload the Excel sheet using the button below.
                 </li>
                 <li class="instruction-item">
@@ -125,92 +54,93 @@
                 </li>
             </ol>
 
-
             <!-- ... Previous HTML code ... -->
 
+            <style>
+                /* Center the "Create Student Groups" section */
+                #sec {
+                    text-align: center;
+                    margin: 0 auto;
+                    max-width: 600px; /* Adjust the max-width to your preference */
+                }
+            </style>
 
-<style>
-    /* Center the "Create Student Groups" section */
-    #sec {
-        text-align: center;
-        margin: 0 auto;
-        max-width: 600px; /* Adjust the max-width to your preference */
-    }
-</style>
-
-
-<div id="sec">
-    <h2>Create Student Groups</h2>
-    <form id="uploadForm" enctype="multipart/form-data">
-        <input type="file" id="fileInput" name="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
-        <button type="submit" id="uploadButton">Upload</button>
-    </form>
-</div>
-
-
-<!-- ... Rest of your HTML code ... -->
-
-
-
-
+            <div id="sec">
+                <h2>Create Student Groups</h2>
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <input type="file" id="fileInput" name="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                    <button type="submit" id="uploadButton">Upload</button>
+                </form>
+            </div>
         </div>
     </main>
-
 
     <footer>
         &copy; 2023 SSS LLC.
     </footer>
 
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-analytics.js";
+        import { getStorage } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-storage.js";
+        import { ref, uploadBytes } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-storage.js";
 
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyCWoTgInCfxyOtun0gDEL8nWDKlMPGqmiA",
+            authDomain: "super-student-sorter.firebaseapp.com",
+            projectId: "super-student-sorter",
+            storageBucket: "super-student-sorter.appspot.com",
+            messagingSenderId: "520142093846",
+            appId: "1:520142093846:web:7f131f66ddd4c8432eff37",
+            measurementId: "G-5LLK8Q9RHB"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
 
+        // Get a reference to the Firebase Storage service
+        const storage = getStorage(app);
 
-    <script>
         // Function to handle file upload
         function handleFileUpload(event) {
             event.preventDefault();
-   
+
             // Get the file input element
             const fileInput = document.getElementById('fileInput');
-   
-            // Get the uploaded file
             const file = fileInput.files[0];
-   
+
             if (file) {
-                // Create a FormData object and append the file to it
-                const formData = new FormData();
-                formData.append('file', file);
-   
-                // Make an AJAX request to send the file to the server for processing
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', 'https://script.google.com/macros/s/AKfycbyGjR1h6jvtHYT5hNg_MJoVNNCxuQ9fsSw15UBiy1zv_TcPpGNOWkX4ekN5b9OY888M/exec', true); // Replace 'process_upload.php' with the URL of your server-side script
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        // Handle the response from the server
-                        const response = JSON.parse(xhr.responseText);
-                        if (response.success) {
-                            alert('File uploaded successfully!'); // You can replace this with your desired success message
-                        } else {
-                            alert('File upload failed. Please try again.'); // You can replace this with your desired error message
-                        }
-                    }
-                };
-                xhr.send(formData);
+                // Create a reference to the Firebase Storage location where you want to store the file
+                const storageRef = ref(storage, 'uploads/' + file.name);
+
+                // Upload the file to Firebase Storage
+                uploadBytes(storageRef, file).then((snapshot) => {
+                    console.log('File uploaded successfully!');
+                }).catch((error) => {
+                    console.error('File upload failed:', error);
+                });
             } else {
                 alert('Please select a file to upload.');
             }
         }
-   
+
+        // Add an event listener to the "Upload" button
+        const uploadButton = document.getElementById('uploadButton');
+        uploadButton.addEventListener('click', () => {
+            // Trigger the file input element to open the file selection dialog
+            document.getElementById('fileInput').click();
+        });
+
         // Add an event listener to the upload form
         const uploadForm = document.getElementById('uploadForm');
         uploadForm.addEventListener('submit', handleFileUpload);
-    </script>    
-
-
-
-
-
-
-
-
+    </script>
 </body>
 </html>
