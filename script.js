@@ -1,84 +1,46 @@
-// Handle CSV file upload and parsing
-document.getElementById("upload-form").addEventListener("submit", function(event) {
-    event.preventDefault();  // Prevent form from refreshing the page
-
-    // Get the uploaded file
-    const fileInput = document.getElementById("csv-file");
-    const file = fileInput.files[0];
-
-    if (!file) {
-        alert("Please upload a CSV file.");
-        return;
+// Handle file upload and parse CSV data
+document.getElementById("fileInput").addEventListener("change", function(event) {
+    const file = event.target.files[0];
+    if (file && file.name.endsWith(".csv")) {
+        parseCSV(file);
+    } else {
+        alert("Please upload a valid CSV file.");
     }
-
-    // Read the file using FileReader
-    const reader = new FileReader();
-
-    reader.onload = function(e) {
-        // Parse the CSV content
-        const text = e.target.result;
-        const parsedData = parseCSV(text);
-
-        // Process the CSV data
-        processCSVData(parsedData);
-    };
-
-    reader.readAsText(file); // Read the file as text
 });
 
-// Parse CSV into an array of student objects
-function parseCSV(csvText) {
-    const rows = csvText.split("\n").map(row => row.trim()).filter(row => row);
-    const parsedData = [];
-
-    rows.forEach((row, index) => {
-        const columns = row.split(",").map(col => col.trim());
-        
-        // Skip the first row if it's the header
-        if (index === 0) return;
-
-        const studentName = columns[0];
-        const preferences = columns.slice(1);  // The rest are preferences
-        parsedData.push({ name: studentName, preferences: preferences });
-    });
-
-    return parsedData;
-}
-
-// Display the parsed CSV data on the page (for verification)
-function processCSVData(data) {
-    console.log(data);  // Print data to the console (for debugging)
-    
-    // Optionally, show the parsed data on the page
-    const displayArea = document.createElement("div");
-    displayArea.innerHTML = "<h2>Parsed Data:</h2>";
-
-    const list = document.createElement("ul");
-    data.forEach(item => {
-        const listItem = document.createElement("li");
-        listItem.textContent = `${item.name} prefers: ${item.preferences.join(", ")}`;
-        list.appendChild(listItem);
-    });
-
-    displayArea.appendChild(list);
-    document.body.appendChild(displayArea);
-
-    // Enable the group sorting step
-    enableGroupSorting(data);
-}
-
-// Function to enable the sorting button
-function enableGroupSorting(data) {
-    const sortButton = document.createElement("button");
-    sortButton.textContent = "Sort into Groups";
-    
-    sortButton.onclick = function() {
-        sortStudentsIntoGroups(data);
+function parseCSV(file) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        const data = event.target.result;
+        const studentsData = processCSVData(data);
+        document.getElementById("groupSortingSection").style.display = "block";
+        enableGroupSorting(studentsData);
     };
-
-    document.body.appendChild(sortButton);
+    reader.readAsText(file);
 }
 
+function processCSVData(csvContent) {
+    const lines = csvContent.split("\n");
+    const studentsData = [];
+    
+    lines.forEach((line, index) => {
+        const columns = line.split(",");
+        if (columns.length > 1) { // Skip empty lines
+            const name = columns[0].trim();
+            const preferences = columns.slice(1).map(item => item.trim());
+            studentsData.push({ name, preferences });
+        }
+    });
+
+    return studentsData;
+}
+
+function enableGroupSorting(studentsData) {
+    const sortButton = document.getElementById("sortButton");
+    sortButton.onclick = function() {
+        sortStudentsIntoGroups(studentsData);
+    };
+}
 
 // Group the students based on their preferences
 function sortStudentsIntoGroups(studentsData) {
@@ -136,14 +98,14 @@ function displayGroups(groups) {
     });
 
     document.body.appendChild(groupContainer);
-}
 
-// Helper function to shuffle an array randomly
-function shuffleArray(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
+    // Add the download CSV button
+    const downloadButton = document.createElement("button");
+    downloadButton.textContent = "Download Sorted Groups as CSV";
+    downloadButton.onclick = function() {
+        downloadCSV(groups);
+    };
+    document.body.appendChild(downloadButton);
 }
 
 // Generate and download a CSV file with the sorted groups
@@ -167,4 +129,12 @@ function downloadCSV(groups) {
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
+}
+
+// Helper function to shuffle an array randomly
+function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
 }
