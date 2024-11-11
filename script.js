@@ -211,14 +211,14 @@ function displayGroups(groups) {
     console.log('Groups displayed successfully.');
 }
 
-// Event listener for file input
-document.getElementById('csvFile').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (file) {
-        console.log(`File selected: ${file.name}`);
-        processCSVData(file);
-    }
-});
+// // Event listener for file input
+// document.getElementById('csvFile').addEventListener('change', function(event) {
+//     const file = event.target.files[0];
+//     if (file) {
+//         console.log(`File selected: ${file.name}`);
+//         processCSVData(file);
+//     }
+// });
 
 
 // Helper function to shuffle an array (Fisher-Yates Shuffle)
