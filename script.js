@@ -69,34 +69,46 @@ function processCSVData() {
 
     showStatus("Sorting students...");
 
-    // Sorting logic
+    // Async processing with setTimeout to prevent freezing
+    asyncSortStudents().then(() => {
+        showStatus("Sorting complete.");
+        displayGroups(groups);
+    }).catch(() => {
+        showStatus("Failed to sort students.");
+    });
+}
+
+async function asyncSortStudents() {
     let match = false;
     let attempts = 0;
     const totalStudents = students.length;
     const numGroups = Math.ceil(totalStudents / 5);
     const remainingStudents = totalStudents % 5;
-    
+
     while (!match && attempts < 10) {
         attempts++;
-        
+
         let appearances = students.reduce((acc, student) => {
             student.choices.forEach(choice => {
                 acc[choice] = (acc[choice] || 0) + 1;
             });
             return acc;
         }, {});
-        
+
         students.sort((a, b) => (appearances[a.name] || 0) - (appearances[b.name] || 0));
         students = shuffleArray(students);
 
         let groups = [];
         let remainingStudentsList = [...students];
-        
+
         let newGroup = new Group();
         newGroup.addMember(remainingStudentsList[0]);
         remainingStudentsList[0].assignToGroup(newGroup);
         groups.push(newGroup);
         remainingStudentsList.shift();
+
+        // Give the browser some time to process by using setTimeout
+        await new Promise(resolve => setTimeout(resolve, 10));
 
         while (remainingStudentsList.length) {
             let student = remainingStudentsList[0];
@@ -128,6 +140,9 @@ function processCSVData() {
                     }
                 }
             }
+
+            // Give the browser a break after each iteration
+            await new Promise(resolve => setTimeout(resolve, 10));
         }
 
         let studentsWithoutPreference = [];
@@ -145,10 +160,9 @@ function processCSVData() {
     }
 
     if (match) {
-        showStatus("Sorting complete.");
         displayGroups(groups);
     } else {
-        showStatus("Failed to sort students after multiple attempts.");
+        throw new Error("Sorting failed after multiple attempts.");
     }
 }
 
