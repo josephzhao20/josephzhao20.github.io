@@ -23,6 +23,12 @@ function parseCSV(file) {
 }
 
 function processCSVData(csvContent) {
+    // Show loading indicator
+    document.getElementById('loading').style.display = 'block';
+
+    // Hide completion message if it's showing
+    document.getElementById('completed').style.display = 'none';
+
     const lines = csvContent.split("\n");
     const studentsData = [];
     
@@ -34,6 +40,12 @@ function processCSVData(csvContent) {
             studentsData.push({ name, preferences });
         }
     });
+
+    // Hide loading indicator
+    document.getElementById('loading').style.display = 'none';
+
+    // Show completion message
+    document.getElementById('completed').style.display = 'block';
 
     return studentsData;
 }
