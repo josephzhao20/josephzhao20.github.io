@@ -1,158 +1,191 @@
-// Handle file upload and parse CSV data
-document.getElementById("fileInput").addEventListener("change", function(event) {
-    const file = event.target.files[0];
-    if (file && file.name.endsWith(".csv")) {
-        parseCSV(file);
-    } else {
-        alert("Please upload a valid CSV file.");
+class Student {
+    constructor(name, choices) {
+        this.name = name;
+        this.choices = choices;
+        this.group = null;
     }
-});
 
-function parseCSV(file) {
-    console.log("Parsing data")
+    assignToGroup(group) {
+        this.group = group;
+    }
 
+    hasChoiceInGroup(group) {
+        return group.getMemberNames().some(name => this.choices.includes(name));
+    }
+
+    toString() {
+        return this.name;
+    }
+}
+
+class Group {
+    constructor() {
+        this.members = [];
+    }
+
+    addMember(student) {
+        this.members.push(student);
+    }
+
+    getMemberNames() {
+        return this.members.map(student => student.name);
+    }
+}
+
+// Handle CSV file reading
+document.getElementById('csv-file').addEventListener('change', handleFileUpload);
+document.getElementById('process-button').addEventListener('click', processCSVData);
+
+let students = [];
+
+function handleFileUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
     const reader = new FileReader();
-    reader.onload = function(event) {
-        const data = event.target.result;
-        const studentsData = processCSVData(data);
-        document.getElementById("groupSortingSection").style.display = "block";
-        // After parsing the data, we directly enable sorting
-        document.getElementById("sortButton").onclick = function() {
-            sortStudentsIntoGroups(studentsData);
-        };
+    reader.onload = function (e) {
+        const content = e.target.result;
+        parseCSV(content);
     };
     reader.readAsText(file);
 }
 
-function processCSVData(csvContent) {
-    console.log("Processing data")
-
-    // Show loading indicator
-    document.getElementById('loading').style.display = 'block';
-
-    // Hide completion message if it's showing
-    document.getElementById('completed').style.display = 'none';
-
-    const lines = csvContent.split("\n");
-    const studentsData = [];
-    
-    lines.forEach((line, index) => {
-        const columns = line.split(",");
-        if (columns.length > 1) { // Skip empty lines
-            const name = columns[0].trim();
-            const preferences = columns.slice(1).map(item => item.trim());
-            studentsData.push({ name, preferences });
-        }
-    });
-
-    // Hide loading indicator
-    document.getElementById('loading').style.display = 'none';
-
-    // Show completion message
-    document.getElementById('completed').style.display = 'block';
-
-    return studentsData;
+function parseCSV(content) {
+    const lines = content.split('\n');
+    const header = lines[0].split(',');
+    students = [];
+    for (let i = 1; i < lines.length; i++) {
+        const row = lines[i].split(',');
+        const name = row[0].trim();
+        const choices = row.slice(1).map(choice => choice.trim());
+        students.push(new Student(name, choices));
+    }
 }
 
-// Group the students based on their preferences
-function sortStudentsIntoGroups(studentsData) {
-    console.log("Sorting students into groups")
+function processCSVData() {
+    if (students.length === 0) {
+        alert("Please upload a valid CSV file.");
+        return;
+    }
 
-    const groups = [];
-    const groupSize = 5;  // Max group size
+    showStatus("Sorting students...");
+
+    // Sorting logic
+    let match = false;
+    let attempts = 0;
+    const totalStudents = students.length;
+    const numGroups = Math.ceil(totalStudents / 5);
+    const remainingStudents = totalStudents % 5;
     
-    // Shuffle students to start with random order
-    shuffleArray(studentsData);
-
-    // Create groups
-    while (studentsData.length > 0) {
-        const group = [];
-        const groupMembers = new Set();
+    while (!match && attempts < 10) {
+        attempts++;
         
-        // Try to create a group with up to 5 students
-        while (group.length < groupSize && studentsData.length > 0) {
-            const student = studentsData.shift(); // Get the first student
-            
-            // Add student to group if they prefer at least one member of the current group
-            if (group.length === 0 || student.preferences.some(pref => groupMembers.has(pref))) {
-                group.push(student);
-                groupMembers.add(student.name);
-            } else {
-                // If the student can't be added to this group, put them back in the list to try again later
-                studentsData.push(student);
+        let appearances = students.reduce((acc, student) => {
+            student.choices.forEach(choice => {
+                acc[choice] = (acc[choice] || 0) + 1;
+            });
+            return acc;
+        }, {});
+        
+        students.sort((a, b) => (appearances[a.name] || 0) - (appearances[b.name] || 0));
+        students = shuffleArray(students);
+
+        let groups = [];
+        let remainingStudentsList = [...students];
+        
+        let newGroup = new Group();
+        newGroup.addMember(remainingStudentsList[0]);
+        remainingStudentsList[0].assignToGroup(newGroup);
+        groups.push(newGroup);
+        remainingStudentsList.shift();
+
+        while (remainingStudentsList.length) {
+            let student = remainingStudentsList[0];
+            let addedToGroup = false;
+
+            for (let group of groups) {
+                if (student.hasChoiceInGroup(group) && group.members.length < 5) {
+                    group.addMember(student);
+                    student.assignToGroup(group);
+                    remainingStudentsList.shift();
+                    addedToGroup = true;
+                    break;
+                }
+            }
+
+            if (!addedToGroup) {
+                if (groups.length < numGroups) {
+                    let newGroup = new Group();
+                    newGroup.addMember(student);
+                    student.assignToGroup(newGroup);
+                    groups.push(newGroup);
+                    remainingStudentsList.shift();
+                } else {
+                    let minGroup = groups.reduce((min, group) => group.members.length < min.members.length ? group : min, groups[0]);
+                    if (minGroup.members.length < 5) {
+                        minGroup.addMember(student);
+                        student.assignToGroup(minGroup);
+                        remainingStudentsList.shift();
+                    }
+                }
             }
         }
 
-        // Add the group to the groups list
-        groups.push(group);
+        let studentsWithoutPreference = [];
+        groups.forEach(group => {
+            group.members.forEach(student => {
+                if (!student.hasChoiceInGroup(group)) {
+                    studentsWithoutPreference.push(student);
+                }
+            });
+        });
+
+        if (studentsWithoutPreference.length === 0) {
+            match = true;
+        }
     }
 
-    // Show the groups on the page
-    displayGroups(groups);
+    if (match) {
+        showStatus("Sorting complete.");
+        displayGroups(groups);
+    } else {
+        showStatus("Failed to sort students after multiple attempts.");
+    }
 }
 
-// Display the sorted groups on the page
 function displayGroups(groups) {
-    console.log("Displaying groups")
-
-    const groupContainer = document.createElement("div");
-    groupContainer.innerHTML = "<h2>Sorted Groups:</h2>";
+    const tableBody = document.getElementById('group-table').getElementsByTagName('tbody')[0];
+    tableBody.innerHTML = ""; // Clear previous groups
 
     groups.forEach((group, index) => {
-        const groupDiv = document.createElement("div");
-        groupDiv.innerHTML = `<h3>Group ${index + 1}:</h3>`;
-        
-        const groupList = document.createElement("ul");
-        group.forEach(student => {
-            const listItem = document.createElement("li");
-            listItem.textContent = student.name;
-            groupList.appendChild(listItem);
-        });
-
-        groupDiv.appendChild(groupList);
-        groupContainer.appendChild(groupDiv);
+        const row = document.createElement('tr');
+        const groupCell = document.createElement('td');
+        groupCell.textContent = `Group ${index + 1}`;
+        const membersCell = document.createElement('td');
+        membersCell.textContent = group.getMemberNames().join(", ");
+        row.appendChild(groupCell);
+        row.appendChild(membersCell);
+        tableBody.appendChild(row);
     });
 
-    document.body.appendChild(groupContainer);
-
-    // Add the download CSV button
-    const downloadButton = document.createElement("button");
-    downloadButton.textContent = "Download Sorted Groups as CSV";
-    downloadButton.onclick = function() {
-        downloadCSV(groups);
-    };
-    document.body.appendChild(downloadButton);
+    document.getElementById('group-container').style.display = 'block';
 }
 
-// Generate and download a CSV file with the sorted groups
-function downloadCSV(groups) {
-    console.log("Able to download data")
-
-    let csvContent = "Group,Student Name\n";
-
-    // Add each group and its members to the CSV content
-    groups.forEach((group, index) => {
-        group.forEach(student => {
-            csvContent += `"Group ${index + 1}",${student.name}\n`;
-        });
-    });
-
-    // Create a downloadable link for the CSV
-    const encodedUri = encodeURI("data:text/csv;charset=utf-8," + csvContent);
-    const downloadLink = document.createElement("a");
-    downloadLink.setAttribute("href", encodedUri);
-    downloadLink.setAttribute("download", "sorted_groups.csv");
-
-    // Append the link to the document and click it to trigger download
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
+function showStatus(message) {
+    document.getElementById('status').textContent = message;
 }
 
-// Helper function to shuffle an array randomly
-function shuffleArray(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
+// Helper function to shuffle an array (Fisher-Yates Shuffle)
+function shuffleArray(array) {
+    let currentIndex = array.length, randomIndex, temporaryValue;
+
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
     }
+
+    return array;
 }

@@ -3,36 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Group Sorter</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Student Group Sorting</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Student Group Sorter</h1>
-    <p>Upload a CSV file with student names and their preferences, and we will sort them into groups based on their preferences.</p>
-    
-    <!-- File Upload Section -->
-    <input type="file" id="fileInput" accept=".csv">
-    <br><br>
-    
-    <!-- Group Sorting Section -->
-    <div id="groupSortingSection" style="display: none;">
-        <button id="sortButton">Sort into Groups</button>
+    <div class="container">
+        <h1>Student Group Sorting</h1>
+
+        <!-- File upload form -->
+        <input type="file" id="csv-file" accept=".csv">
+        <button id="process-button">Process CSV</button>
+
+        <!-- Section for displaying sorting status -->
+        <p id="status"></p>
+
+        <!-- Table for displaying the grouped students -->
+        <div id="group-container">
+            <h2>Grouped Students</h2>
+            <table id="group-table">
+                <thead>
+                    <tr>
+                        <th>Group #</th>
+                        <th>Members</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Groups will be dynamically populated here -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script src="script.js"></script>
 </body>
-
-<!-- Loading indicator (hidden initially) -->
-<div id="loading" style="display: none;">
-    <p>Sorting is in progress... Please wait.</p>
-    <div class="spinner"></div>
-  </div>
-  
-  <!-- Completion message (hidden initially) -->
-  <div id="completed" style="display: none;">
-    <p>Sorting completed! You can now download the sorted groups.</p>
-  </div>
-
-  
 </html>
-
