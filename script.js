@@ -9,6 +9,8 @@ document.getElementById("fileInput").addEventListener("change", function(event) 
 });
 
 function parseCSV(file) {
+    console.log("Parsing data")
+
     const reader = new FileReader();
     reader.onload = function(event) {
         const data = event.target.result;
@@ -23,6 +25,8 @@ function parseCSV(file) {
 }
 
 function processCSVData(csvContent) {
+    console.log("Processing data")
+
     // Show loading indicator
     document.getElementById('loading').style.display = 'block';
 
@@ -52,6 +56,8 @@ function processCSVData(csvContent) {
 
 // Group the students based on their preferences
 function sortStudentsIntoGroups(studentsData) {
+    console.log("Sorting students into groups")
+
     const groups = [];
     const groupSize = 5;  // Max group size
     
@@ -87,6 +93,8 @@ function sortStudentsIntoGroups(studentsData) {
 
 // Display the sorted groups on the page
 function displayGroups(groups) {
+    console.log("Displaying groups")
+
     const groupContainer = document.createElement("div");
     groupContainer.innerHTML = "<h2>Sorted Groups:</h2>";
 
@@ -118,6 +126,8 @@ function displayGroups(groups) {
 
 // Generate and download a CSV file with the sorted groups
 function downloadCSV(groups) {
+    console.log("Able to download data")
+
     let csvContent = "Group,Student Name\n";
 
     // Add each group and its members to the CSV content
