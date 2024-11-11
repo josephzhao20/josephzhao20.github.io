@@ -14,7 +14,10 @@ function parseCSV(file) {
         const data = event.target.result;
         const studentsData = processCSVData(data);
         document.getElementById("groupSortingSection").style.display = "block";
-        enableGroupSorting(studentsData);
+        // After parsing the data, we directly enable sorting
+        document.getElementById("sortButton").onclick = function() {
+            sortStudentsIntoGroups(studentsData);
+        };
     };
     reader.readAsText(file);
 }
@@ -33,13 +36,6 @@ function processCSVData(csvContent) {
     });
 
     return studentsData;
-}
-
-function enableGroupSorting(studentsData) {
-    const sortButton = document.getElementById("sortButton");
-    sortButton.onclick = function() {
-        sortStudentsIntoGroups(studentsData);
-    };
 }
 
 // Group the students based on their preferences

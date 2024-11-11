@@ -1,6 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
+    margin: 0;
+    padding: 20px;
     background-color: #f4f4f9;
 }
 
@@ -8,12 +9,8 @@ h1 {
     color: #333;
 }
 
-form {
-    margin-bottom: 20px;
-}
-
-label, input {
-    margin: 5px 0;
+#groupSortingSection {
+    margin-top: 20px;
 }
 
 button {
@@ -28,11 +25,10 @@ button:hover {
     background-color: #45a049;
 }
 
-#download-link {
-    color: #007BFF;
-    text-decoration: none;
+ul {
+    list-style-type: none;
 }
 
-#download-link:hover {
-    text-decoration: underline;
+ul li {
+    margin: 5px 0;
 }
