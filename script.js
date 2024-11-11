@@ -63,6 +63,108 @@ function processCSVData(data) {
     displayArea.appendChild(list);
     document.body.appendChild(displayArea);
 
-    // Enable the group sorting step (you can modify this later)
+    // Enable the group sorting step
     enableGroupSorting(data);
+}
+
+// Function to enable the sorting button
+function enableGroupSorting(data) {
+    const sortButton = document.createElement("button");
+    sortButton.textContent = "Sort into Groups";
+    
+    sortButton.onclick = function() {
+        sortStudentsIntoGroups(data);
+    };
+
+    document.body.appendChild(sortButton);
+}
+
+
+// Group the students based on their preferences
+function sortStudentsIntoGroups(studentsData) {
+    const groups = [];
+    const groupSize = 5;  // Max group size
+    
+    // Shuffle students to start with random order
+    shuffleArray(studentsData);
+
+    // Create groups
+    while (studentsData.length > 0) {
+        const group = [];
+        const groupMembers = new Set();
+        
+        // Try to create a group with up to 5 students
+        while (group.length < groupSize && studentsData.length > 0) {
+            const student = studentsData.shift(); // Get the first student
+            
+            // Add student to group if they prefer at least one member of the current group
+            if (group.length === 0 || student.preferences.some(pref => groupMembers.has(pref))) {
+                group.push(student);
+                groupMembers.add(student.name);
+            } else {
+                // If the student can't be added to this group, put them back in the list to try again later
+                studentsData.push(student);
+            }
+        }
+
+        // Add the group to the groups list
+        groups.push(group);
+    }
+
+    // Show the groups on the page
+    displayGroups(groups);
+}
+
+// Display the sorted groups on the page
+function displayGroups(groups) {
+    const groupContainer = document.createElement("div");
+    groupContainer.innerHTML = "<h2>Sorted Groups:</h2>";
+
+    groups.forEach((group, index) => {
+        const groupDiv = document.createElement("div");
+        groupDiv.innerHTML = `<h3>Group ${index + 1}:</h3>`;
+        
+        const groupList = document.createElement("ul");
+        group.forEach(student => {
+            const listItem = document.createElement("li");
+            listItem.textContent = student.name;
+            groupList.appendChild(listItem);
+        });
+
+        groupDiv.appendChild(groupList);
+        groupContainer.appendChild(groupDiv);
+    });
+
+    document.body.appendChild(groupContainer);
+}
+
+// Helper function to shuffle an array randomly
+function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+}
+
+// Generate and download a CSV file with the sorted groups
+function downloadCSV(groups) {
+    let csvContent = "Group,Student Name\n";
+
+    // Add each group and its members to the CSV content
+    groups.forEach((group, index) => {
+        group.forEach(student => {
+            csvContent += `"Group ${index + 1}",${student.name}\n`;
+        });
+    });
+
+    // Create a downloadable link for the CSV
+    const encodedUri = encodeURI("data:text/csv;charset=utf-8," + csvContent);
+    const downloadLink = document.createElement("a");
+    downloadLink.setAttribute("href", encodedUri);
+    downloadLink.setAttribute("download", "sorted_groups.csv");
+
+    // Append the link to the document and click it to trigger download
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
 }
