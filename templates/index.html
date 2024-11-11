@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grouping Tool</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Student Grouping Tool</h1>
+    <p>Download the template, fill in your data, and upload it to get sorted groups!</p>
+
+    <button onclick="downloadTemplate()">Download CSV Template</button>
+    
+    <form id="uploadForm">
+        <input type="file" id="fileInput" name="file" accept=".csv">
+        <input type="number" id="groupSize" name="group_size" placeholder="Group Size">
+        <button type="button" onclick="uploadFile()">Upload and Process</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
