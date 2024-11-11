@@ -45,9 +45,13 @@ function handleFileUpload(event) {
     reader.onload = function (e) {
         const content = e.target.result;
         parseCSV(content);
+        
+        // Show the submit button after the file is uploaded
+        document.getElementById('process-button').style.display = 'inline-block'; // Show the button
     };
     reader.readAsText(file);
 }
+
 
 function parseCSV(content) {
     const lines = content.split('\n');
