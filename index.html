@@ -4,72 +4,145 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Student Sorter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* General Styles */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
             margin: 0;
             padding: 0;
             color: #333;
+            line-height: 1.6;
         }
+
+        /* Header */
         header {
-            background-color: #4CAF50;
+            background: linear-gradient(90deg, #4CAF50, #3E8E41);
             color: white;
             text-align: center;
-            padding: 35px 0;
+            padding: 40px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
         header h1 {
             margin: 0;
-            font-size: 36px;
-            font-weight: bold;
+            font-size: 48px;
+            font-weight: 700;
         }
-        main {
-            padding: 20px;
-            text-align: center;
-        }
-        .cta-button {
-            background-color: #FF5733;
-            color: white;
-            padding: 15px 30px;
+
+        header p {
             font-size: 18px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            margin-top: 80px; /* Increased space */
+            margin-top: 10px;
         }
-        .cta-button:hover {
-            background-color: #C94E29;
-        }
-        .features {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 50px;
-        }
-        .feature {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 30px;
-            width: 250px;
+
+        /* Main Section */
+        main {
+            padding: 40px 20px;
             text-align: center;
         }
+
+        main h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        main p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            color: #555;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(90deg, #FF5733, #E94C2B);
+            color: white;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 12px rgba(255, 87, 51, 0.3);
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 87, 51, 0.4);
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+            padding: 0 20px;
+        }
+
+        .feature {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
         .feature h3 {
             color: #4CAF50;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
         }
+
+        .feature p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Footer */
         footer {
             background-color: #333;
             color: white;
             text-align: center;
-            padding: 10px;
-            position: relative;
-            bottom: 0;
-            width: 100%;
+            padding: 20px 10px;
+            margin-top: 50px;
         }
+
         footer a {
-            color: #FF5733;
+            color: #4CAF50;
             text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 36px;
+            }
+
+            main h2 {
+                font-size: 28px;
+            }
+
+            .cta-button {
+                font-size: 16px;
+                padding: 12px 30px;
+            }
         }
     </style>
 </head>
@@ -83,13 +156,12 @@
 <main>
     <h2>Welcome to the Super Student Sorter!</h2>
     <p>This tool helps you assign students to groups based on their preferences, ensuring no group exceeds the maximum size and that each student is placed with at least one of their preferences.</p>
-    <p> </p>
     
     <a href="https://github.com/josephzhao20/super-student-sorter/releases/download/v1.0.0/sort_students.exe" class="cta-button" download>
         Download Now
     </a>
     
-    <div class="features">
+    <section class="features">
         <div class="feature">
             <h3>Flexible Grouping</h3>
             <p>Customize the maximum group size and student preferences to fit your needs.</p>
@@ -102,7 +174,7 @@
             <h3>Support for Parents</h3>
             <p>Include parents in the grouping process to ensure they are placed in the same group as their children.</p>
         </div>
-    </div>
+    </section>
 </main>
 
 <footer>
