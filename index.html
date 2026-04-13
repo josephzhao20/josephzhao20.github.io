@@ -1,186 +1,802 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Student Sorter</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* General Styles */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f9fafb;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            line-height: 1.6;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bobcat Field Trip Group Sorter</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --green: #2d6a2d;
+    --green-mid: #3d8c3d;
+    --green-light: #e8f5e8;
+    --green-border: #b8d9b8;
+    --gold: #c9960a;
+    --gold-light: #fff8e1;
+    --gold-border: #f0d060;
+    --gold-bright: #f5c518;
+    --white: #ffffff;
+    --off-white: #f7f5f0;
+    --text: #1a1a1a;
+    --text-muted: #555;
+    --border: #ddd;
+    --radius: 10px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
 
-        /* Header */
-        header {
-            background: linear-gradient(90deg, #4CAF50, #3E8E41);
-            color: white;
-            text-align: center;
-            padding: 40px 0;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        header h1 {
-            margin: 0;
-            font-size: 48px;
-            font-weight: 700;
-        }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    min-height: 100vh;
+  }
 
-        header p {
-            font-size: 18px;
-            margin-top: 10px;
-        }
+  /* ── Header ── */
+  header {
+    background: var(--green);
+    color: white;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: 72px;
+    border-bottom: 4px solid var(--gold-bright);
+  }
 
-        /* Main Section */
-        main {
-            padding: 40px 20px;
-            text-align: center;
-        }
+  .paw { font-size: 28px; }
 
-        main h2 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
+  header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    color: var(--gold-bright);
+    line-height: 1;
+  }
 
-        main p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto 40px auto;
-            color: #555;
-        }
+  header p {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.75);
+    margin-top: 2px;
+  }
 
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(90deg, #FF5733, #E94C2B);
-            color: white;
-            padding: 15px 40px;
-            font-size: 18px;
-            font-weight: 600;
-            border: none;
-            border-radius: 30px;
-            text-decoration: none;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 12px rgba(255, 87, 51, 0.3);
-            margin-top: 20px;
-        }
+  /* ── Layout ── */
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
 
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(255, 87, 51, 0.4);
-        }
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+  }
 
-        /* Features Section */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-            padding: 0 20px;
-        }
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.25rem;
+    letter-spacing: 1.5px;
+    color: var(--green);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 
-        .feature {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+  /* ── Upload zone ── */
+  .upload-zone {
+    border: 2px dashed var(--green-border);
+    background: var(--green-light);
+    border-radius: var(--radius);
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+  }
 
-        .feature:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-        }
+  .upload-zone:hover, .upload-zone.drag-over {
+    border-color: var(--green-mid);
+    background: #d9edd9;
+  }
 
-        .feature h3 {
-            color: #4CAF50;
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
+  .upload-zone input[type="file"] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+  }
 
-        .feature p {
-            font-size: 16px;
-            color: #555;
-        }
+  .upload-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
 
-        /* Footer */
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 20px 10px;
-            margin-top: 50px;
-        }
+  .upload-zone p { color: var(--text-muted); font-size: 0.9rem; }
+  .upload-zone p strong { color: var(--green); }
 
-        footer a {
-            color: #4CAF50;
-            text-decoration: none;
-            font-weight: 600;
-        }
+  .file-name {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--green);
+    font-weight: 600;
+    display: none;
+  }
 
-        footer a:hover {
-            text-decoration: underline;
-        }
+  /* ── Settings row ── */
+  .settings-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
 
-        /* Media Queries */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 36px;
-            }
+  @media (max-width: 580px) { .settings-grid { grid-template-columns: 1fr 1fr; } }
 
-            main h2 {
-                font-size: 28px;
-            }
+  .field label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+  }
 
-            .cta-button {
-                font-size: 16px;
-                padding: 12px 30px;
-            }
-        }
-    </style>
+  .field input[type="number"] {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--text);
+    background: var(--white);
+    transition: border-color 0.2s;
+  }
+
+  .field input[type="number"]:focus {
+    outline: none;
+    border-color: var(--green-mid);
+  }
+
+  /* ── Run button ── */
+  .btn-run {
+    width: 100%;
+    padding: 14px;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .btn-run:hover { background: var(--green-mid); }
+  .btn-run:active { transform: scale(0.99); }
+  .btn-run:disabled { background: #aaa; cursor: not-allowed; }
+
+  /* ── Status bar ── */
+  .status-bar {
+    display: none;
+    background: var(--gold-light);
+    border: 1px solid var(--gold-border);
+    border-radius: var(--radius);
+    padding: 0.85rem 1.1rem;
+    font-size: 0.9rem;
+    color: #7a5800;
+    display: none;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .status-bar.show { display: flex; }
+
+  .status-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .status-bar.success { background: var(--green-light); border-color: var(--green-border); color: var(--green); }
+  .status-bar.success .status-dot { background: var(--green); }
+
+  /* ── Score banner ── */
+  .score-banner {
+    display: none;
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .score-banner.show { display: flex; }
+  .score-banner.perfect { background: var(--green-light); border: 1px solid var(--green-border); }
+  .score-banner.good { background: var(--gold-light); border: 1px solid var(--gold-border); }
+
+  .score-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    line-height: 1;
+    color: var(--green);
+  }
+
+  .score-banner.good .score-big { color: var(--gold); }
+
+  .score-label { font-size: 0.85rem; color: var(--text-muted); }
+  .score-meta { font-size: 0.82rem; color: var(--text-muted); text-align: right; }
+
+  /* ── Export button ── */
+  .btn-export {
+    padding: 9px 18px;
+    background: white;
+    color: var(--green);
+    border: 1.5px solid var(--green);
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .btn-export:hover { background: var(--green-light); }
+
+  /* ── Groups grid ── */
+  .groups-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .group-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--green);
+    border-radius: var(--radius);
+    padding: 1rem;
+    box-shadow: var(--shadow);
+  }
+
+  .group-card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    color: var(--green);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .group-size-badge {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    background: var(--gold-light);
+    color: var(--gold);
+    border: 1px solid var(--gold-border);
+    border-radius: 100px;
+    padding: 2px 8px;
+  }
+
+  .group-member {
+    font-size: 0.88rem;
+    padding: 5px 0;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text);
+  }
+
+  .group-member:last-child { border-bottom: none; }
+
+  .member-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--green-mid);
+    flex-shrink: 0;
+  }
+
+  .member-dot.unsatisfied { background: #e07b20; }
+
+  /* ── Preview table ── */
+  .preview-wrap { overflow-x: auto; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+
+  th {
+    background: var(--green);
+    color: white;
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  td {
+    padding: 7px 10px;
+    border-bottom: 1px solid #eee;
+    color: var(--text);
+  }
+
+  tr:nth-child(even) td { background: var(--off-white); }
+
+  /* ── Placeholder ── */
+  .placeholder {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    color: var(--text-muted);
+  }
+
+  .placeholder-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+
+  .empty-hint {
+    font-size: 0.8rem;
+    margin-top: 0.35rem;
+    color: #aaa;
+  }
+
+  /* ── Format hint ── */
+  .format-hint {
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: 0.75rem;
+  }
+
+  .format-hint strong { color: var(--text); }
+
+  code {
+    font-family: monospace;
+    background: #eee;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    color: #333;
+  }
+</style>
 </head>
 <body>
 
 <header>
-    <h1>Super Student Sorter</h1>
-    <p>Effortlessly assign students to groups based on their preferences</p>
+  <div class="paw">🐾</div>
+  <div>
+    <h1>Bobcat Field Trip Sorter</h1>
+    <p>Green &amp; Gold — Group Assignment Tool</p>
+  </div>
 </header>
 
 <main>
-    <h2>Welcome to the Super Student Sorter!</h2>
-    <p>This tool helps you assign students to groups based on their preferences, ensuring no group exceeds the maximum size and that each student is placed with at least one of their preferences.</p>
-    
-    <a href="https://github.com/josephzhao20/super-student-sorter/releases/download/v1.0.0/sort_students.exe" class="cta-button" download>
-        Download Now
-    </a>
-    
-    <section class="features">
-        <div class="feature">
-            <h3>Flexible Grouping</h3>
-            <p>Customize the maximum group size and student preferences to fit your needs.</p>
-        </div>
-        <div class="feature">
-            <h3>Simple to Use</h3>
-            <p>Just upload a CSV file, adjust settings, and click "Assign Groups." It's that easy!</p>
-        </div>
-        <div class="feature">
-            <h3>Support for Parents</h3>
-            <p>Include parents in the grouping process to ensure they are placed in the same group as their children.</p>
-        </div>
-    </section>
+
+  <!-- Upload Card -->
+  <div class="card">
+    <div class="card-title">📋 Upload Student List</div>
+
+    <div class="upload-zone" id="uploadZone">
+      <input type="file" id="csvFile" accept=".csv" />
+      <div class="upload-icon">📂</div>
+      <p><strong>Click to upload</strong> or drag &amp; drop your CSV</p>
+      <p>Accepted format: .csv file</p>
+      <div class="file-name" id="fileName"></div>
+    </div>
+
+    <div class="format-hint">
+      <strong>CSV format:</strong> First column is student name. Remaining columns are their preferred groupmates.<br/>
+      Example row: <code>Alice,Bob,Carol,Diana</code>
+    </div>
+
+    <!-- Preview -->
+    <div id="previewSection" style="margin-top: 1.25rem; display: none;">
+      <div class="card-title" style="font-size: 1rem;">👀 Preview</div>
+      <div class="preview-wrap">
+        <table id="previewTable"></table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Card -->
+  <div class="card">
+    <div class="card-title">⚙️ Settings</div>
+    <div class="settings-grid">
+      <div class="field">
+        <label>Min Group Size</label>
+        <input type="number" id="minSize" value="3" min="2" max="10" />
+      </div>
+      <div class="field">
+        <label>Max Group Size</label>
+        <input type="number" id="maxSize" value="5" min="2" max="10" />
+      </div>
+      <div class="field">
+        <label>Max Attempts</label>
+        <input type="number" id="maxIter" value="500" min="10" max="2000" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Run Button -->
+  <button class="btn-run" id="runBtn" disabled onclick="runSorter()">
+    🐾 Sort Into Groups
+  </button>
+
+  <!-- Status -->
+  <div class="status-bar" id="statusBar">
+    <div class="status-dot"></div>
+    <span id="statusMsg">Running...</span>
+  </div>
+
+  <!-- Results -->
+  <div id="resultsSection" style="display: none;">
+
+    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+      <div class="card-title" style="margin: 0;">🏆 Results</div>
+      <button class="btn-export" onclick="exportCSV()">⬇ Export CSV</button>
+    </div>
+
+    <div class="score-banner" id="scoreBanner">
+      <div>
+        <div class="score-big" id="scoreNum">—</div>
+        <div class="score-label">students matched with a preference</div>
+      </div>
+      <div class="score-meta" id="scoreMeta"></div>
+    </div>
+
+    <div class="groups-grid" id="groupsGrid"></div>
+
+  </div>
+
 </main>
 
-<footer>
-    <p>&copy; 2025 Super Student Sorter | All Rights Reserved (By Joseph Zhao)</p>
-    <p>For support or questions, <a href="mailto:josephzhao24@gmail.com">contact us</a></p>
-</footer>
+<script>
+// ─────────────────────────────────────────────
+// Inline sorter (translated + optimized from Python)
+// ─────────────────────────────────────────────
 
+class Student {
+  constructor(name, choices) {
+    this.name = name;
+    this.choices = choices.map(c => c.trim()).filter(c => c !== "");
+    this.group = null;
+  }
+  assignToGroup(g) { this.group = g; }
+  hasChoiceInGroup(g) {
+    const names = g.getMemberNames();
+    return this.choices.some(c => names.includes(c));
+  }
+  // OPT #2: Mutual preference score
+  mutualScore(g) {
+    let score = 0;
+    for (const m of g.members) {
+      const iChose = this.choices.includes(m.name);
+      const theyChose = m.choices.includes(this.name);
+      if (iChose && theyChose) score += 2;
+      else if (iChose || theyChose) score += 1;
+    }
+    return score;
+  }
+}
+
+class Group {
+  constructor() { this.members = []; }
+  addMember(s) { this.members.push(s); s.assignToGroup(this); }
+  getMemberNames() { return this.members.map(s => s.name); }
+  removeMember(s) { this.members = this.members.filter(m => m.name !== s.name); s.group = null; }
+}
+
+// OPT #5: Satisfaction score
+function satisfaction(students) {
+  const sat = students.filter(s => s.group && s.hasChoiceInGroup(s.group)).length;
+  return (sat / students.length) * 100;
+}
+
+// OPT #4: Swap-based post-processing
+function swapPass(students, groups, minSize, maxSize) {
+  let improved = true;
+  let passes = 0;
+  while (improved && passes < 30) {
+    improved = false;
+    passes++;
+    for (const student of students) {
+      if (student.hasChoiceInGroup(student.group)) continue;
+      const currentGroup = student.group;
+
+      for (const targetGroup of groups) {
+        if (targetGroup === currentGroup) continue;
+
+        // Try move
+        if (currentGroup.members.length - 1 >= minSize && targetGroup.members.length < maxSize) {
+          const before = satisfaction(students);
+          currentGroup.removeMember(student);
+          targetGroup.addMember(student);
+          if (satisfaction(students) > before) { improved = true; break; }
+          targetGroup.removeMember(student);
+          currentGroup.addMember(student);
+        }
+
+        // Try swap
+        for (const other of [...targetGroup.members]) {
+          const before = satisfaction(students);
+          const grpA = student.group, grpB = other.group;
+          grpA.removeMember(student);
+          grpB.removeMember(other);
+          grpA.addMember(other);
+          grpB.addMember(student);
+          if (satisfaction(students) > before) { improved = true; break; }
+          grpA.removeMember(other);
+          grpB.removeMember(student);
+          grpA.addMember(student);
+          grpB.addMember(other);
+        }
+        if (improved) break;
+      }
+    }
+  }
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function sortStudents(students, maxSize = 5, minSize = 3, maxIter = 500) {
+  const numGroups = Math.ceil(students.length / maxSize);
+  let bestGroups = null, bestScore = -1, iterations = 0;
+
+  while (iterations < maxIter) {
+    iterations++;
+    for (const s of students) s.group = null;
+
+    // OPT #3: Weighted order — hardest to place first
+    const appearances = {};
+    for (const s of students) appearances[s.name] = 0;
+    for (const s of students) for (const c of s.choices) { if (c in appearances) appearances[c]++; }
+
+    const sorted = [...students].sort((a, b) => {
+      const aS = appearances[a.name] + a.choices.filter(c => (appearances[c] || 0) > 2).length;
+      const bS = appearances[b.name] + b.choices.filter(c => (appearances[c] || 0) > 2).length;
+      return aS - bS;
+    });
+
+    const tierSize = Math.max(3, Math.floor(sorted.length / 5));
+    for (let i = 0; i < sorted.length; i += tierSize) {
+      const t = sorted.slice(i, i + tierSize);
+      shuffle(t);
+      for (let j = 0; j < t.length; j++) sorted[i + j] = t[j];
+    }
+
+    const clone = [...sorted];
+    const groups = [];
+    const first = new Group();
+    first.addMember(clone.shift());
+    groups.push(first);
+
+    while (clone.length > 0) {
+      const student = clone[0];
+      let placed = false;
+
+      // OPT #2: Pick group with highest mutual score
+      const eligible = groups.filter(g => g.members.length < maxSize && student.mutualScore(g) > 0);
+      if (eligible.length > 0) {
+        eligible.sort((a, b) => student.mutualScore(b) - student.mutualScore(a));
+        eligible[0].addMember(student);
+        clone.shift();
+        placed = true;
+      }
+
+      if (!placed) {
+        if (groups.length < numGroups) {
+          const ng = new Group();
+          ng.addMember(student);
+          groups.push(ng);
+          clone.shift();
+        } else {
+          const minG = groups.reduce((a, b) => a.members.length <= b.members.length ? a : b);
+          if (minG.members.length < maxSize) {
+            minG.addMember(student);
+            clone.shift();
+          } else {
+            const any = groups.find(g => g.members.length < maxSize);
+            if (any) { any.addMember(student); clone.shift(); } else break;
+          }
+        }
+      }
+    }
+
+    // OPT #4: Swap pass
+    swapPass(students, groups, minSize, maxSize);
+
+    // OPT #5: Score
+    const score = satisfaction(students);
+    if (score > bestScore) {
+      bestScore = score;
+      bestGroups = groups.map(g => { const ng = new Group(); ng.members = [...g.members]; return ng; });
+    }
+    if (score === 100) break;
+  }
+
+  // Restore best assignment
+  for (const s of students) s.group = null;
+  for (const g of bestGroups) for (const m of g.members) m.group = g;
+
+  return { groups: bestGroups, score: Math.round(bestScore), iterations };
+}
+
+// ─────────────────────────────────────────────
+// CSV parsing
+// ─────────────────────────────────────────────
+function parseCSV(text) {
+  const lines = text.trim().split("\n");
+  const students = [];
+  for (let i = 1; i < lines.length; i++) {
+    const parts = lines[i].split(",").map(p => p.trim().replace(/^"|"$/g, ""));
+    if (!parts[0]) continue;
+    students.push(new Student(parts[0], parts.slice(1)));
+  }
+  return students;
+}
+
+// ─────────────────────────────────────────────
+// UI State
+// ─────────────────────────────────────────────
+let parsedStudents = [];
+let lastGroups = [];
+
+// File upload handler
+const csvInput = document.getElementById("csvFile");
+const uploadZone = document.getElementById("uploadZone");
+
+csvInput.addEventListener("change", e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => handleCSV(ev.target.result, file.name);
+  reader.readAsText(file);
+});
+
+uploadZone.addEventListener("dragover", e => { e.preventDefault(); uploadZone.classList.add("drag-over"); });
+uploadZone.addEventListener("dragleave", () => uploadZone.classList.remove("drag-over"));
+uploadZone.addEventListener("drop", e => {
+  e.preventDefault();
+  uploadZone.classList.remove("drag-over");
+  const file = e.dataTransfer.files[0];
+  if (!file || !file.name.endsWith(".csv")) return alert("Please drop a .csv file.");
+  const reader = new FileReader();
+  reader.onload = ev => handleCSV(ev.target.result, file.name);
+  reader.readAsText(file);
+});
+
+function handleCSV(text, fileName) {
+  parsedStudents = parseCSV(text);
+  document.getElementById("fileName").textContent = `✓ ${fileName} — ${parsedStudents.length} students loaded`;
+  document.getElementById("fileName").style.display = "block";
+  document.getElementById("runBtn").disabled = false;
+  renderPreview(parsedStudents);
+}
+
+function renderPreview(students) {
+  const section = document.getElementById("previewSection");
+  const table = document.getElementById("previewTable");
+  const maxChoices = Math.max(...students.map(s => s.choices.length));
+
+  let html = "<thead><tr><th>Name</th>";
+  for (let i = 1; i <= maxChoices; i++) html += `<th>Choice ${i}</th>`;
+  html += "</tr></thead><tbody>";
+  for (const s of students.slice(0, 8)) {
+    html += `<tr><td>${s.name}</td>`;
+    for (let i = 0; i < maxChoices; i++) html += `<td>${s.choices[i] || "—"}</td>`;
+    html += "</tr>";
+  }
+  if (students.length > 8) html += `<tr><td colspan="${maxChoices + 1}" style="color:#aaa; font-style: italic;">... and ${students.length - 8} more students</td></tr>`;
+  html += "</tbody>";
+  table.innerHTML = html;
+  section.style.display = "block";
+}
+
+// Run sorter
+function runSorter() {
+  if (!parsedStudents.length) return;
+
+  const maxSize = parseInt(document.getElementById("maxSize").value) || 5;
+  const minSize = parseInt(document.getElementById("minSize").value) || 3;
+  const maxIter = parseInt(document.getElementById("maxIter").value) || 500;
+
+  const statusBar = document.getElementById("statusBar");
+  const statusMsg = document.getElementById("statusMsg");
+
+  statusBar.className = "status-bar show";
+  statusMsg.textContent = "Sorting students into groups...";
+  document.getElementById("resultsSection").style.display = "none";
+  document.getElementById("runBtn").disabled = true;
+
+  // Run after brief delay so the UI updates
+  setTimeout(() => {
+    const { groups, score, iterations } = sortStudents(parsedStudents, maxSize, minSize, maxIter);
+    lastGroups = groups;
+
+    statusBar.className = "status-bar show " + (score === 100 ? "success" : "");
+    statusMsg.textContent = score === 100
+      ? `Perfect match found in ${iterations} iteration${iterations !== 1 ? "s" : ""}!`
+      : `Best result found after ${iterations} iterations. Score: ${score}%`;
+
+    renderResults(groups, score, iterations, parsedStudents);
+    document.getElementById("runBtn").disabled = false;
+  }, 50);
+}
+
+function renderResults(groups, score, iterations, students) {
+  const section = document.getElementById("resultsSection");
+  const banner = document.getElementById("scoreBanner");
+  const scoreNum = document.getElementById("scoreNum");
+  const scoreMeta = document.getElementById("scoreMeta");
+  const grid = document.getElementById("groupsGrid");
+
+  const satisfied = students.filter(s => s.group && s.hasChoiceInGroup(s.group)).length;
+
+  scoreNum.textContent = `${score}%`;
+  scoreMeta.innerHTML = `${satisfied} of ${students.length} students satisfied<br/>${groups.length} groups · ${iterations} iterations`;
+
+  banner.className = "score-banner show " + (score === 100 ? "perfect" : "good");
+
+  let gridHTML = "";
+  groups.forEach((g, i) => {
+    gridHTML += `<div class="group-card">
+      <div class="group-card-title">
+        Group ${i + 1}
+        <span class="group-size-badge">${g.members.length} members</span>
+      </div>`;
+    for (const m of g.members) {
+      const satisfied = m.hasChoiceInGroup(g);
+      gridHTML += `<div class="group-member">
+        <div class="member-dot ${satisfied ? "" : "unsatisfied"}"></div>
+        ${m.name}
+      </div>`;
+    }
+    gridHTML += "</div>";
+  });
+
+  grid.innerHTML = gridHTML;
+  section.style.display = "block";
+}
+
+// Export results as CSV
+function exportCSV() {
+  if (!lastGroups.length) return;
+  let csv = "Group,Member\n";
+  lastGroups.forEach((g, i) => {
+    for (const m of g.members) csv += `Group ${i + 1},${m.name}\n`;
+  });
+  const blob = new Blob([csv], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "field_trip_groups.csv";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
 </body>
 </html>
