@@ -3,31 +3,31 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Bobcat Field Trip Group Sorter</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<title>Super Student Sorter</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Righteous&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --green: #2d6a2d;
-    --green-mid: #3d8c3d;
-    --green-light: #e8f5e8;
-    --green-border: #b8d9b8;
-    --gold: #c9960a;
-    --gold-light: #fff8e1;
-    --gold-border: #f0d060;
-    --gold-bright: #f5c518;
+    --primary: #4f35c2;
+    --primary-mid: #6a50d8;
+    --primary-light: #eeebff;
+    --primary-border: #c4baf5;
+    --accent: #ff6b1a;
+    --accent-light: #fff1ea;
+    --accent-border: #ffc49e;
+    --accent-bright: #ff8c42;
     --white: #ffffff;
-    --off-white: #f7f5f0;
-    --text: #1a1a1a;
-    --text-muted: #555;
-    --border: #ddd;
+    --off-white: #f6f5ff;
+    --text: #1a1730;
+    --text-muted: #6b6585;
+    --border: #dddaf5;
     --radius: 10px;
-    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --shadow: 0 2px 12px rgba(79,53,194,0.10);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Nunito', sans-serif;
     background: var(--off-white);
     color: var(--text);
     min-height: 100vh;
@@ -35,29 +35,33 @@
 
   /* ── Header ── */
   header {
-    background: var(--green);
+    background: var(--primary);
     color: white;
     padding: 0 2rem;
     display: flex;
     align-items: center;
     gap: 1rem;
     height: 72px;
-    border-bottom: 4px solid var(--gold-bright);
+    border-bottom: 4px solid var(--accent-bright);
   }
 
-  .paw { font-size: 28px; }
+  .mascot { font-size: 28px; }
 
   header h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    letter-spacing: 2px;
-    color: var(--gold-bright);
+    font-family: 'Righteous', sans-serif;
+    font-size: 1.75rem;
+    letter-spacing: 1px;
+    color: #fff;
     line-height: 1;
+  }
+
+  header h1 span {
+    color: var(--accent-bright);
   }
 
   header p {
     font-size: 0.8rem;
-    color: rgba(255,255,255,0.75);
+    color: rgba(255,255,255,0.70);
     margin-top: 2px;
   }
 
@@ -80,10 +84,10 @@
   }
 
   .card-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.25rem;
-    letter-spacing: 1.5px;
-    color: var(--green);
+    font-family: 'Righteous', sans-serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.5px;
+    color: var(--primary);
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
@@ -92,8 +96,8 @@
 
   /* ── Upload zone ── */
   .upload-zone {
-    border: 2px dashed var(--green-border);
-    background: var(--green-light);
+    border: 2px dashed var(--primary-border);
+    background: var(--primary-light);
     border-radius: var(--radius);
     padding: 2rem;
     text-align: center;
@@ -103,8 +107,8 @@
   }
 
   .upload-zone:hover, .upload-zone.drag-over {
-    border-color: var(--green-mid);
-    background: #d9edd9;
+    border-color: var(--primary-mid);
+    background: #e0d9ff;
   }
 
   .upload-zone input[type="file"] {
@@ -114,13 +118,13 @@
   .upload-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
 
   .upload-zone p { color: var(--text-muted); font-size: 0.9rem; }
-  .upload-zone p strong { color: var(--green); }
+  .upload-zone p strong { color: var(--primary); }
 
   .file-name {
     margin-top: 0.75rem;
     font-size: 0.85rem;
-    color: var(--green);
-    font-weight: 600;
+    color: var(--primary);
+    font-weight: 700;
     display: none;
   }
 
@@ -157,20 +161,20 @@
 
   .field input[type="number"]:focus {
     outline: none;
-    border-color: var(--green-mid);
+    border-color: var(--primary-mid);
   }
 
   /* ── Run button ── */
   .btn-run {
     width: 100%;
     padding: 14px;
-    background: var(--green);
+    background: var(--primary);
     color: white;
     border: none;
     border-radius: var(--radius);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.4rem;
-    letter-spacing: 2px;
+    font-family: 'Righteous', sans-serif;
+    font-size: 1.35rem;
+    letter-spacing: 1.5px;
     cursor: pointer;
     transition: background 0.2s, transform 0.1s;
     display: flex;
@@ -179,19 +183,19 @@
     gap: 10px;
   }
 
-  .btn-run:hover { background: var(--green-mid); }
+  .btn-run:hover { background: var(--primary-mid); }
   .btn-run:active { transform: scale(0.99); }
   .btn-run:disabled { background: #aaa; cursor: not-allowed; }
 
   /* ── Status bar ── */
   .status-bar {
     display: none;
-    background: var(--gold-light);
-    border: 1px solid var(--gold-border);
+    background: var(--accent-light);
+    border: 1px solid var(--accent-border);
     border-radius: var(--radius);
     padding: 0.85rem 1.1rem;
     font-size: 0.9rem;
-    color: #7a5800;
+    color: #a03d00;
     display: none;
     align-items: center;
     gap: 10px;
@@ -202,12 +206,12 @@
   .status-dot {
     width: 10px; height: 10px;
     border-radius: 50%;
-    background: var(--gold);
+    background: var(--accent);
     flex-shrink: 0;
   }
 
-  .status-bar.success { background: var(--green-light); border-color: var(--green-border); color: var(--green); }
-  .status-bar.success .status-dot { background: var(--green); }
+  .status-bar.success { background: var(--primary-light); border-color: var(--primary-border); color: var(--primary); }
+  .status-bar.success .status-dot { background: var(--primary); }
 
   /* ── Score banner ── */
   .score-banner {
@@ -222,17 +226,17 @@
   }
 
   .score-banner.show { display: flex; }
-  .score-banner.perfect { background: var(--green-light); border: 1px solid var(--green-border); }
-  .score-banner.good { background: var(--gold-light); border: 1px solid var(--gold-border); }
+  .score-banner.perfect { background: var(--primary-light); border: 1px solid var(--primary-border); }
+  .score-banner.good { background: var(--accent-light); border: 1px solid var(--accent-border); }
 
   .score-big {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Righteous', sans-serif;
     font-size: 2.5rem;
     line-height: 1;
-    color: var(--green);
+    color: var(--primary);
   }
 
-  .score-banner.good .score-big { color: var(--gold); }
+  .score-banner.good .score-big { color: var(--accent); }
 
   .score-label { font-size: 0.85rem; color: var(--text-muted); }
   .score-meta { font-size: 0.82rem; color: var(--text-muted); text-align: right; }
@@ -241,17 +245,17 @@
   .btn-export {
     padding: 9px 18px;
     background: white;
-    color: var(--green);
-    border: 1.5px solid var(--green);
+    color: var(--primary);
+    border: 1.5px solid var(--primary);
     border-radius: 6px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Nunito', sans-serif;
     font-size: 0.88rem;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     transition: background 0.15s;
   }
 
-  .btn-export:hover { background: var(--green-light); }
+  .btn-export:hover { background: var(--primary-light); }
 
   /* ── Groups grid ── */
   .groups-grid {
@@ -263,17 +267,17 @@
   .group-card {
     background: var(--white);
     border: 1px solid var(--border);
-    border-top: 4px solid var(--green);
+    border-top: 4px solid var(--primary);
     border-radius: var(--radius);
     padding: 1rem;
     box-shadow: var(--shadow);
   }
 
   .group-card-title {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Righteous', sans-serif;
     font-size: 1rem;
-    letter-spacing: 1px;
-    color: var(--green);
+    letter-spacing: 0.3px;
+    color: var(--primary);
     margin-bottom: 0.75rem;
     display: flex;
     align-items: center;
@@ -281,12 +285,12 @@
   }
 
   .group-size-badge {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Nunito', sans-serif;
     font-size: 0.7rem;
-    font-weight: 600;
-    background: var(--gold-light);
-    color: var(--gold);
-    border: 1px solid var(--gold-border);
+    font-weight: 800;
+    background: var(--accent-light);
+    color: var(--accent);
+    border: 1px solid var(--accent-border);
     border-radius: 100px;
     padding: 2px 8px;
   }
@@ -306,7 +310,7 @@
   .member-dot {
     width: 7px; height: 7px;
     border-radius: 50%;
-    background: var(--green-mid);
+    background: var(--primary-mid);
     flex-shrink: 0;
   }
 
@@ -322,11 +326,11 @@
   }
 
   th {
-    background: var(--green);
+    background: var(--primary);
     color: white;
     padding: 8px 10px;
     text-align: left;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 0.78rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -391,7 +395,7 @@
     border: none;
     border-bottom: 3px solid transparent;
     margin-bottom: -2px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Nunito', sans-serif;
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--text-muted);
@@ -399,11 +403,11 @@
     transition: color 0.15s, border-color 0.15s;
   }
 
-  .tab-btn:hover { color: var(--green); }
+  .tab-btn:hover { color: var(--primary); }
 
   .tab-btn.active {
-    color: var(--green);
-    border-bottom-color: var(--green);
+    color: var(--primary);
+    border-bottom-color: var(--primary);
   }
 
   .tab-panel { display: none; }
@@ -411,20 +415,18 @@
 
   /* ── Manual entry form ── */
   .student-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr auto;
-    gap: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
     align-items: center;
     margin-bottom: 8px;
-  }
-
-  @media (max-width: 600px) {
-    .student-row { grid-template-columns: 1fr 1fr; }
-    .student-row .choice-3, .student-row .choice-4 { display: none; }
+    padding: 8px;
+    border-radius: 8px;
+    background: var(--off-white);
+    border: 1px solid var(--border);
   }
 
   .student-row input[type="text"] {
-    width: 100%;
     padding: 7px 10px;
     border: 1px solid var(--border);
     border-radius: 6px;
@@ -433,20 +435,54 @@
     color: var(--text);
     background: var(--white);
     transition: border-color 0.2s;
+    min-width: 80px;
   }
 
   .student-row input[type="text"]:focus {
     outline: none;
-    border-color: var(--green-mid);
+    border-color: var(--primary-mid);
   }
 
   .student-row input[type="text"]::placeholder { color: #bbb; }
 
   .student-row input.name-input {
-    font-weight: 600;
-    border-color: var(--green-border);
-    background: var(--green-light);
+    flex: 2;
+    min-width: 120px;
+    font-weight: 700;
+    border-color: var(--primary-border);
+    background: var(--primary-light);
   }
+
+  .student-row input.choice-input {
+    flex: 1;
+    min-width: 80px;
+  }
+
+  .row-actions {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .btn-add-choice {
+    background: none;
+    border: 1px dashed var(--primary-border);
+    border-radius: 6px;
+    color: var(--primary);
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+
+  .btn-add-choice:hover { background: var(--primary-light); border-color: var(--primary); }
 
   .btn-remove-row {
     background: none;
@@ -466,40 +502,22 @@
 
   .btn-remove-row:hover { color: #c0392b; border-color: #c0392b; }
 
-  .form-col-labels {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr auto;
-    gap: 8px;
-    margin-bottom: 4px;
-  }
-
-  @media (max-width: 600px) { .form-col-labels { grid-template-columns: 1fr 1fr; } }
-
-  .form-col-labels span {
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding-left: 2px;
-  }
-
   .btn-add-row {
     margin-top: 0.75rem;
     padding: 8px 16px;
-    background: var(--green-light);
-    color: var(--green);
-    border: 1.5px dashed var(--green-border);
+    background: var(--primary-light);
+    color: var(--primary);
+    border: 1.5px dashed var(--primary-border);
     border-radius: 6px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Nunito', sans-serif;
     font-size: 0.88rem;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     transition: background 0.15s;
     width: 100%;
   }
 
-  .btn-add-row:hover { background: #d2ebd2; }
+  .btn-add-row:hover { background: #ddd8ff; }
 
   .form-student-count {
     font-size: 0.8rem;
@@ -518,10 +536,10 @@
 <body>
 
 <header>
-  <div class="paw">🐾</div>
+  <div class="mascot">🎓</div>
   <div>
-    <h1>Bobcat Field Trip Sorter</h1>
-    <p>Green &amp; Gold — Group Assignment Tool</p>
+    <h1><span>Super</span> Student Sorter</h1>
+    <p>Sort any group of students by preference — fast &amp; fair</p>
   </div>
 </header>
 
@@ -557,18 +575,12 @@
 
     <!-- Tab 2: Manual Entry -->
     <div class="tab-panel" id="tab-manual">
-      <div class="form-col-labels">
-        <span>Student name</span>
-        <span>Choice 1</span>
-        <span>Choice 2</span>
-        <span>Choice 3</span>
-        <span style="width:30px; display:block;"></span>
-      </div>
+      <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.85rem;">Enter each student's name and as many preferences as you like. Use <strong>+</strong> to add more choices per student.</p>
       <div class="rows-container" id="manualRows"></div>
       <button class="btn-add-row" onclick="addManualRow()">+ Add Student</button>
       <div class="form-student-count" id="manualCount">0 students entered</div>
       <div style="margin-top: 1rem; display: flex; gap: 8px; flex-wrap: wrap;">
-        <button class="btn-export" style="background: var(--green); color: white; border-color: var(--green);" onclick="loadManualStudents()">✓ Use These Students</button>
+        <button class="btn-export" style="background: var(--primary); color: white; border-color: var(--primary);" onclick="loadManualStudents()">✓ Use These Students</button>
         <button class="btn-export" onclick="clearManualForm()">🗑 Clear All</button>
       </div>
     </div>
@@ -596,7 +608,7 @@
 
   <!-- Run Button -->
   <button class="btn-run" id="runBtn" disabled onclick="runSorter()">
-    🐾 Sort Into Groups
+    🎓 Sort Into Groups
   </button>
 
   <!-- Status -->
@@ -956,24 +968,73 @@ function switchTab(id, btn) {
 // ─────────────────────────────────────────────
 let rowCount = 0;
 
-function addManualRow(name, c1, c2, c3) {
+function addManualRow(name, choices) {
   rowCount++;
   const id = 'row-' + rowCount;
   const container = document.getElementById('manualRows');
   const div = document.createElement('div');
   div.className = 'student-row';
   div.id = id;
-  div.innerHTML = `
-    <input type="text" class="name-input" placeholder="Student name" value="${name || ''}" oninput="updateManualCount()" />
-    <input type="text" placeholder="Choice 1 (optional)" value="${c1 || ''}" />
-    <input type="text" class="choice-3" placeholder="Choice 2 (optional)" value="${c2 || ''}" />
-    <input type="text" class="choice-4" placeholder="Choice 3 (optional)" value="${c3 || ''}" />
-    <button class="btn-remove-row" onclick="removeManualRow('${id}')" title="Remove">×</button>
-  `;
+
+  // Name input
+  const nameInput = document.createElement('input');
+  nameInput.type = 'text';
+  nameInput.className = 'name-input';
+  nameInput.placeholder = 'Student name';
+  nameInput.value = name || '';
+  nameInput.addEventListener('input', updateManualCount);
+  div.appendChild(nameInput);
+
+  // Pre-fill choices if provided, otherwise start with one blank
+  const initialChoices = (choices && choices.length > 0) ? choices : [''];
+  for (const val of initialChoices) {
+    div.appendChild(makeChoiceInput(val, div));
+  }
+
+  // Row actions: + choice button and × remove row button
+  const actions = document.createElement('div');
+  actions.className = 'row-actions';
+
+  const addChoiceBtn = document.createElement('button');
+  addChoiceBtn.className = 'btn-add-choice';
+  addChoiceBtn.title = 'Add another preference';
+  addChoiceBtn.textContent = '+';
+  addChoiceBtn.addEventListener('click', () => {
+    const newChoice = makeChoiceInput('', div);
+    div.insertBefore(newChoice, actions);
+    newChoice.focus();
+    renumberChoices(div);
+  });
+
+  const removeRowBtn = document.createElement('button');
+  removeRowBtn.className = 'btn-remove-row';
+  removeRowBtn.title = 'Remove student';
+  removeRowBtn.textContent = '×';
+  removeRowBtn.addEventListener('click', () => { div.remove(); updateManualCount(); });
+
+  actions.appendChild(addChoiceBtn);
+  actions.appendChild(removeRowBtn);
+  div.appendChild(actions);
+
   container.appendChild(div);
   updateManualCount();
-  // Focus the new name field
-  div.querySelector('.name-input').focus();
+  nameInput.focus();
+}
+
+function makeChoiceInput(value, rowDiv) {
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.className = 'choice-input';
+  input.value = value || '';
+  // Count existing choice inputs to number the placeholder
+  const existingChoices = rowDiv ? rowDiv.querySelectorAll('.choice-input').length : 0;
+  input.placeholder = `Choice ${existingChoices + 1}`;
+  return input;
+}
+
+function renumberChoices(rowDiv) {
+  const choices = rowDiv.querySelectorAll('.choice-input');
+  choices.forEach((inp, i) => { inp.placeholder = `Choice ${i + 1}`; });
 }
 
 function removeManualRow(id) {
@@ -983,8 +1044,8 @@ function removeManualRow(id) {
 }
 
 function updateManualCount() {
-  const names = getManualStudentNames();
-  const count = names.filter(n => n.trim() !== '').length;
+  const rows = document.querySelectorAll('#manualRows .student-row');
+  const count = [...rows].filter(r => r.querySelector('.name-input').value.trim() !== '').length;
   document.getElementById('manualCount').textContent = `${count} student${count !== 1 ? 's' : ''} entered`;
 }
 
@@ -996,10 +1057,10 @@ function loadManualStudents() {
   const rows = document.querySelectorAll('#manualRows .student-row');
   const students = [];
   for (const row of rows) {
-    const inputs = row.querySelectorAll('input[type="text"]');
-    const name = inputs[0].value.trim();
+    const name = row.querySelector('.name-input').value.trim();
     if (!name) continue;
-    const choices = [inputs[1].value.trim(), inputs[2].value.trim(), inputs[3].value.trim()].filter(c => c !== '');
+    const choices = [...row.querySelectorAll('.choice-input')]
+      .map(i => i.value.trim()).filter(c => c !== '');
     students.push(new Student(name, choices));
   }
   if (students.length < 2) {
@@ -1009,7 +1070,6 @@ function loadManualStudents() {
   parsedStudents = students;
   document.getElementById('runBtn').disabled = false;
 
-  // Show a mini confirmation banner reusing the status bar
   const statusBar = document.getElementById('statusBar');
   const statusMsg = document.getElementById('statusMsg');
   statusBar.className = 'status-bar show success';
@@ -1024,7 +1084,7 @@ function clearManualForm() {
   updateManualCount();
 }
 
-// Pre-populate with a few blank rows on page load
+// Pre-populate with blank rows on page load
 window.addEventListener('DOMContentLoaded', () => {
   for (let i = 0; i < 5; i++) addManualRow();
 });
@@ -1042,7 +1102,7 @@ function exportCSV() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "field_trip_groups.csv";
+  a.download = "student_groups.csv";
   a.click();
   URL.revokeObjectURL(url);
 }
