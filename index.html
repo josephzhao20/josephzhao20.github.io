@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Joseph Zhao — Projects</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #fdf9f3;
+    --ink: #1c1a17;
+    --ink-soft: #6b6458;
+    --yellow: #f9e045;
+    --yellow-dark: #c9b010;
+    --coral: #ff6b52;
+    --coral-light: #fff0ed;
+    --teal: #2ec4b6;
+    --teal-light: #e6faf9;
+    --purple: #9b72cf;
+    --purple-light: #f3eeff;
+    --blue: #4a90d9;
+    --blue-light: #eaf3ff;
+    --green: #52c46a;
+    --green-light: #edfff1;
+    --card-radius: 18px;
+    --shadow: 4px 4px 0px #1c1a17;
+    --shadow-hover: 6px 6px 0px #1c1a17;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Doodle background ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(circle, #1c1a1712 1.5px, transparent 1.5px);
+    background-size: 28px 28px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Nav ── */
+  nav {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 2.5rem;
+    border-bottom: 2.5px solid var(--ink);
+    background: var(--bg);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--ink);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-logo-dot {
+    width: 10px; height: 10px;
+    background: var(--yellow);
+    border-radius: 50%;
+    border: 2px solid var(--ink);
+    display: inline-block;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5rem 2.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.75rem;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -2px;
+    color: var(--ink);
+    animation: fadeUp 0.5s 0.1s ease both;
+  }
+
+  .hero-name .highlight {
+    display: inline-block;
+    background: var(--yellow);
+    border: 2.5px solid var(--ink);
+    border-radius: 8px;
+    padding: 0 10px;
+    transform: rotate(-1deg);
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+
+  .hero-tagline {
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    max-width: 520px;
+    line-height: 1.65;
+    animation: fadeUp 0.5s 0.2s ease both;
+  }
+
+  .hero-tagline .wink {
+    display: inline-block;
+    animation: wink 3s 2s infinite;
+  }
+
+  @keyframes wink {
+    0%, 90%, 100% { transform: rotate(0deg); }
+    95% { transform: rotate(20deg) scale(1.2); }
+  }
+
+  /* ── Squiggle divider ── */
+  .squiggle {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Section label ── */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5rem 2.5rem 1.25rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-label h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+
+  .section-tag {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--bg);
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  /* ── Projects grid ── */
+  .projects-grid {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2.5rem 4rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Project card ── */
+  .project-card {
+    background: var(--white, #fff);
+    border: 2.5px solid var(--ink);
+    border-radius: var(--card-radius);
+    padding: 1.4rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .project-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .project-card:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+
+  .project-card.placeholder {
+    border-style: dashed;
+    box-shadow: none;
+    background: transparent;
+    cursor: default;
+    opacity: 0.55;
+  }
+
+  .project-card.placeholder:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .card-emoji {
+    font-size: 2rem;
+    line-height: 1;
+    width: 52px; height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    border: 2px solid var(--ink);
+    flex-shrink: 0;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+  }
+
+  .card-arrow {
+    font-size: 1rem;
+    color: var(--ink-soft);
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: transform 0.15s;
+  }
+
+  .project-card:hover .card-arrow { transform: translate(2px, -2px); }
+
+  .card-desc {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    flex: 1;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 4px;
+  }
+
+  .tag {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    padding: 3px 9px;
+    border-radius: 100px;
+    border: 1.5px solid currentColor;
+  }
+
+  /* ── About section ── */
+  .about-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2.5rem 5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .about-card {
+    background: var(--yellow);
+    border: 2.5px solid var(--ink);
+    border-radius: var(--card-radius);
+    padding: 2rem 2.25rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .about-avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: var(--ink);
+    border: 2.5px solid var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--yellow);
+    flex-shrink: 0;
+  }
+
+  .about-text { flex: 1; min-width: 200px; }
+
+  .about-text h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+
+  .about-text p {
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.7;
+    color: #3a3520;
+  }
+
+  /* ── Footer ── */
+  footer {
+    border-top: 2.5px solid var(--ink);
+    padding: 1.25rem 2.5rem;
+    text-align: center;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    position: relative;
+    z-index: 1;
+    background: var(--bg);
+  }
+
+  /* ── Animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .project-card:nth-child(1) { animation-delay: 0.05s; }
+  .project-card:nth-child(2) { animation-delay: 0.12s; }
+  .project-card:nth-child(3) { animation-delay: 0.19s; }
+  .project-card:nth-child(4) { animation-delay: 0.26s; }
+  .project-card:nth-child(5) { animation-delay: 0.33s; }
+
+  @media (max-width: 600px) {
+    nav { padding: 1rem 1.25rem; }
+    .hero { padding: 3rem 1.25rem 2rem; }
+    .section-label { padding: 2rem 1.25rem 1rem; }
+    .projects-grid { padding: 0 1.25rem 3rem; }
+    .about-section { padding: 0 1.25rem 3.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <a class="nav-logo" href="#">
+    <span class="nav-logo-dot"></span>
+    jzhao
+  </a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <p class="hero-eyebrow">Hey there! 👋</p>
+  <h1 class="hero-name">
+    I'm <span class="highlight">Joseph</span><br/>Zhao.
+  </h1>
+  <p class="hero-tagline">
+    I build tools that actually get used — not just projects that sit on a shelf.
+    Scroll down to see what I've made so far. <span class="wink">🙂</span>
+  </p>
+</section>
+
+<!-- Projects -->
+<div class="section-label" id="projects">
+  <h2>Projects</h2>
+  <span class="section-tag">Made by me</span>
+</div>
+
+<div class="projects-grid">
+
+  <!-- Group Sorter -->
+  <a class="project-card" href="index.html" style="background: #fff;">
+    <div class="card-emoji" style="background: #e8f5e8;">🐾</div>
+    <div class="card-header">
+      <div class="card-title">Bobcat Group Sorter</div>
+      <div class="card-arrow">↗</div>
+    </div>
+    <div class="card-desc">
+      Sorts 50–70 students into preference-based groups for field trips. Upload a CSV or enter names manually.
+    </div>
+    <div class="card-tags">
+      <span class="tag" style="color: #2d6a2d; border-color: #2d6a2d; background: #e8f5e8;">JavaScript</span>
+      <span class="tag" style="color: #c9960a; border-color: #c9960a; background: #fff8e1;">Algorithm</span>
+      <span class="tag" style="color: #185fa5; border-color: #185fa5; background: #e6f1fb;">HTML/CSS</span>
+    </div>
+  </a>
+
+  <!-- Placeholder 2 -->
+  <div class="project-card placeholder">
+    <div class="card-emoji" style="background: #f3f3f3;">🚧</div>
+    <div class="card-header">
+      <div class="card-title">Coming Soon</div>
+    </div>
+    <div class="card-desc">
+      Next project in progress. Check back later!
+    </div>
+    <div class="card-tags">
+      <span class="tag" style="color: #888; border-color: #aaa;">TBD</span>
+    </div>
+  </div>
+
+  <!-- Placeholder 3 -->
+  <div class="project-card placeholder">
+    <div class="card-emoji" style="background: #f3f3f3;">🚧</div>
+    <div class="card-header">
+      <div class="card-title">Coming Soon</div>
+    </div>
+    <div class="card-desc">
+      Another idea cooking. Stay tuned!
+    </div>
+    <div class="card-tags">
+      <span class="tag" style="color: #888; border-color: #aaa;">TBD</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- About -->
+<div class="section-label" id="about">
+  <h2>About</h2>
+</div>
+
+<section class="about-section">
+  <div class="about-card">
+    <div class="about-avatar">JZ</div>
+    <div class="about-text">
+      <h3>Hi, I'm Joseph Zhao</h3>
+      <p>
+        A developer who loves building tools that make real life a little easier.
+        I prefer to build projects that actually get used — which is why I only have a few at the moment. 🙂
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Built by Joseph Zhao &nbsp;·&nbsp; GitHub Pages
+</footer>
+
+</body>
+</html>
