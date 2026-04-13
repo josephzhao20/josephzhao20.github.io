@@ -376,6 +376,143 @@
     font-size: 0.8rem;
     color: #333;
   }
+
+  /* ── Tabs ── */
+  .tab-bar {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 1.25rem;
+  }
+
+  .tab-btn {
+    padding: 9px 18px;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .tab-btn:hover { color: var(--green); }
+
+  .tab-btn.active {
+    color: var(--green);
+    border-bottom-color: var(--green);
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── Manual entry form ── */
+  .student-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr auto;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  @media (max-width: 600px) {
+    .student-row { grid-template-columns: 1fr 1fr; }
+    .student-row .choice-3, .student-row .choice-4 { display: none; }
+  }
+
+  .student-row input[type="text"] {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.88rem;
+    color: var(--text);
+    background: var(--white);
+    transition: border-color 0.2s;
+  }
+
+  .student-row input[type="text"]:focus {
+    outline: none;
+    border-color: var(--green-mid);
+  }
+
+  .student-row input[type="text"]::placeholder { color: #bbb; }
+
+  .student-row input.name-input {
+    font-weight: 600;
+    border-color: var(--green-border);
+    background: var(--green-light);
+  }
+
+  .btn-remove-row {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    color: #bbb;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .btn-remove-row:hover { color: #c0392b; border-color: #c0392b; }
+
+  .form-col-labels {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr auto;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  @media (max-width: 600px) { .form-col-labels { grid-template-columns: 1fr 1fr; } }
+
+  .form-col-labels span {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding-left: 2px;
+  }
+
+  .btn-add-row {
+    margin-top: 0.75rem;
+    padding: 8px 16px;
+    background: var(--green-light);
+    color: var(--green);
+    border: 1.5px dashed var(--green-border);
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+    width: 100%;
+  }
+
+  .btn-add-row:hover { background: #d2ebd2; }
+
+  .form-student-count {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.6rem;
+    text-align: right;
+  }
+
+  .rows-container {
+    max-height: 420px;
+    overflow-y: auto;
+    padding-right: 2px;
+  }
 </style>
 </head>
 <body>
@@ -384,36 +521,58 @@
   <div class="paw">🐾</div>
   <div>
     <h1>Bobcat Field Trip Sorter</h1>
-    <p>Group Assignment Tool</p>
+    <p>Green &amp; Gold — Group Assignment Tool</p>
   </div>
 </header>
 
 <main>
 
-  <!-- Upload Card -->
+  <!-- Input Card (tabbed) -->
   <div class="card">
-    <div class="card-title">📋 Upload Student List</div>
+    <div class="card-title">📋 Student List</div>
 
-    <div class="upload-zone" id="uploadZone">
-      <input type="file" id="csvFile" accept=".csv" />
-      <div class="upload-icon">📂</div>
-      <p><strong>Click to upload</strong> or drag &amp; drop your CSV</p>
-      <p>Accepted format: .csv file</p>
-      <div class="file-name" id="fileName"></div>
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('upload', this)">📂 Upload CSV</button>
+      <button class="tab-btn" onclick="switchTab('manual', this)">✏️ Enter Manually</button>
     </div>
 
-    <div class="format-hint">
-      <strong>CSV format:</strong> First column is student name. Remaining columns are their preferred groupmates.<br/>
-      Example row: <code>Alice,Bob,Carol,Diana</code>
-    </div>
-
-    <!-- Preview -->
-    <div id="previewSection" style="margin-top: 1.25rem; display: none;">
-      <div class="card-title" style="font-size: 1rem;">👀 Preview</div>
-      <div class="preview-wrap">
-        <table id="previewTable"></table>
+    <!-- Tab 1: Upload -->
+    <div class="tab-panel active" id="tab-upload">
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="csvFile" accept=".csv" />
+        <div class="upload-icon">📂</div>
+        <p><strong>Click to upload</strong> or drag &amp; drop your CSV</p>
+        <p>Accepted format: .csv file</p>
+        <div class="file-name" id="fileName"></div>
+      </div>
+      <div class="format-hint">
+        <strong>CSV format:</strong> First column is student name. Remaining columns are preferred groupmates.<br/>
+        Example row: <code>Alice,Bob,Carol,Diana</code>
+      </div>
+      <div id="previewSection" style="margin-top: 1.25rem; display: none;">
+        <div class="card-title" style="font-size: 1rem;">👀 Preview</div>
+        <div class="preview-wrap"><table id="previewTable"></table></div>
       </div>
     </div>
+
+    <!-- Tab 2: Manual Entry -->
+    <div class="tab-panel" id="tab-manual">
+      <div class="form-col-labels">
+        <span>Student name</span>
+        <span>Choice 1</span>
+        <span>Choice 2</span>
+        <span>Choice 3</span>
+        <span style="width:30px; display:block;"></span>
+      </div>
+      <div class="rows-container" id="manualRows"></div>
+      <button class="btn-add-row" onclick="addManualRow()">+ Add Student</button>
+      <div class="form-student-count" id="manualCount">0 students entered</div>
+      <div style="margin-top: 1rem; display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="btn-export" style="background: var(--green); color: white; border-color: var(--green);" onclick="loadManualStudents()">✓ Use These Students</button>
+        <button class="btn-export" onclick="clearManualForm()">🗑 Clear All</button>
+      </div>
+    </div>
+
   </div>
 
   <!-- Settings Card -->
@@ -782,7 +941,97 @@ function renderResults(groups, score, iterations, students) {
   section.style.display = "block";
 }
 
+// ─────────────────────────────────────────────
+// Tab switching
+// ─────────────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ─────────────────────────────────────────────
+// Manual entry form
+// ─────────────────────────────────────────────
+let rowCount = 0;
+
+function addManualRow(name, c1, c2, c3) {
+  rowCount++;
+  const id = 'row-' + rowCount;
+  const container = document.getElementById('manualRows');
+  const div = document.createElement('div');
+  div.className = 'student-row';
+  div.id = id;
+  div.innerHTML = `
+    <input type="text" class="name-input" placeholder="Student name" value="${name || ''}" oninput="updateManualCount()" />
+    <input type="text" placeholder="Choice 1 (optional)" value="${c1 || ''}" />
+    <input type="text" class="choice-3" placeholder="Choice 2 (optional)" value="${c2 || ''}" />
+    <input type="text" class="choice-4" placeholder="Choice 3 (optional)" value="${c3 || ''}" />
+    <button class="btn-remove-row" onclick="removeManualRow('${id}')" title="Remove">×</button>
+  `;
+  container.appendChild(div);
+  updateManualCount();
+  // Focus the new name field
+  div.querySelector('.name-input').focus();
+}
+
+function removeManualRow(id) {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+  updateManualCount();
+}
+
+function updateManualCount() {
+  const names = getManualStudentNames();
+  const count = names.filter(n => n.trim() !== '').length;
+  document.getElementById('manualCount').textContent = `${count} student${count !== 1 ? 's' : ''} entered`;
+}
+
+function getManualStudentNames() {
+  return [...document.querySelectorAll('#manualRows .student-row .name-input')].map(i => i.value.trim());
+}
+
+function loadManualStudents() {
+  const rows = document.querySelectorAll('#manualRows .student-row');
+  const students = [];
+  for (const row of rows) {
+    const inputs = row.querySelectorAll('input[type="text"]');
+    const name = inputs[0].value.trim();
+    if (!name) continue;
+    const choices = [inputs[1].value.trim(), inputs[2].value.trim(), inputs[3].value.trim()].filter(c => c !== '');
+    students.push(new Student(name, choices));
+  }
+  if (students.length < 2) {
+    alert('Please enter at least 2 students.');
+    return;
+  }
+  parsedStudents = students;
+  document.getElementById('runBtn').disabled = false;
+
+  // Show a mini confirmation banner reusing the status bar
+  const statusBar = document.getElementById('statusBar');
+  const statusMsg = document.getElementById('statusMsg');
+  statusBar.className = 'status-bar show success';
+  statusMsg.textContent = `✓ ${students.length} students loaded from manual entry. Ready to sort!`;
+}
+
+function clearManualForm() {
+  document.getElementById('manualRows').innerHTML = '';
+  rowCount = 0;
+  parsedStudents = [];
+  document.getElementById('runBtn').disabled = true;
+  updateManualCount();
+}
+
+// Pre-populate with a few blank rows on page load
+window.addEventListener('DOMContentLoaded', () => {
+  for (let i = 0; i < 5; i++) addManualRow();
+});
+
+// ─────────────────────────────────────────────
 // Export results as CSV
+// ─────────────────────────────────────────────
 function exportCSV() {
   if (!lastGroups.length) return;
   let csv = "Group,Member\n";
