@@ -761,12 +761,7 @@
         for (const file of files) {
             const fileName = file.name;
 
-            if (fileName === 'followers_1.json') {
-                const text = await file.text();
-                followersData = JSON.parse(text);
-            }
-
-            if (fileName === 'followers.json') {
+            if (fileName === 'followers_1.json' || fileName === 'followers.json') {
                 const text = await file.text();
                 followersData = JSON.parse(text);
             }
@@ -798,7 +793,7 @@
             return null;
         };
 
-        // Normalize followers structure
+        // Normalize followers
         let followersArray = [];
 
         if (Array.isArray(followersData)) {
@@ -806,12 +801,9 @@
         } 
         else if (followersData.relationships_followers) {
             followersArray = followersData.relationships_followers;
-        } 
-        else if (followersData.followers) {
-            followersArray = followersData.followers;
         }
 
-        // Normalize following structure
+        // Normalize following (IMPORTANT — flatten structure)
         let followingArray = [];
 
         if (Array.isArray(followingData)) {
@@ -819,12 +811,9 @@
         } 
         else if (followingData.relationships_following) {
             followingArray = followingData.relationships_following;
-        } 
-        else if (followingData.following) {
-            followingArray = followingData.following;
         }
 
-        // Convert to lowercase + remove nulls
+        // Convert followers
         const followers = new Set(
             followersArray
                 .map(extractUsername)
@@ -832,9 +821,11 @@
                 .map(v => v.toLowerCase())
         );
 
+        // Convert following (handle nested structure)
         const following = new Set(
             followingArray
-                .map(extractUsername)
+                .flatMap(item => item.string_list_data || [])
+                .map(item => item.value)
                 .filter(Boolean)
                 .map(v => v.toLowerCase())
         );
