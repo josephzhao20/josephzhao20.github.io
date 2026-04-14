@@ -792,11 +792,8 @@
                     .map(v => v.toLowerCase())
             );
             const following = new Set(
-                followingData
-                    .map(extractUsername)
-                    .filter(Boolean)
-                    .map(v => v.toLowerCase())
-            );
+            (followingData.relationships_following || followingData)
+            .map(extractUsername));
 
             return {
                 followers: Array.from(followers).sort(),
