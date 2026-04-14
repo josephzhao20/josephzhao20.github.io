@@ -755,53 +755,97 @@
         }
 
         async function parseInstagramData(files) {
-            let followersData = null;
-            let followingData = null;
+        let followersData = null;
+        let followingData = null;
 
-            for (const file of files) {
-                const fileName = file.name;
-                const filePath = file.webkitRelativePath || file.name;
-                
-                if (fileName === 'followers_1.json') {
-                    const text = await file.text();
-                    followersData = JSON.parse(text);
-                } else if (fileName === 'following.json') {
-                    const text = await file.text();
-                    followingData = JSON.parse(text);
-                }
+        for (const file of files) {
+            const fileName = file.name;
+
+            if (fileName === 'followers_1.json') {
+                const text = await file.text();
+                followersData = JSON.parse(text);
             }
 
-            if (!followersData || !followingData) {
-                throw new Error('Could not find followers_1.json or following.json in the uploaded folder. Make sure you uploaded the complete Instagram data folder that contains the connections/followers_and_following directory.');
+            if (fileName === 'followers.json') {
+                const text = await file.text();
+                followersData = JSON.parse(text);
             }
 
-            const extractUsername = (item) => {
-                if (item.string_list_data && item.string_list_data[0]) {
-                    return item.string_list_data[0].value;
-                }
-                if (item.value) {
-                    return item.value;
-                }
-                return null;
-            };
-
-            const followers = new Set(
-                followersData
-                    .map(extractUsername)
-                    .filter(Boolean)
-                    .map(v => v.toLowerCase())
-            );
-            const following = new Set(
-            (followingData.relationships_following || followingData)
-            .map(extractUsername));
-
-            return {
-                followers: Array.from(followers).sort(),
-                following: Array.from(following).sort(),
-                followerSet: followers,
-                followingSet: following
-            };
+            if (fileName === 'following.json') {
+                const text = await file.text();
+                followingData = JSON.parse(text);
+            }
         }
+
+        if (!followersData || !followingData) {
+            throw new Error(
+                'Could not find followers or following data. Make sure you uploaded the full Instagram export folder.'
+            );
+        }
+
+        // Extract username safely
+        const extractUsername = (item) => {
+            if (!item) return null;
+
+            if (item.string_list_data && item.string_list_data.length > 0) {
+                return item.string_list_data[0].value;
+            }
+
+            if (item.value) {
+                return item.value;
+            }
+
+            return null;
+        };
+
+        // Normalize followers structure
+        let followersArray = [];
+
+        if (Array.isArray(followersData)) {
+            followersArray = followersData;
+        } 
+        else if (followersData.relationships_followers) {
+            followersArray = followersData.relationships_followers;
+        } 
+        else if (followersData.followers) {
+            followersArray = followersData.followers;
+        }
+
+        // Normalize following structure
+        let followingArray = [];
+
+        if (Array.isArray(followingData)) {
+            followingArray = followingData;
+        } 
+        else if (followingData.relationships_following) {
+            followingArray = followingData.relationships_following;
+        } 
+        else if (followingData.following) {
+            followingArray = followingData.following;
+        }
+
+        // Convert to lowercase + remove nulls
+        const followers = new Set(
+            followersArray
+                .map(extractUsername)
+                .filter(Boolean)
+                .map(v => v.toLowerCase())
+        );
+
+        const following = new Set(
+            followingArray
+                .map(extractUsername)
+                .filter(Boolean)
+                .map(v => v.toLowerCase())
+        );
+
+        return {
+            followers: Array.from(followers).sort(),
+            following: Array.from(following).sort(),
+            followerSet: followers,
+            followingSet: following
+        };
+    }
 
         function displayCurrentStatus(data) {
             const notFollowingBack = data.following.filter(u => !data.followerSet.has(u));
