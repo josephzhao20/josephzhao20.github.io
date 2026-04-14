@@ -791,7 +791,6 @@
                     .filter(Boolean)
                     .map(v => v.toLowerCase())
             );
-            system.out.print("followers passed");
             const following = new Set(
                 followingData
                     .map(extractUsername)
