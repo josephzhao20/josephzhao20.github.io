@@ -13,29 +13,47 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-            background-color: #f5f5f5;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             color: #1a1a1a;
             line-height: 1.6;
             padding: 20px;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         body.dark-mode {
-            background-color: #1a1a1a;
+            background: linear-gradient(135deg, #1a0033 0%, #2d0052 25%, #4a0080 50%, #001a4d 75%, #003d66 100%);
+            background-size: 400% 400%;
+            animation: gradientShiftDark 15s ease infinite;
             color: #f5f5f5;
+        }
+
+        @keyframes gradientShiftDark {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {
             max-width: 1000px;
             margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            padding: 32px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            backdrop-filter: blur(10px);
         }
 
         body.dark-mode .container {
-            background: #2a2a2a;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            background: rgba(30, 30, 30, 0.95);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
         }
 
         .header {
@@ -43,67 +61,91 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.2);
         }
 
         h1 {
-            font-size: 28px;
-            font-weight: 500;
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        body.dark-mode h1 {
+            background: linear-gradient(135deg, #a29bfe 0%, #fd79a8 50%, #74b9ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .dark-mode-toggle {
-            background: #f0f0f0;
-            border: 1px solid #ddd;
-            padding: 8px 16px;
-            border-radius: 6px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
             cursor: pointer;
             font-size: 13px;
-            transition: all 0.2s;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
 
         .dark-mode-toggle:hover {
-            background: #e0e0e0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .dark-mode-toggle:active {
+            transform: translateY(0);
         }
 
         body.dark-mode .dark-mode-toggle {
-            background: #333;
-            border-color: #555;
-            color: #f5f5f5;
+            background: linear-gradient(135deg, #a29bfe 0%, #fd79a8 100%);
+            box-shadow: 0 4px 15px rgba(162, 155, 254, 0.4);
         }
 
         body.dark-mode .dark-mode-toggle:hover {
-            background: #444;
+            box-shadow: 0 6px 20px rgba(162, 155, 254, 0.6);
         }
 
         .tabs {
             display: flex;
-            border-bottom: 1px solid #ddd;
-            margin-bottom: 24px;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+            margin-bottom: 32px;
             gap: 0;
+            overflow-x: auto;
         }
 
         body.dark-mode .tabs {
-            border-bottom-color: #444;
+            border-bottom-color: rgba(162, 155, 254, 0.2);
         }
 
         .tab {
-            padding: 12px 16px;
+            padding: 14px 24px;
             font-size: 14px;
             cursor: pointer;
-            color: #666;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-            font-weight: 500;
+            color: #999;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            font-weight: 600;
             background: none;
             border: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
         }
 
         .tab:hover {
-            color: #333;
+            color: #667eea;
         }
 
         .tab.active {
-            color: #1a1a1a;
-            border-bottom-color: #1a1a1a;
+            color: #667eea;
+            border-bottom-color: #667eea;
         }
 
         body.dark-mode .tab {
@@ -111,12 +153,12 @@
         }
 
         body.dark-mode .tab:hover {
-            color: #ccc;
+            color: #a29bfe;
         }
 
         body.dark-mode .tab.active {
-            color: #f5f5f5;
-            border-bottom-color: #f5f5f5;
+            color: #a29bfe;
+            border-bottom-color: #a29bfe;
         }
 
         .tab-content {
@@ -125,31 +167,58 @@
 
         .tab-content.active {
             display: block;
+            animation: fadeIn 0.4s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .upload-box {
-            border: 2px dashed #ccc;
-            border-radius: 12px;
+            border: 2px dashed #667eea;
+            border-radius: 16px;
             padding: 40px 20px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.2s;
-            background: #fafafa;
+            transition: all 0.3s;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(240, 147, 251, 0.05) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+            pointer-events: none;
+        }
+
+        .upload-box:hover::before {
+            left: 100%;
         }
 
         .upload-box:hover {
-            border-color: #999;
-            background: #f0f0f0;
+            border-color: #764ba2;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(240, 147, 251, 0.1) 100%);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
         }
 
         body.dark-mode .upload-box {
-            background: #333;
-            border-color: #555;
+            border-color: #a29bfe;
+            background: linear-gradient(135deg, rgba(162, 155, 254, 0.05) 0%, rgba(253, 121, 168, 0.05) 100%);
         }
 
         body.dark-mode .upload-box:hover {
-            background: #3a3a3a;
-            border-color: #777;
+            border-color: #fd79a8;
+            background: linear-gradient(135deg, rgba(162, 155, 254, 0.1) 0%, rgba(253, 121, 168, 0.1) 100%);
+            box-shadow: 0 10px 30px rgba(162, 155, 254, 0.2);
         }
 
         .upload-box input {
@@ -157,8 +226,15 @@
         }
 
         .upload-icon {
-            font-size: 32px;
+            font-size: 48px;
             margin-bottom: 12px;
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .upload-box p {
@@ -166,9 +242,10 @@
         }
 
         .upload-box .main-text {
-            font-weight: 500;
+            font-weight: 600;
             color: #1a1a1a;
             margin-bottom: 4px;
+            font-size: 15px;
         }
 
         body.dark-mode .upload-box .main-text {
@@ -184,19 +261,35 @@
         .metric-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 12px;
-            margin: 24px 0;
+            gap: 16px;
+            margin: 32px 0;
         }
 
         .metric-card {
-            background: #f5f5f5;
-            padding: 16px;
-            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(240, 147, 251, 0.1) 100%);
+            padding: 20px 16px;
+            border-radius: 16px;
             text-align: center;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.15);
+            border-color: rgba(102, 126, 234, 0.4);
         }
 
         body.dark-mode .metric-card {
-            background: #333;
+            background: linear-gradient(135deg, rgba(162, 155, 254, 0.1) 0%, rgba(253, 121, 168, 0.1) 100%);
+            border-color: rgba(162, 155, 254, 0.2);
+        }
+
+        body.dark-mode .metric-card:hover {
+            box-shadow: 0 12px 24px rgba(162, 155, 254, 0.15);
+            border-color: rgba(162, 155, 254, 0.4);
         }
 
         .metric-label {
@@ -205,47 +298,64 @@
             margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         body.dark-mode .metric-label {
-            color: #999;
+            color: #aaa;
         }
 
         .metric-value {
-            font-size: 28px;
-            font-weight: 600;
-            color: #1a1a1a;
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         body.dark-mode .metric-value {
-            color: #f5f5f5;
+            background: linear-gradient(135deg, #a29bfe 0%, #fd79a8 50%, #74b9ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .user-list {
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 12px;
             max-height: 350px;
             overflow-y: auto;
             margin-bottom: 16px;
+            backdrop-filter: blur(5px);
         }
 
         body.dark-mode .user-list {
-            background: #333;
-            border-color: #555;
+            background: rgba(30, 30, 30, 0.5);
+            border-color: rgba(162, 155, 254, 0.2);
         }
 
         .user-item {
-            padding: 12px 16px;
-            border-bottom: 1px solid #ddd;
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
             font-size: 14px;
             color: #1a1a1a;
+            transition: all 0.2s;
+        }
+
+        .user-item:hover {
+            background: rgba(102, 126, 234, 0.05);
+            padding-left: 20px;
         }
 
         body.dark-mode .user-item {
             color: #f5f5f5;
-            border-bottom-color: #555;
+            border-bottom-color: rgba(162, 155, 254, 0.1);
+        }
+
+        body.dark-mode .user-item:hover {
+            background: rgba(162, 155, 254, 0.05);
         }
 
         .user-item:last-child {
@@ -259,26 +369,38 @@
         }
 
         h2 {
-            font-size: 20px;
-            font-weight: 500;
+            font-size: 22px;
+            font-weight: 700;
             margin: 0 0 24px;
+            color: #1a1a1a;
+        }
+
+        body.dark-mode h2 {
+            color: #f5f5f5;
         }
 
         h3 {
-            font-size: 15px;
-            font-weight: 500;
-            margin: 20px 0 12px;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 24px 0 16px;
+            color: #1a1a1a;
+        }
+
+        body.dark-mode h3 {
+            color: #f5f5f5;
         }
 
         .instructions-box {
-            background: #f5f5f5;
-            padding: 20px;
-            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(240, 147, 251, 0.05) 100%);
+            padding: 24px;
+            border-radius: 16px;
             line-height: 1.8;
+            border: 1px solid rgba(102, 126, 234, 0.2);
         }
 
         body.dark-mode .instructions-box {
-            background: #333;
+            background: linear-gradient(135deg, rgba(162, 155, 254, 0.05) 0%, rgba(253, 121, 168, 0.05) 100%);
+            border-color: rgba(162, 155, 254, 0.2);
         }
 
         .instructions-box ol {
@@ -287,74 +409,79 @@
         }
 
         .instructions-box li {
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .instructions-box a {
-            color: #0066cc;
+            color: #667eea;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
         }
 
         .instructions-box a:hover {
-            text-decoration: underline;
+            border-bottom-color: #667eea;
         }
 
         body.dark-mode .instructions-box a {
-            color: #66b3ff;
+            color: #a29bfe;
+        }
+
+        body.dark-mode .instructions-box a:hover {
+            border-bottom-color: #a29bfe;
         }
 
         .alert {
-            padding: 12px 16px;
-            border-radius: 8px;
+            padding: 14px 16px;
+            border-radius: 12px;
             margin-top: 16px;
             font-size: 13px;
+            border-left: 4px solid #f39c12;
         }
 
         .alert-warning {
-            background: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeaa7;
+            background: linear-gradient(135deg, rgba(243, 156, 18, 0.1) 0%, rgba(230, 126, 34, 0.1) 100%);
+            color: #d68910;
         }
 
         body.dark-mode .alert-warning {
-            background: #664400;
-            color: #ffeaa7;
-            border-color: #774400;
+            background: linear-gradient(135deg, rgba(243, 156, 18, 0.15) 0%, rgba(230, 126, 34, 0.15) 100%);
+            color: #f8b739;
         }
 
         .alert strong {
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .error {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 12px 16px;
-            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.1) 0%, rgba(192, 57, 43, 0.1) 100%);
+            color: #c0392b;
+            padding: 14px 16px;
+            border-radius: 12px;
             margin-bottom: 16px;
-            border: 1px solid #f5c6cb;
+            border: 1px solid rgba(231, 76, 60, 0.3);
+            border-left: 4px solid #e74c3c;
         }
 
         body.dark-mode .error {
-            background: #6d1f1f;
-            color: #ff9999;
-            border-color: #8d1f1f;
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.15) 0%, rgba(192, 57, 43, 0.15) 100%);
+            color: #ff6b6b;
         }
 
         .success {
-            background: #d4edda;
-            color: #155724;
-            padding: 12px 16px;
-            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(46, 213, 115, 0.1) 0%, rgba(39, 174, 96, 0.1) 100%);
+            color: #27ae60;
+            padding: 14px 16px;
+            border-radius: 12px;
             margin-bottom: 16px;
-            border: 1px solid #c3e6cb;
+            border: 1px solid rgba(46, 213, 115, 0.3);
+            border-left: 4px solid #2ecc71;
         }
 
         body.dark-mode .success {
-            background: #1f5f1f;
-            color: #99ff99;
-            border-color: #1f7f1f;
+            background: linear-gradient(135deg, rgba(46, 213, 115, 0.15) 0%, rgba(39, 174, 96, 0.15) 100%);
+            color: #58f399;
         }
 
         .grid-2 {
@@ -373,7 +500,7 @@
             }
 
             h1 {
-                font-size: 24px;
+                font-size: 26px;
             }
 
             .metric-grid {
@@ -385,11 +512,11 @@
             display: none;
             text-align: center;
             padding: 20px;
-            color: #666;
+            color: #667eea;
         }
 
         body.dark-mode .loading {
-            color: #999;
+            color: #a29bfe;
         }
 
         .loading.active {
@@ -398,18 +525,18 @@
 
         .spinner {
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #f0f0f0;
-            border-top: 3px solid #1a1a1a;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(102, 126, 234, 0.2);
+            border-top: 3px solid #667eea;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 0.8s linear infinite;
             margin-right: 10px;
         }
 
         body.dark-mode .spinner {
-            border-color: #333;
-            border-top-color: #f5f5f5;
+            border-color: rgba(162, 155, 254, 0.2);
+            border-top-color: #a29bfe;
         }
 
         @keyframes spin {
@@ -418,31 +545,31 @@
         }
 
         .stat-positive {
-            color: #28a745;
+            color: #27ae60;
         }
 
         .stat-negative {
-            color: #dc3545;
+            color: #e74c3c;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Instagram Follow Analyzer</h1>
-            <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+            <h1>Follow Analyzer</h1>
+            <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 Dark</button>
         </div>
 
         <div class="tabs">
-            <button class="tab active" onclick="switchTab(event, 'tab0')">Instructions</button>
-            <button class="tab" onclick="switchTab(event, 'tab1')">Current Status</button>
-            <button class="tab" onclick="switchTab(event, 'tab2')">Compare Snapshots</button>
+            <button class="tab active" onclick="switchTab(event, 'tab0')">📋 Instructions</button>
+            <button class="tab" onclick="switchTab(event, 'tab1')">📊 Status</button>
+            <button class="tab" onclick="switchTab(event, 'tab2')">📈 Compare</button>
         </div>
 
         <!-- Instructions Tab -->
         <div id="tab0" class="tab-content active">
             <div class="instructions-box">
-                <h3 style="margin-top: 0;">How to export your Instagram data</h3>
+                <h3 style="margin-top: 0;">📥 How to export your Instagram data</h3>
                 <ol>
                     <li><strong>Go to Account Center:</strong> <a href="https://accountscenter.instagram.com/info_and_permissions/dyi/" target="_blank">Click here to open Instagram Account Center</a></li>
                     <li><strong>Create export:</strong> Look for "Download your information" and click "Create export"</li>
@@ -452,25 +579,26 @@
                     <li><strong>Format:</strong> Select "JSON"</li>
                     <li><strong>Media quality:</strong> Select "Medium"</li>
                     <li><strong>Download & extract:</strong> Download the file and unzip the folder on your computer</li>
-                    <li><strong>Upload here:</strong> Go to the "Current Status" tab and upload the extracted folder</li>
+                    <li><strong>Upload folder here:</strong> Go to the "Status" tab and upload the main unzipped folder (it will have a name like "instagram-_yourusername_-2025-XX-XX-XXXXX") - don't navigate into subfolders, just upload the main folder</li>
                 </ol>
                 <div class="alert alert-warning">
-                    <strong>Note:</strong> Instagram may take a few minutes to prepare your export. If you don't see the download button immediately, check back in a few minutes.
+                    <strong>⏱️ Important:</strong> Instagram may take a few minutes to prepare your export. If you don't see the download button immediately, check back in a few minutes. When uploading, select the main folder that was created when you unzipped the file - the tool will automatically find the data inside.
                 </div>
             </div>
         </div>
 
         <!-- Current Status Tab -->
         <div id="tab1" class="tab-content">
-            <h2>Upload your data</h2>
+            <h2>Current Follow Status</h2>
+            <h3>Upload your Instagram data</h3>
             <div class="upload-box" onclick="document.getElementById('fileInput1').click()">
-                <div class="upload-icon">📁</div>
+                <div class="upload-icon">📂</div>
                 <p class="main-text">Click to upload your Instagram data folder</p>
-                <p class="sub-text">or drag and drop</p>
+                <p class="sub-text">or drag and drop your folder here</p>
                 <input type="file" id="fileInput1" webkitdirectory directory multiple onchange="handleUpload(event, 'current')">
             </div>
             <div id="currentStatus" class="empty-state">
-                <p>Upload your Instagram data to get started</p>
+                <p>👆 Upload your Instagram data to see your follow analytics</p>
             </div>
             <div id="currentError"></div>
             <div id="currentLoading" class="loading">
@@ -478,22 +606,22 @@
             </div>
 
             <div id="currentResults" style="display: none;">
-                <h3 style="margin-top: 24px;">Your stats</h3>
+                <h3 style="margin-top: 24px;">Your follow stats</h3>
                 <div class="metric-grid">
                     <div class="metric-card">
-                        <div class="metric-label">Followers</div>
+                        <div class="metric-label">👥 Followers</div>
                         <div class="metric-value" id="totalFollowers">0</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">Following</div>
+                        <div class="metric-label">🔗 Following</div>
                         <div class="metric-value" id="totalFollowing">0</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">Don't follow back</div>
+                        <div class="metric-label">❌ Don't follow back</div>
                         <div class="metric-value" id="notFollowingBack">0</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">You don't follow</div>
+                        <div class="metric-label">⏸️ You don't follow</div>
                         <div class="metric-value" id="dontFollowBack">0</div>
                     </div>
                 </div>
@@ -513,21 +641,21 @@
 
         <!-- Compare Snapshots Tab -->
         <div id="tab2" class="tab-content">
-            <h2>Compare snapshots</h2>
-            <h3>Choose two snapshots to compare</h3>
+            <h2>Compare Over Time</h2>
+            <h3>Track your follower growth</h3>
             <div class="grid-2" style="margin-bottom: 24px;">
                 <div>
-                    <label style="display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px;">Older snapshot</label>
+                    <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 12px;">📅 Older snapshot</label>
                     <div class="upload-box" onclick="document.getElementById('fileInput2').click()">
-                        <div class="upload-icon">📁</div>
+                        <div class="upload-icon">📂</div>
                         <p class="main-text">Upload older file</p>
                         <input type="file" id="fileInput2" webkitdirectory directory multiple onchange="handleUpload(event, 'old')">
                     </div>
                 </div>
                 <div>
-                    <label style="display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px;">Newer snapshot</label>
+                    <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 12px;">🆕 Newer snapshot</label>
                     <div class="upload-box" onclick="document.getElementById('fileInput3').click()">
-                        <div class="upload-icon">📁</div>
+                        <div class="upload-icon">📂</div>
                         <p class="main-text">Upload newer file</p>
                         <input type="file" id="fileInput3" webkitdirectory directory multiple onchange="handleUpload(event, 'new')">
                     </div>
@@ -535,7 +663,7 @@
             </div>
 
             <div id="compareStatus" class="empty-state">
-                <p>Upload both snapshots to compare changes</p>
+                <p>👆 Upload both snapshots to see your follow changes</p>
             </div>
             <div id="compareError"></div>
             <div id="compareLoading" class="loading">
@@ -543,25 +671,25 @@
             </div>
 
             <div id="compareResults" style="display: none;">
-                <h3>Changes over time</h3>
+                <h3>Growth metrics</h3>
                 <div class="metric-grid">
                     <div class="metric-card">
-                        <div class="metric-label">New followers</div>
+                        <div class="metric-label">✨ New followers</div>
                         <div class="metric-value stat-positive" id="newFollowers">0</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">Lost followers</div>
+                        <div class="metric-label">📉 Lost followers</div>
                         <div class="metric-value stat-negative" id="lostFollowers">0</div>
                     </div>
                 </div>
 
                 <div class="grid-2">
                     <div>
-                        <h3>New followers</h3>
+                        <h3>🆙 New followers</h3>
                         <div class="user-list" id="newFollowersList"></div>
                     </div>
                     <div>
-                        <h3>Lost followers</h3>
+                        <h3>👋 Lost followers</h3>
                         <div class="user-list" id="lostFollowersList"></div>
                     </div>
                 </div>
@@ -631,17 +759,20 @@
             let followingData = null;
 
             for (const file of files) {
-                if (file.name === 'followers_1.json') {
+                const fileName = file.name;
+                const filePath = file.webkitRelativePath || file.name;
+                
+                if (fileName === 'followers_1.json') {
                     const text = await file.text();
                     followersData = JSON.parse(text);
-                } else if (file.name === 'following.json') {
+                } else if (fileName === 'following.json') {
                     const text = await file.text();
                     followingData = JSON.parse(text);
                 }
             }
 
             if (!followersData || !followingData) {
-                throw new Error('Could not find followers_1.json or following.json. Make sure you uploaded the extracted Instagram data folder.');
+                throw new Error('Could not find followers_1.json or following.json in the uploaded folder. Make sure you uploaded the complete Instagram data folder that contains the connections/followers_and_following directory.');
             }
 
             const extractUsername = (item) => {
