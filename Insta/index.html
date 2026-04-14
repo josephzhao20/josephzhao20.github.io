@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Follow Analyzer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            background-color: #f5f5f5;
+            color: #1a1a1a;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 32px;
+        }
+
+        body.dark-mode .container {
+            background: #2a2a2a;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 500;
+        }
+
+        .dark-mode-toggle {
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .dark-mode-toggle:hover {
+            background: #e0e0e0;
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            background: #333;
+            border-color: #555;
+            color: #f5f5f5;
+        }
+
+        body.dark-mode .dark-mode-toggle:hover {
+            background: #444;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 24px;
+            gap: 0;
+        }
+
+        body.dark-mode .tabs {
+            border-bottom-color: #444;
+        }
+
+        .tab {
+            padding: 12px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            color: #666;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            font-weight: 500;
+            background: none;
+            border: none;
+        }
+
+        .tab:hover {
+            color: #333;
+        }
+
+        .tab.active {
+            color: #1a1a1a;
+            border-bottom-color: #1a1a1a;
+        }
+
+        body.dark-mode .tab {
+            color: #999;
+        }
+
+        body.dark-mode .tab:hover {
+            color: #ccc;
+        }
+
+        body.dark-mode .tab.active {
+            color: #f5f5f5;
+            border-bottom-color: #f5f5f5;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .upload-box {
+            border: 2px dashed #ccc;
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #fafafa;
+        }
+
+        .upload-box:hover {
+            border-color: #999;
+            background: #f0f0f0;
+        }
+
+        body.dark-mode .upload-box {
+            background: #333;
+            border-color: #555;
+        }
+
+        body.dark-mode .upload-box:hover {
+            background: #3a3a3a;
+            border-color: #777;
+        }
+
+        .upload-box input {
+            display: none;
+        }
+
+        .upload-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .upload-box p {
+            margin: 0;
+        }
+
+        .upload-box .main-text {
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        body.dark-mode .upload-box .main-text {
+            color: #f5f5f5;
+        }
+
+        .upload-box .sub-text {
+            font-size: 12px;
+            color: #999;
+            margin-top: 8px;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .metric-card {
+            background: #f5f5f5;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        body.dark-mode .metric-card {
+            background: #333;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        body.dark-mode .metric-label {
+            color: #999;
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        body.dark-mode .metric-value {
+            color: #f5f5f5;
+        }
+
+        .user-list {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            max-height: 350px;
+            overflow-y: auto;
+            margin-bottom: 16px;
+        }
+
+        body.dark-mode .user-list {
+            background: #333;
+            border-color: #555;
+        }
+
+        .user-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid #ddd;
+            font-size: 14px;
+            color: #1a1a1a;
+        }
+
+        body.dark-mode .user-item {
+            color: #f5f5f5;
+            border-bottom-color: #555;
+        }
+
+        .user-item:last-child {
+            border-bottom: none;
+        }
+
+        .empty-state {
+            padding: 40px 20px;
+            text-align: center;
+            color: #999;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 500;
+            margin: 0 0 24px;
+        }
+
+        h3 {
+            font-size: 15px;
+            font-weight: 500;
+            margin: 20px 0 12px;
+        }
+
+        .instructions-box {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            line-height: 1.8;
+        }
+
+        body.dark-mode .instructions-box {
+            background: #333;
+        }
+
+        .instructions-box ol {
+            margin: 16px 0;
+            padding-left: 20px;
+        }
+
+        .instructions-box li {
+            margin-bottom: 12px;
+        }
+
+        .instructions-box a {
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .instructions-box a:hover {
+            text-decoration: underline;
+        }
+
+        body.dark-mode .instructions-box a {
+            color: #66b3ff;
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+            font-size: 13px;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        body.dark-mode .alert-warning {
+            background: #664400;
+            color: #ffeaa7;
+            border-color: #774400;
+        }
+
+        .alert strong {
+            font-weight: 600;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #f5c6cb;
+        }
+
+        body.dark-mode .error {
+            background: #6d1f1f;
+            color: #ff9999;
+            border-color: #8d1f1f;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #c3e6cb;
+        }
+
+        body.dark-mode .success {
+            background: #1f5f1f;
+            color: #99ff99;
+            border-color: #1f7f1f;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .metric-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        body.dark-mode .loading {
+            color: #999;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f0f0f0;
+            border-top: 3px solid #1a1a1a;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        body.dark-mode .spinner {
+            border-color: #333;
+            border-top-color: #f5f5f5;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .stat-positive {
+            color: #28a745;
+        }
+
+        .stat-negative {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Instagram Follow Analyzer</h1>
+            <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab(event, 'tab0')">Instructions</button>
+            <button class="tab" onclick="switchTab(event, 'tab1')">Current Status</button>
+            <button class="tab" onclick="switchTab(event, 'tab2')">Compare Snapshots</button>
+        </div>
+
+        <!-- Instructions Tab -->
+        <div id="tab0" class="tab-content active">
+            <div class="instructions-box">
+                <h3 style="margin-top: 0;">How to export your Instagram data</h3>
+                <ol>
+                    <li><strong>Go to Account Center:</strong> <a href="https://accountscenter.instagram.com/info_and_permissions/dyi/" target="_blank">Click here to open Instagram Account Center</a></li>
+                    <li><strong>Create export:</strong> Look for "Download your information" and click "Create export"</li>
+                    <li><strong>Export to device:</strong> Select "Export to device" (not email)</li>
+                    <li><strong>Select data:</strong> Check ONLY "Followers and following" — uncheck everything else</li>
+                    <li><strong>Date range:</strong> Select "All time"</li>
+                    <li><strong>Format:</strong> Select "JSON"</li>
+                    <li><strong>Media quality:</strong> Select "Medium"</li>
+                    <li><strong>Download & extract:</strong> Download the file and unzip the folder on your computer</li>
+                    <li><strong>Upload here:</strong> Go to the "Current Status" tab and upload the extracted folder</li>
+                </ol>
+                <div class="alert alert-warning">
+                    <strong>Note:</strong> Instagram may take a few minutes to prepare your export. If you don't see the download button immediately, check back in a few minutes.
+                </div>
+            </div>
+        </div>
+
+        <!-- Current Status Tab -->
+        <div id="tab1" class="tab-content">
+            <h2>Upload your data</h2>
+            <div class="upload-box" onclick="document.getElementById('fileInput1').click()">
+                <div class="upload-icon">📁</div>
+                <p class="main-text">Click to upload your Instagram data folder</p>
+                <p class="sub-text">or drag and drop</p>
+                <input type="file" id="fileInput1" webkitdirectory directory multiple onchange="handleUpload(event, 'current')">
+            </div>
+            <div id="currentStatus" class="empty-state">
+                <p>Upload your Instagram data to get started</p>
+            </div>
+            <div id="currentError"></div>
+            <div id="currentLoading" class="loading">
+                <span class="spinner"></span> Processing your data...
+            </div>
+
+            <div id="currentResults" style="display: none;">
+                <h3 style="margin-top: 24px;">Your stats</h3>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Followers</div>
+                        <div class="metric-value" id="totalFollowers">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Following</div>
+                        <div class="metric-value" id="totalFollowing">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Don't follow back</div>
+                        <div class="metric-value" id="notFollowingBack">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">You don't follow</div>
+                        <div class="metric-value" id="dontFollowBack">0</div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <h3>Not following you back</h3>
+                        <div class="user-list" id="notFollowingBackList"></div>
+                    </div>
+                    <div>
+                        <h3>You don't follow back</h3>
+                        <div class="user-list" id="dontFollowBackList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Compare Snapshots Tab -->
+        <div id="tab2" class="tab-content">
+            <h2>Compare snapshots</h2>
+            <h3>Choose two snapshots to compare</h3>
+            <div class="grid-2" style="margin-bottom: 24px;">
+                <div>
+                    <label style="display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px;">Older snapshot</label>
+                    <div class="upload-box" onclick="document.getElementById('fileInput2').click()">
+                        <div class="upload-icon">📁</div>
+                        <p class="main-text">Upload older file</p>
+                        <input type="file" id="fileInput2" webkitdirectory directory multiple onchange="handleUpload(event, 'old')">
+                    </div>
+                </div>
+                <div>
+                    <label style="display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px;">Newer snapshot</label>
+                    <div class="upload-box" onclick="document.getElementById('fileInput3').click()">
+                        <div class="upload-icon">📁</div>
+                        <p class="main-text">Upload newer file</p>
+                        <input type="file" id="fileInput3" webkitdirectory directory multiple onchange="handleUpload(event, 'new')">
+                    </div>
+                </div>
+            </div>
+
+            <div id="compareStatus" class="empty-state">
+                <p>Upload both snapshots to compare changes</p>
+            </div>
+            <div id="compareError"></div>
+            <div id="compareLoading" class="loading">
+                <span class="spinner"></span> Processing your data...
+            </div>
+
+            <div id="compareResults" style="display: none;">
+                <h3>Changes over time</h3>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">New followers</div>
+                        <div class="metric-value stat-positive" id="newFollowers">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Lost followers</div>
+                        <div class="metric-value stat-negative" id="lostFollowers">0</div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <h3>New followers</h3>
+                        <div class="user-list" id="newFollowersList"></div>
+                    </div>
+                    <div>
+                        <h3>Lost followers</h3>
+                        <div class="user-list" id="lostFollowersList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let uploadedData = {
+            current: null,
+            old: null,
+            new: null
+        };
+
+        function switchTab(e, tabId) {
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.tab-content');
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+            e.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        // Load dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+
+        async function handleUpload(event, type) {
+            const files = Array.from(event.target.files);
+
+            if (files.length === 0) return;
+
+            const loadingId = type === 'current' ? 'currentLoading' : 'compareLoading';
+            const errorId = type === 'current' ? 'currentError' : 'compareError';
+
+            document.getElementById(loadingId).classList.add('active');
+            document.getElementById(errorId).innerHTML = '';
+
+            try {
+                const data = await parseInstagramData(files);
+                uploadedData[type] = data;
+
+                if (type === 'current') {
+                    displayCurrentStatus(data);
+                } else {
+                    if (uploadedData.old && uploadedData.new) {
+                        displayComparison(uploadedData.old, uploadedData.new);
+                    } else {
+                        document.getElementById(loadingId).classList.remove('active');
+                    }
+                }
+            } catch (err) {
+                document.getElementById(errorId).innerHTML = `<div class="error"><strong>Error:</strong> ${err.message}</div>`;
+            } finally {
+                document.getElementById(loadingId).classList.remove('active');
+            }
+        }
+
+        async function parseInstagramData(files) {
+            let followersData = null;
+            let followingData = null;
+
+            for (const file of files) {
+                if (file.name === 'followers_1.json') {
+                    const text = await file.text();
+                    followersData = JSON.parse(text);
+                } else if (file.name === 'following.json') {
+                    const text = await file.text();
+                    followingData = JSON.parse(text);
+                }
+            }
+
+            if (!followersData || !followingData) {
+                throw new Error('Could not find followers_1.json or following.json. Make sure you uploaded the extracted Instagram data folder.');
+            }
+
+            const extractUsername = (item) => {
+                if (item.string_list_data && item.string_list_data[0]) {
+                    return item.string_list_data[0].value;
+                }
+                if (item.value) {
+                    return item.value;
+                }
+                return null;
+            };
+
+            const followers = new Set(
+                followersData
+                    .map(extractUsername)
+                    .filter(Boolean)
+                    .map(v => v.toLowerCase())
+            );
+            const following = new Set(
+                followingData
+                    .map(extractUsername)
+                    .filter(Boolean)
+                    .map(v => v.toLowerCase())
+            );
+
+            return {
+                followers: Array.from(followers).sort(),
+                following: Array.from(following).sort(),
+                followerSet: followers,
+                followingSet: following
+            };
+        }
+
+        function displayCurrentStatus(data) {
+            const notFollowingBack = data.following.filter(u => !data.followerSet.has(u));
+            const dontFollowBack = data.followers.filter(u => !data.followingSet.has(u));
+
+            document.getElementById('totalFollowers').textContent = data.followers.length.toLocaleString();
+            document.getElementById('totalFollowing').textContent = data.following.length.toLocaleString();
+            document.getElementById('notFollowingBack').textContent = notFollowingBack.length.toLocaleString();
+            document.getElementById('dontFollowBack').textContent = dontFollowBack.length.toLocaleString();
+
+            document.getElementById('notFollowingBackList').innerHTML = notFollowingBack
+                .map(u => `<div class="user-item">@${u}</div>`)
+                .join('') || '<div class="empty-state">No users found</div>';
+
+            document.getElementById('dontFollowBackList').innerHTML = dontFollowBack
+                .map(u => `<div class="user-item">@${u}</div>`)
+                .join('') || '<div class="empty-state">No users found</div>';
+
+            document.getElementById('currentStatus').style.display = 'none';
+            document.getElementById('currentResults').style.display = 'block';
+        }
+
+        function displayComparison(oldData, newData) {
+            const newFollowers = newData.followers.filter(u => !oldData.followerSet.has(u));
+            const lostFollowers = oldData.followers.filter(u => !newData.followerSet.has(u));
+
+            document.getElementById('newFollowers').textContent = newFollowers.length.toLocaleString();
+            document.getElementById('lostFollowers').textContent = lostFollowers.length.toLocaleString();
+
+            document.getElementById('newFollowersList').innerHTML = newFollowers
+                .map(u => `<div class="user-item">@${u}</div>`)
+                .join('') || '<div class="empty-state">No new followers</div>';
+
+            document.getElementById('lostFollowersList').innerHTML = lostFollowers
+                .map(u => `<div class="user-item">@${u}</div>`)
+                .join('') || '<div class="empty-state">No lost followers</div>';
+
+            document.getElementById('compareStatus').style.display = 'none';
+            document.getElementById('compareResults').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
