@@ -778,14 +778,21 @@
             );
         }
 
-        // Extract username safely
+        // Extract username safely (handles multiple Instagram formats)
         const extractUsername = (item) => {
             if (!item) return null;
 
+            // New format (following.json uses title)
+            if (item.title) {
+                return item.title;
+            }
+
+            // Old format
             if (item.string_list_data && item.string_list_data.length > 0) {
                 return item.string_list_data[0].value;
             }
 
+            // Fallback
             if (item.value) {
                 return item.value;
             }
@@ -803,7 +810,7 @@
             followersArray = followersData.relationships_followers;
         }
 
-        // Normalize following (IMPORTANT — flatten structure)
+        // Normalize following
         let followingArray = [];
 
         if (Array.isArray(followingData)) {
@@ -821,11 +828,10 @@
                 .map(v => v.toLowerCase())
         );
 
-        // Convert following (handle nested structure)
+        // Convert following
         const following = new Set(
             followingArray
-                .flatMap(item => item.string_list_data || [])
-                .map(item => item.value)
+                .map(extractUsername)
                 .filter(Boolean)
                 .map(v => v.toLowerCase())
         );
