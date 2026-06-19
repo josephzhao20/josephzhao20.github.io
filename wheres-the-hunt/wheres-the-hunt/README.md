@@ -120,15 +120,47 @@ cp .env.example .env.local
 ```
 
 Fill in:
-- `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` — Project
-  Settings → API.
-- `SUPABASE_SERVICE_ROLE_KEY` — same page. **Server-only, never expose this.**
-  It powers the admin actions (approve, suspend, feature, delete) by
-  deliberately bypassing RLS after the route handler has independently
-  verified the caller is an admin.
-- `NOMINATIM_CONTACT_EMAIL` — used in the User-Agent header sent to
-  OpenStreetMap's free geocoder, per their
+
+- **`NEXT_PUBLIC_SUPABASE_URL`** — in the Supabase dashboard, open your
+  project, then **Settings → API Keys**. Your project URL
+  (`https://<project-ref>.supabase.co`) is shown at the top of that page (and
+  also in the **Connect** button at the top of the project, if you'd rather
+  grab it from there).
+
+- **`NEXT_PUBLIC_SUPABASE_ANON_KEY`** and **`SUPABASE_SERVICE_ROLE_KEY`** —
+  same **Settings → API Keys** page. Supabase is in the middle of replacing
+  the old JWT `anon` / `service_role` keys with new `publishable` /
+  `secret` keys, so what you see depends on when your project was created:
+
+  - **If you see an "API Keys" tab with `Publishable key` and `Secret keys`
+    sections** (new projects, and any project that's opted in): copy the
+    **Publishable key** (`sb_publishable_...`) into
+    `NEXT_PUBLIC_SUPABASE_ANON_KEY`, and a **Secret key**
+    (`sb_secret_...`) into `SUPABASE_SERVICE_ROLE_KEY`. If no secret key
+    exists yet, click **Create new API Keys** first. These are drop-in
+    replacements — the code in this repo doesn't care which key style you
+    use, only that the publishable one is safe for the browser and the
+    secret one never is.
+  - **If you see a "Legacy API Keys" tab instead**: copy the **`anon`
+    `public`** key into `NEXT_PUBLIC_SUPABASE_ANON_KEY` and the
+    **`service_role`** key into `SUPABASE_SERVICE_ROLE_KEY`. These still
+    work today, but Supabase has said legacy keys will eventually be
+    removed — if your project offers the option to migrate to the new key
+    system, it's worth doing sooner rather than later.
+
+  Either way: **`SUPABASE_SERVICE_ROLE_KEY` (or its `sb_secret_...`
+  equivalent) is server-only — never put it behind `NEXT_PUBLIC_`, never
+  commit it, never send it to the browser.** It powers the admin actions
+  (approve, suspend, feature, delete) by deliberately bypassing RLS, but
+  only after the route handler has independently verified the caller is an
+  admin (see `lib/auth/roles.ts`).
+
+- **`NOMINATIM_CONTACT_EMAIL`** — this one isn't from Supabase at all. It's
+  just your own email address, sent in the `User-Agent` header on requests
+  to OpenStreetMap's free Nominatim geocoder, per their
   [usage policy](https://operations.osmfoundation.org/policies/nominatim/).
+  Any address you'd be okay with OSM contacting if your app sends them
+  unusually heavy traffic is fine.
 
 ### 4.3 Install and run
 
