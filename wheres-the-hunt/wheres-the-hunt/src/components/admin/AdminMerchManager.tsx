@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
+import { compressImage } from '@/lib/compressImage';
 import { Button } from '@/components/ui/Button';
 import type { MerchItem, MerchCategory } from '@/lib/types/database.types';
 
@@ -81,11 +82,11 @@ export function AdminMerchManager({ items: initial }: { items: MerchItem[] }) {
       let image_url = existingImageUrl ?? null;
 
       if (imageFile) {
-        const ext = imageFile.name.split('.').pop() ?? 'jpg';
-        const path = `${crypto.randomUUID()}.${ext}`;
+        const compressed = await compressImage(imageFile);
+        const path = `${crypto.randomUUID()}.jpg`;
         const { error: uploadError } = await supabase.storage
           .from('merch')
-          .upload(path, imageFile, { cacheControl: '3600', upsert: false });
+          .upload(path, compressed, { cacheControl: '3600', upsert: false });
         if (uploadError) throw new Error(uploadError.message);
         const { data: pub } = supabase.storage.from('merch').getPublicUrl(path);
         image_url = pub.publicUrl;
