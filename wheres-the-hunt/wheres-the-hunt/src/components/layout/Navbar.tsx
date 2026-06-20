@@ -22,9 +22,9 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
           {profile && profile.upload_approved && (
             <Link href="/upload" className="text-sm font-bold text-ink-soft hover:text-ink">Share Your Story</Link>
           )}
-          <Link href="/map" className="text-sm font-bold text-ink-soft hover:text-ink">Stories</Link>
+          <Link href="/map" className="text-sm font-bold text-ink-soft hover:text-ink">Explore</Link>
           <Link href="/merch" className="text-sm font-bold text-ink-soft hover:text-ink">The Lodge Shop</Link>
-          <Link href="/about" className="text-sm font-bold text-ink-soft hover:text-ink">Our Story</Link>
+          <Link href="/about" className="text-sm font-bold text-ink-soft hover:text-ink">Our Mission</Link>
           {profile?.is_admin && (
             <Link href="/admin" className="text-sm font-bold text-ink-soft hover:text-ink">Admin</Link>
           )}
@@ -65,9 +65,9 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
             {profile && profile.upload_approved && (
               <Link href="/upload" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Share Your Story</Link>
             )}
-            <Link href="/map" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Stories</Link>
+            <Link href="/map" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Explore</Link>
             <Link href="/merch" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>The Lodge Shop</Link>
-            <Link href="/about" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Our Story</Link>
+            <Link href="/about" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Our Mission</Link>
             {profile?.is_admin && (
               <Link href="/admin" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Admin</Link>
             )}

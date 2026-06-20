@@ -1,6 +1,6 @@
 import { LinkButton } from '@/components/ui/Button';
 
-export const metadata = { title: "Our Story — Winning With The Hunt" };
+export const metadata = { title: "Our Mission — Winning With The Hunt" };
 
 export default function AboutPage() {
   return (
@@ -11,7 +11,7 @@ export default function AboutPage() {
         <p className="mb-3 text-sm font-bold uppercase tracking-widest text-ink-soft">
           Brought to you by More 2 the Hunt
         </p>
-        <h1 className="font-display text-4xl font-bold text-ink sm:text-5xl">Our Story</h1>
+        <h1 className="font-display text-4xl font-bold text-ink sm:text-5xl">Our Mission</h1>
         <p className="mt-4 text-lg leading-relaxed text-ink-soft">
           Winning With The Hunt is where hunters, anglers, and outdoor families
           keep the stories worth remembering. Not just where it happened — what
