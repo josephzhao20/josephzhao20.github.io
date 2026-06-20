@@ -7,6 +7,7 @@ import { hasLiked } from '@/lib/data/users';
 import { locationLabel, toMapPin } from '@/lib/types';
 import { PhotoGallery } from '@/components/adventure/PhotoGallery';
 import { LikeButton } from '@/components/adventure/LikeButton';
+import { AdventureActions } from '@/components/adventure/AdventureActions';
 import { Tag } from '@/components/ui/Tag';
 import { WorldMap } from '@/components/map/WorldMap';
 import { formatDate } from '@/lib/utils';
@@ -59,6 +60,10 @@ export default async function AdventureDetailPage({ params }: Params) {
         </Tag>
         {adventure.is_featured && <Tag tone="sunset">Featured</Tag>}
       </div>
+
+      {(profile?.id === adventure.user_id || profile?.is_admin) && (
+        <AdventureActions adventure={adventure} />
+      )}
 
       {adventure.description && (
         <p className="mt-6 whitespace-pre-line text-base leading-relaxed text-ink">
