@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { extractFirstGps, extractFirstDate } from '@/lib/exif/extractGps';
+import { compressImage } from '@/lib/compressImage';
 import { PrivacyModeSelector } from '@/components/adventure/PrivacyModeSelector';
 import { LocationPicker } from '@/components/map/LocationPicker';
 import { Button } from '@/components/ui/Button';
@@ -126,12 +127,13 @@ export function UploadForm({ userId }: { userId: string }) {
       for (let i = 0; i < photos.length; i++) {
         setProgress(`Uploading photo ${i + 1} of ${photos.length}…`);
         const photo = photos[i];
-        const ext = photo.file.name.split('.').pop() || 'jpg';
+        const compressed = await compressImage(photo.file);
+        const ext = 'jpg';
         const path = `${userId}/${crypto.randomUUID()}/${i}.${ext}`;
 
         const { error: uploadError } = await supabase.storage
           .from('adventure-photos')
-          .upload(path, photo.file, { cacheControl: '3600', upsert: false });
+          .upload(path, compressed, { cacheControl: '3600', upsert: false });
 
         if (uploadError) throw new Error(`Couldn't upload ${photo.file.name}: ${uploadError.message}`);
 
