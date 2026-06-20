@@ -2,7 +2,7 @@ import { WorldMap } from '@/components/map/WorldMap';
 import { getMapPins, getGlobalHeatmap } from '@/lib/data/adventures';
 
 export const metadata = {
-  title: "Explore the map — Winning With The Hunt",
+  title: "Stories — Winning With The Hunt",
 };
 
 export default async function MapPage() {

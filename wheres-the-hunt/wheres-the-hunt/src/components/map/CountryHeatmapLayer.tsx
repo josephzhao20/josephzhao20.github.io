@@ -68,7 +68,7 @@ export function CountryHeatmapLayer({ counts, baseColor = '#2E3D33' }: CountryHe
     const name = props.ADMIN || props.name || 'Unknown';
     const count = (code && counts[code.toUpperCase()]) || 0;
     if (count > 0) {
-      layer.bindTooltip(`${name}: ${count} adventure${count === 1 ? '' : 's'}`, {
+      layer.bindTooltip(`${name}: ${count} stor${count === 1 ? 'y' : 'ies'}`, {
         sticky: true,
       });
     }

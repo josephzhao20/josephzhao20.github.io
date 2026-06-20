@@ -267,7 +267,7 @@ export function UploadForm({ userId }: { userId: string }) {
 
       {/* Location */}
       <section>
-        <h2 className="font-display text-lg font-bold text-ink">3. Confirm the location</h2>
+        <h2 className="font-display text-base font-bold text-ink-soft">3. Where it happened <span className="font-normal text-ink-soft/60">(supporting context)</span></h2>
         <p className="mt-1 text-sm font-semibold text-ink-soft">
           {locationSource === 'exif' && 'Detected from your photo\u2019s GPS data — drag the pin or search to fix it.'}
           {locationSource === 'manual' && 'Using the location you picked.'}
@@ -275,8 +275,8 @@ export function UploadForm({ userId }: { userId: string }) {
         </p>
         <div className="mt-3">
           <LocationPicker
-            latitude={location?.latitude ?? 20}
-            longitude={location?.longitude ?? 0}
+            latitude={location?.latitude ?? 39}
+            longitude={location?.longitude ?? -98}
             onChange={handleManualLocationChange}
           />
         </div>
