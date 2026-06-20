@@ -10,7 +10,7 @@ export function AdventureCard({ adventure }: { adventure: AdventureWithStats }) 
       href={`/adventures/${adventure.id}`}
       className="group flex flex-col overflow-hidden rounded-trail border-2 border-ink bg-white shadow-trail transition-transform hover:-translate-y-1"
     >
-      <div className="relative h-44 w-full overflow-hidden border-b-2 border-ink bg-ridge">
+      <div className="relative h-44 w-full overflow-hidden border-b-2 border-ink bg-stone">
         {adventure.cover_image_url ? (
           <Image
             src={adventure.cover_image_url}
@@ -25,7 +25,7 @@ export function AdventureCard({ adventure }: { adventure: AdventureWithStats }) 
           </div>
         )}
         {adventure.is_featured && (
-          <span className="absolute left-3 top-3 rounded-full border-2 border-ink bg-sunset px-2.5 py-0.5 text-xs font-bold uppercase tracking-wide text-cream">
+          <span className="absolute left-3 top-3 rounded-full border-2 border-ink bg-rust px-2.5 py-0.5 text-xs font-bold uppercase tracking-wide text-cream">
             Featured
           </span>
         )}

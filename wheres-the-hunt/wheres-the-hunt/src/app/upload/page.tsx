@@ -35,10 +35,9 @@ export default async function UploadPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-5 py-12">
-      <h1 className="font-display text-3xl font-bold text-ink">Share an adventure</h1>
+      <h1 className="font-display text-3xl font-bold text-ink">Share your story</h1>
       <p className="mt-2 font-semibold text-ink-soft">
-        Every adventure is a trip, not just a photo — add everything from one outing and pin it
-        once.
+        Every story is a trip worth remembering — add your photos, tell what happened, and pin it once.
       </p>
       <div className="mt-8">
         <UploadForm userId={profile.id} />

@@ -6,7 +6,7 @@ import type { MapPin } from '@/lib/types';
 const WorldMapClient = dynamic(() => import('./WorldMapClient'), {
   ssr: false,
   loading: () => (
-    <div className="flex h-full w-full items-center justify-center bg-ridge/40">
+    <div className="flex h-full w-full items-center justify-center bg-stone/40">
       <p className="font-display font-bold text-ink-soft">Loading map…</p>
     </div>
   ),

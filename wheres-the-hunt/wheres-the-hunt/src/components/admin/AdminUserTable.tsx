@@ -51,7 +51,7 @@ export function AdminUserTable({ users }: { users: UserRow[] }) {
                   <div className="flex flex-wrap gap-1.5">
                     {u.is_admin && <Tag tone="forest">Admin</Tag>}
                     {u.upload_approved && <Tag tone="earth">Uploader</Tag>}
-                    {u.upload_requested && !u.upload_approved && <Tag tone="sunset">Requested</Tag>}
+                    {u.upload_requested && !u.upload_approved && <Tag tone="rust">Requested</Tag>}
                     {u.suspended && <Tag tone="neutral">Suspended</Tag>}
                   </div>
                 </td>

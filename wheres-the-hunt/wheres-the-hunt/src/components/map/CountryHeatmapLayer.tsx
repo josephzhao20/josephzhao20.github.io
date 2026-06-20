@@ -23,7 +23,7 @@ function hexToRgb(hex: string) {
   return [parseInt(m.slice(0, 2), 16), parseInt(m.slice(2, 4), 16), parseInt(m.slice(4, 6), 16)];
 }
 
-export function CountryHeatmapLayer({ counts, baseColor = '#2F5233' }: CountryHeatmapLayerProps) {
+export function CountryHeatmapLayer({ counts, baseColor = '#2E3D33' }: CountryHeatmapLayerProps) {
   const [geojson, setGeojson] = useState<GeoJSON.FeatureCollection | null>(cachedGeoJson);
 
   useEffect(() => {

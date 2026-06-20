@@ -220,10 +220,10 @@ export function UploadForm({ userId }: { userId: string }) {
       </section>
 
       {/* Title / description */}
-      <section className="flex flex-col gap-4">
-        <h2 className="font-display text-lg font-bold text-ink">2. Tell the story</h2>
+      <section className="flex flex-col gap-5">
+        <h2 className="font-display text-xl font-bold text-ink">2. Tell the story</h2>
         <div>
-          <label htmlFor="title" className="mb-1 block text-sm font-bold text-ink">
+          <label htmlFor="title" className="mb-1.5 block text-sm font-bold text-ink">
             Title
           </label>
           <input
@@ -233,21 +233,23 @@ export function UploadForm({ userId }: { userId: string }) {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Three days in the Tetons"
-            className="w-full rounded-trail border-2 border-ink bg-white px-3 py-2 font-semibold focus:outline-none"
+            className="w-full rounded-trail border-2 border-ink bg-white px-4 py-3 text-base font-semibold focus:outline-none"
           />
         </div>
         <div>
-          <label htmlFor="description" className="mb-1 block text-sm font-bold text-ink">
-            Description <span className="font-normal text-ink-soft">(optional)</span>
+          <label htmlFor="description" className="mb-1.5 block text-sm font-bold text-ink">
+            What happened?
           </label>
           <textarea
             id="description"
             maxLength={2000}
-            rows={4}
+            rows={8}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full rounded-trail border-2 border-ink bg-white px-3 py-2 font-semibold focus:outline-none"
+            placeholder="What happened? What made this one worth remembering?"
+            className="w-full rounded-trail border-2 border-ink bg-white px-4 py-3 text-base font-semibold leading-relaxed focus:outline-none"
           />
+          <p className="mt-1 text-xs text-ink-soft">{description.length}/2000</p>
         </div>
         <div>
           <label htmlFor="date_visited" className="mb-1 block text-sm font-bold text-ink">
@@ -303,7 +305,7 @@ export function UploadForm({ userId }: { userId: string }) {
 
       <div className="flex items-center gap-4">
         <Button type="submit" size="lg" disabled={submitting}>
-          {submitting ? progress ?? 'Saving…' : 'Publish adventure'}
+          {submitting ? progress ?? 'Saving…' : 'Publish your story'}
         </Button>
       </div>
     </form>

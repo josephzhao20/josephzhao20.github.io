@@ -7,8 +7,8 @@ html {
 }
 
 body {
-  background-color: #faf3e7;
-  color: #1c1a17;
+  background-color: #f6f1e7;
+  color: #211d17;
 }
 
 /* Leaflet ships its own CSS reset assumptions; this keeps the map container
@@ -22,8 +22,8 @@ body {
 
 .leaflet-popup-content-wrapper {
   border-radius: 14px;
-  border: 2px solid #1c1a17;
-  box-shadow: 4px 4px 0px rgba(28, 26, 23, 0.9);
+  border: 2px solid #211d17;
+  box-shadow: 4px 4px 0px rgba(33, 29, 23, 0.9);
   padding: 0;
 }
 
@@ -33,21 +33,21 @@ body {
 }
 
 .leaflet-popup-tip {
-  border: 2px solid #1c1a17;
-  background: #faf3e7;
+  border: 2px solid #211d17;
+  background: #f6f1e7;
 }
 
 .marker-cluster-custom {
-  background: #2f5233;
-  border: 2.5px solid #1c1a17;
+  background: #2e3d33;
+  border: 2.5px solid #211d17;
   border-radius: 50%;
-  color: #faf3e7;
+  color: #f6f1e7;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-worksans), sans-serif;
   font-weight: 700;
-  box-shadow: 3px 3px 0px rgba(28, 26, 23, 0.9);
+  box-shadow: 3px 3px 0px rgba(33, 29, 23, 0.9);
 }
 
 /* Respect reduced-motion preferences for the few keyframe animations we use. */
@@ -62,7 +62,7 @@ body {
 
 /* Visible focus rings everywhere, styled to match the trail/sticker theme. */
 :focus-visible {
-  outline: 3px solid #e2672a;
+  outline: 3px solid #c9602e;
   outline-offset: 2px;
   border-radius: 4px;
 }

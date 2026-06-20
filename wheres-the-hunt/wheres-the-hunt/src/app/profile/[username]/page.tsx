@@ -36,17 +36,11 @@ export default async function ProfilePage({ params }: Params) {
         <ProfileStats stats={stats} />
       </div>
 
-      <div className="mt-8">
-        <h2 className="mb-3 font-display text-lg font-bold text-ink">Where you&rsquo;ve been</h2>
-        <div className="h-80 w-full overflow-hidden rounded-trail border-2 border-ink shadow-trail">
-          <HeatmapOnlyMap counts={heatmap} baseColor="#9B72CF" />
-        </div>
-      </div>
-
+      {/* Stories grid — leads */}
       <div className="mt-10">
-        <h2 className="mb-4 font-display text-lg font-bold text-ink">Adventures</h2>
+        <h2 className="mb-4 font-display text-lg font-bold text-ink">Stories</h2>
         {adventures.length === 0 ? (
-          <p className="font-semibold text-ink-soft">No adventures posted yet.</p>
+          <p className="font-semibold text-ink-soft">No stories shared yet.</p>
         ) : (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {adventures.map((a) => (
@@ -54,6 +48,14 @@ export default async function ProfilePage({ params }: Params) {
             ))}
           </div>
         )}
+      </div>
+
+      {/* Heatmap — demoted below the grid */}
+      <div className="mt-12">
+        <h2 className="mb-3 font-display text-base font-bold text-ink-soft">Where they&rsquo;ve been</h2>
+        <div className="h-56 w-full overflow-hidden rounded-trail border-2 border-ink shadow-trail">
+          <HeatmapOnlyMap counts={heatmap} baseColor="#9B72CF" />
+        </div>
       </div>
     </div>
   );

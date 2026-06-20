@@ -5,7 +5,7 @@ import { formatDate } from '@/lib/utils';
 export function AdventurePopupCard({ pin }: { pin: MapPin }) {
   return (
     <Link href={`/adventures/${pin.id}`} className="block">
-      <div className="relative h-28 w-full overflow-hidden border-b-2 border-ink bg-ridge">
+      <div className="relative h-28 w-full overflow-hidden border-b-2 border-ink bg-stone">
         {pin.coverImageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element -- Leaflet popups render outside React's portal tree
           <img src={pin.coverImageUrl} alt={pin.title} className="h-full w-full object-cover" />
@@ -13,7 +13,7 @@ export function AdventurePopupCard({ pin }: { pin: MapPin }) {
           <div className="flex h-full items-center justify-center text-2xl">⛰</div>
         )}
         {pin.isFeatured && (
-          <span className="absolute left-2 top-2 rounded-full border border-ink bg-sunset px-2 py-0.5 text-[10px] font-bold uppercase text-cream">
+          <span className="absolute left-2 top-2 rounded-full border border-ink bg-rust px-2 py-0.5 text-[10px] font-bold uppercase text-cream">
             Featured
           </span>
         )}

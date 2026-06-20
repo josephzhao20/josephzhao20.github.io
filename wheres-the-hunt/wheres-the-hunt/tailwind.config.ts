@@ -6,35 +6,35 @@ const config: Config = {
     extend: {
       colors: {
         forest: {
-          DEFAULT: '#2F5233',
-          dark: '#1E3A23',
-          light: '#4D7A52',
+          DEFAULT: '#2E3D33',
+          dark: '#1C2820',
+          light: '#4A5F4F',
         },
         earth: {
-          DEFAULT: '#8A6240',
-          dark: '#5E4128',
-          light: '#B68B5F',
+          DEFAULT: '#7A5C3E',
+          dark: '#54402A',
+          light: '#9C7A54',
         },
-        sunset: {
-          DEFAULT: '#E2672A',
-          dark: '#B84F1C',
-          light: '#F2925E',
+        rust: {
+          DEFAULT: '#C9602E',
+          dark: '#A14B22',
+          light: '#DD8456',
         },
         cream: {
-          DEFAULT: '#FAF3E7',
-          dark: '#F0E5D2',
+          DEFAULT: '#F6F1E7',
+          dark: '#ECE3D0',
         },
-        ink: '#1C1A17',
-        ridge: '#C9BFA8',
+        ink: '#211D17',
+        stone: '#B8AD98',
       },
       fontFamily: {
-        display: ['var(--font-fraunces)', 'serif'],
+        display: ['var(--font-display)', 'serif'],
         body: ['var(--font-worksans)', 'sans-serif'],
         mono: ['var(--font-mono)', 'monospace'],
       },
       boxShadow: {
-        trail: '3px 3px 0px rgba(28, 26, 23, 0.9)',
-        'trail-lg': '6px 6px 0px rgba(28, 26, 23, 0.9)',
+        trail: '3px 3px 0px rgba(33, 29, 23, 0.9)',
+        'trail-lg': '6px 6px 0px rgba(33, 29, 23, 0.9)',
       },
       borderRadius: {
         trail: '14px',

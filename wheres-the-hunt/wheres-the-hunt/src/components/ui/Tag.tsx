@@ -6,13 +6,13 @@ export function Tag({
   className,
 }: {
   children: React.ReactNode;
-  tone?: 'forest' | 'earth' | 'sunset' | 'neutral';
+  tone?: 'forest' | 'earth' | 'rust' | 'neutral';
   className?: string;
 }) {
   const tones: Record<string, string> = {
     forest: 'text-forest border-forest bg-forest/10',
     earth: 'text-earth-dark border-earth bg-earth/10',
-    sunset: 'text-sunset-dark border-sunset bg-sunset/10',
+    rust: 'text-rust-dark border-rust bg-rust/10',
     neutral: 'text-ink-soft border-ink/30 bg-ink/5',
   };
 
