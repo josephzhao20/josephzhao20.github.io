@@ -81,12 +81,12 @@ export function AdminMerchManager({ items: initial }: { items: MerchItem[] }) {
 
       if (imageFile) {
         const ext = imageFile.name.split('.').pop() ?? 'jpg';
-        const path = `merch/${crypto.randomUUID()}.${ext}`;
+        const path = `${crypto.randomUUID()}.${ext}`;
         const { error: uploadError } = await supabase.storage
-          .from('adventure-photos')
+          .from('merch')
           .upload(path, imageFile, { cacheControl: '3600', upsert: false });
         if (uploadError) throw new Error(uploadError.message);
-        const { data: pub } = supabase.storage.from('adventure-photos').getPublicUrl(path);
+        const { data: pub } = supabase.storage.from('merch').getPublicUrl(path);
         image_url = pub.publicUrl;
       }
 
