@@ -8,8 +8,8 @@ const updateSchema = z.object({
   description: z.string().trim().max(1000).nullable().optional(),
   category: z.enum(['book', 'shirt', 'hoodie', 'hat', 'tumbler']).optional(),
   price: z.number().min(0).nullable().optional(),
-  image_url: z.string().url().nullable().optional(),
-  buy_url: z.string().url().nullable().optional(),
+  image_url: z.string().url().nullable().optional().or(z.literal('')).transform(v => v || null),
+  buy_url: z.string().url().nullable().optional().or(z.literal('')).transform(v => v || null),
   in_stock: z.boolean().optional(),
   sort_order: z.number().int().optional(),
 });
