@@ -5,28 +5,28 @@ import { formatDate } from '@/lib/utils';
 export function AdventurePopupCard({ pin }: { pin: MapPin }) {
   return (
     <Link href={`/adventures/${pin.id}`} className="block">
-      <div className="relative h-28 w-full overflow-hidden border-b-2 border-ink bg-stone">
+      <div className="relative h-28 w-full overflow-hidden bg-stone/30">
         {pin.coverImageUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element -- Leaflet popups render outside React's portal tree
+          // eslint-disable-next-line @next/next/no-img-element
           <img src={pin.coverImageUrl} alt={pin.title} className="h-full w-full object-cover" />
         ) : (
-          <div className="flex h-full items-center justify-center text-2xl">⛰</div>
+          <div className="flex h-full items-center justify-center text-2xl text-stone">⛰</div>
         )}
         {pin.isFeatured && (
-          <span className="absolute left-2 top-2 rounded-full border border-ink bg-rust px-2 py-0.5 text-[10px] font-bold uppercase text-cream">
+          <span className="absolute left-2 top-2 rounded-full bg-rust px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-cream">
             Featured
           </span>
         )}
       </div>
-      <div className="p-2.5">
-        <p className="truncate font-display text-sm font-bold text-ink">{pin.title}</p>
+      <div className="p-3">
+        <p className="font-display text-sm font-bold leading-tight text-ink">{pin.title}</p>
         {pin.dateVisited && (
-          <p className="text-xs font-semibold text-ink-soft">{formatDate(pin.dateVisited)}</p>
+          <p className="mt-0.5 text-[11px] font-semibold text-stone">{formatDate(pin.dateVisited)}</p>
         )}
-        <p className="truncate text-xs font-semibold text-ink-soft">{pin.locationLabel}</p>
-        <div className="mt-1.5 flex items-center justify-between text-xs font-bold text-ink-soft">
-          <span>@{pin.username}</span>
-          <span>♥ {pin.likeCount}</span>
+        <p className="mt-0.5 truncate text-[11px] font-semibold text-stone">{pin.locationLabel}</p>
+        <div className="mt-2 flex items-center justify-between border-t border-cream-dark pt-2">
+          <span className="text-[11px] font-bold text-earth">@{pin.username}</span>
+          <span className="text-[11px] font-semibold text-stone">♥ {pin.likeCount}</span>
         </div>
       </div>
     </Link>

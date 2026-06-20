@@ -33,11 +33,17 @@ const config: Config = {
         mono: ['var(--font-mono)', 'monospace'],
       },
       boxShadow: {
+        card: '0 1px 3px rgba(33,29,23,0.07), 0 4px 14px rgba(33,29,23,0.07)',
+        'card-hover': '0 4px 12px rgba(33,29,23,0.12), 0 12px 32px rgba(33,29,23,0.09)',
+        'card-lg': '0 2px 6px rgba(33,29,23,0.08), 0 8px 24px rgba(33,29,23,0.1)',
+        nav: '0 1px 0 rgba(33,29,23,0.12)',
+        // kept for lodge shop page
         trail: '3px 3px 0px rgba(33, 29, 23, 0.9)',
         'trail-lg': '6px 6px 0px rgba(33, 29, 23, 0.9)',
       },
       borderRadius: {
         trail: '14px',
+        card: '10px',
       },
     },
   },

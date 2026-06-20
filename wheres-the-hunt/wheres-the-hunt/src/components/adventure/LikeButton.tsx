@@ -53,8 +53,8 @@ export function LikeButton({
       onClick={toggle}
       aria-pressed={liked}
       className={cn(
-        'inline-flex items-center gap-2 rounded-trail border-2 border-ink px-4 py-2 text-sm font-bold shadow-trail transition-transform hover:-translate-y-0.5 active:translate-y-0 active:shadow-none',
-        liked ? 'bg-rust text-cream' : 'bg-cream text-ink'
+        'inline-flex items-center gap-2 rounded-card border px-4 py-2 text-sm font-semibold shadow-card transition-all hover:shadow-card-hover active:scale-95',
+        liked ? 'border-rust bg-rust text-cream' : 'border-stone/40 bg-white text-ink hover:border-rust hover:text-rust'
       )}
     >
       <span aria-hidden="true">{liked ? '♥' : '♡'}</span>

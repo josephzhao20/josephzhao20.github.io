@@ -9,36 +9,35 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-ink bg-cream">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
-        <Link href="/" className="flex items-center gap-2 font-display text-lg font-bold text-ink">
-          <span className="inline-block h-2.5 w-2.5 rounded-full border-2 border-ink bg-rust" />
+    <header className="sticky top-0 z-50 bg-forest shadow-nav">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
+        <Link href="/" className="font-display text-base font-bold tracking-wide text-cream hover:text-cream/80 transition-colors">
           Winning With The Hunt
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden items-center gap-5 sm:flex">
-          <Link href="/" className="text-sm font-bold text-ink-soft hover:text-ink">Home</Link>
+        <div className="hidden items-center gap-6 sm:flex">
+          <Link href="/" className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">Home</Link>
           {profile && profile.upload_approved && (
-            <Link href="/upload" className="text-sm font-bold text-ink-soft hover:text-ink">Share Your Story</Link>
+            <Link href="/upload" className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">Share Your Story</Link>
           )}
-          <Link href="/map" className="text-sm font-bold text-ink-soft hover:text-ink">Explore</Link>
-          <Link href="/merch" className="text-sm font-bold text-ink-soft hover:text-ink">The Lodge Shop</Link>
-          <Link href="/about" className="text-sm font-bold text-ink-soft hover:text-ink">Our Mission</Link>
+          <Link href="/map" className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">Explore</Link>
+          <Link href="/merch" className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">The Lodge Shop</Link>
+          <Link href="/about" className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">Our Mission</Link>
           {profile?.is_admin && (
-            <Link href="/admin" className="text-sm font-bold text-ink-soft hover:text-ink">Admin</Link>
+            <Link href="/admin" className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">Admin</Link>
           )}
           {profile ? (
-            <div className="flex items-center gap-4">
-              <Link href={`/profile/${profile.username}`} className="text-sm font-bold text-ink hover:text-forest">
-                View Profile
+            <div className="flex items-center gap-4 border-l border-cream/20 pl-6">
+              <Link href={`/profile/${profile.username}`} className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">
+                @{profile.username}
               </Link>
               <SignOutButton />
             </div>
           ) : (
-            <div className="flex items-center gap-3">
-              <Link href="/login" className="text-sm font-bold text-ink-soft hover:text-ink">Log in</Link>
-              <Link href="/signup" className="rounded-trail border-2 border-ink bg-forest px-4 py-1.5 text-sm font-bold text-cream shadow-trail transition-transform hover:-translate-y-0.5">
+            <div className="flex items-center gap-3 border-l border-cream/20 pl-6">
+              <Link href="/login" className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">Log in</Link>
+              <Link href="/signup" className="rounded-card bg-rust px-4 py-1.5 text-sm font-bold text-cream transition-all hover:bg-rust-dark">
                 Sign up
               </Link>
             </div>
@@ -51,37 +50,37 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
           onClick={() => setOpen((o) => !o)}
           aria-label={open ? 'Close menu' : 'Open menu'}
         >
-          <span className={`block h-0.5 w-6 bg-ink transition-all duration-200 ${open ? 'translate-y-2 rotate-45' : ''}`} />
-          <span className={`block h-0.5 w-6 bg-ink transition-all duration-200 ${open ? 'opacity-0' : ''}`} />
-          <span className={`block h-0.5 w-6 bg-ink transition-all duration-200 ${open ? '-translate-y-2 -rotate-45' : ''}`} />
+          <span className={`block h-0.5 w-6 bg-cream transition-all duration-200 ${open ? 'translate-y-2 rotate-45' : ''}`} />
+          <span className={`block h-0.5 w-6 bg-cream transition-all duration-200 ${open ? 'opacity-0' : ''}`} />
+          <span className={`block h-0.5 w-6 bg-cream transition-all duration-200 ${open ? '-translate-y-2 -rotate-45' : ''}`} />
         </button>
       </nav>
 
-      {/* Mobile dropdown menu */}
+      {/* Mobile dropdown */}
       {open && (
-        <div className="border-t-2 border-ink bg-cream px-5 py-4 sm:hidden">
-          <div className="flex flex-col gap-4">
-            <Link href="/" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Home</Link>
+        <div className="border-t border-cream/10 bg-forest-dark px-5 py-5 sm:hidden">
+          <div className="flex flex-col gap-5">
+            <Link href="/" className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>Home</Link>
             {profile && profile.upload_approved && (
-              <Link href="/upload" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Share Your Story</Link>
+              <Link href="/upload" className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>Share Your Story</Link>
             )}
-            <Link href="/map" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Explore</Link>
-            <Link href="/merch" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>The Lodge Shop</Link>
-            <Link href="/about" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Our Mission</Link>
+            <Link href="/map" className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>Explore</Link>
+            <Link href="/merch" className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>The Lodge Shop</Link>
+            <Link href="/about" className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>Our Mission</Link>
             {profile?.is_admin && (
-              <Link href="/admin" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Admin</Link>
+              <Link href="/admin" className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>Admin</Link>
             )}
             {profile ? (
               <>
-                <Link href={`/profile/${profile.username}`} className="text-base font-bold text-ink" onClick={() => setOpen(false)}>
-                  View Profile
+                <Link href={`/profile/${profile.username}`} className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>
+                  @{profile.username}
                 </Link>
                 <SignOutButton />
               </>
             ) : (
               <>
-                <Link href="/login" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Log in</Link>
-                <Link href="/signup" className="inline-flex w-full items-center justify-center rounded-trail border-2 border-ink bg-forest py-2.5 text-base font-bold text-cream shadow-trail" onClick={() => setOpen(false)}>
+                <Link href="/login" className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>Log in</Link>
+                <Link href="/signup" className="inline-flex w-full items-center justify-center rounded-card bg-rust py-2.5 text-base font-bold text-cream" onClick={() => setOpen(false)}>
                   Sign up
                 </Link>
               </>
