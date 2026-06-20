@@ -32,7 +32,7 @@ export default async function HomePage() {
             <p className="mt-3 text-base font-semibold text-ink-soft">
               {myAdventures.length === 0
                 ? "You haven't pinned any adventures yet. Ready to share your first?"
-                : `You've pinned ${myAdventures.length} adventure${myAdventures.length === 1 ? '' : 's'} so far. Keep exploring.`}
+                : `you've posted ${myAdventures.length} adventure${myAdventures.length === 1 ? '' : 's'} so far. Keep exploring.`}
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <LinkButton href="/upload" size="lg" className="w-full justify-center sm:w-auto">Share an adventure</LinkButton>
@@ -77,7 +77,7 @@ export default async function HomePage() {
                   The hunt so far
                 </h2>
                 <p className="mt-1 text-sm font-semibold text-ink-soft">
-                  {pins.length.toLocaleString()} adventures pinned by the community
+                  {pins.length.toLocaleString()} adventures posted by the community
                 </p>
               </div>
               <LinkButton href="/map" variant="ghost" size="sm" className="hidden sm:inline-flex">
@@ -120,7 +120,7 @@ export default async function HomePage() {
                 The hunt so far
               </h2>
               <p className="mt-1 text-sm font-semibold text-ink-soft">
-                {pins.length.toLocaleString()} adventures pinned by the community
+                {pins.length.toLocaleString()} adventures posted by the community
               </p>
             </div>
             <LinkButton href="/map" variant="ghost" size="sm" className="hidden sm:inline-flex">
