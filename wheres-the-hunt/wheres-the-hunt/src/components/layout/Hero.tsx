@@ -13,8 +13,8 @@ export function Hero() {
         </p>
 
         <h1 className="max-w-3xl font-display text-4xl font-bold leading-[1.05] text-ink sm:text-7xl">
-          Where&rsquo;s{' '}
-          <span className="italic text-forest">The Hunt?</span>
+          Winning{' '}
+          <span className="italic text-forest">With The Hunt</span>
         </h1>
 
         <p className="mt-5 max-w-xl text-base font-semibold leading-relaxed text-ink-soft sm:text-lg">
