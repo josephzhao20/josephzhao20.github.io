@@ -95,21 +95,19 @@ export default async function HomePage() {
         {/* Welcome back hero */}
         <section className="bg-forest py-16">
           <div className="mx-auto max-w-6xl px-5">
-            <p className="mb-2 text-xs font-bold uppercase tracking-[3px] text-cream/40">Welcome back</p>
+            <p className="mb-2 text-xs font-bold uppercase tracking-[3px] text-cream/60">Welcome back</p>
             <h1 className="font-display text-4xl font-bold text-cream sm:text-5xl">
               Hey, <span className="italic text-rust-light">@{profile.username}</span>
             </h1>
-            <p className="mt-3 text-sm font-semibold text-cream/50">
+            <p className="mt-3 text-sm font-semibold text-cream/70">
               {myAdventures.length === 0
                 ? "You haven't shared any stories yet. Ready to tell your first?"
                 : `You've shared ${myAdventures.length} stor${myAdventures.length === 1 ? 'y' : 'ies'} so far. Keep going.`}
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <LinkButton href="/upload" size="lg" variant="secondary" className="w-full justify-center sm:w-auto">Share your story</LinkButton>
-              <LinkButton href="/map" size="lg" className="w-full justify-center border border-cream/20 bg-cream/10 text-cream hover:bg-cream/20 sm:w-auto">Read the stories</LinkButton>
-              <LinkButton href={`/profile/${profile.username}`} size="lg" className="w-full justify-center border border-cream/20 bg-cream/10 text-cream hover:bg-cream/20 sm:w-auto">
-                My profile
-              </LinkButton>
+              <a href="/map" className="inline-flex w-full items-center justify-center rounded-card border-2 border-cream/60 px-7 py-3 text-base font-semibold text-cream transition-all hover:border-cream hover:bg-cream/10 sm:w-auto">Read the stories</a>
+              <a href={`/profile/${profile.username}`} className="inline-flex w-full items-center justify-center rounded-card border-2 border-cream/60 px-7 py-3 text-base font-semibold text-cream transition-all hover:border-cream hover:bg-cream/10 sm:w-auto">My profile</a>
             </div>
           </div>
         </section>

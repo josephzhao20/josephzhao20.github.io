@@ -9,7 +9,7 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-forest shadow-nav">
+    <header className="sticky top-0 z-50 bg-forest-dark shadow-nav">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
         <Link href="/" className="font-display text-base font-bold tracking-wide text-cream hover:text-cream/80 transition-colors">
           Winning With The Hunt

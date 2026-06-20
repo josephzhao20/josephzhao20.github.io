@@ -17,11 +17,11 @@ export function Hero() {
           With The Hunt
         </h1>
 
-        <p className="mt-5 text-base font-semibold text-cream/60 sm:text-lg">
+        <p className="mt-5 text-base font-semibold text-cream/80 sm:text-lg">
           Every adventure tells a story.
         </p>
 
-        <p className="mt-3 max-w-xl text-sm leading-relaxed text-cream/50 sm:text-base">
+        <p className="mt-3 max-w-xl text-sm leading-relaxed text-cream/65 sm:text-base">
           A place to keep the stories worth telling — the hunts, the catches,
           the trips that meant something. Where it happened comes along for
           the ride, exactly or loosely, your call.
@@ -31,14 +31,17 @@ export function Hero() {
           <LinkButton href="/map" size="lg" variant="secondary" className="w-full justify-center sm:w-auto">
             Read the stories
           </LinkButton>
-          <LinkButton href="/signup" size="lg" className="w-full justify-center border border-cream/20 bg-cream/10 text-cream hover:bg-cream/20 sm:w-auto">
+          <Link
+            href="/signup"
+            className="inline-flex w-full items-center justify-center rounded-card border-2 border-cream/60 px-7 py-3 text-base font-semibold text-cream transition-all hover:border-cream hover:bg-cream/10 sm:w-auto"
+          >
             Share your story
-          </LinkButton>
+          </Link>
         </div>
 
-        <p className="mt-6 text-sm text-cream/40">
+        <p className="mt-6 text-sm text-cream/50">
           Already part of the hunt?{' '}
-          <Link href="/login" className="font-semibold text-cream/70 underline hover:text-cream transition-colors">
+          <Link href="/login" className="font-semibold text-cream/80 underline hover:text-cream transition-colors">
             Log in
           </Link>
         </p>
