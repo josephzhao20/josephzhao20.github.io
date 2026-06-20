@@ -36,9 +36,11 @@ function FitToPins({ pins }: { pins: MapPin[] }) {
 export default function WorldMapClient({
   pins,
   heatmapCounts,
-  initialCenter = [20, 0],
-  initialZoom = 2,
+  initialCenter,
+  initialZoom,
 }: WorldMapClientProps) {
+  const center: [number, number] = initialCenter ?? [39, -98];
+  const zoom = initialZoom ?? 4;
   const [showHeatmap, setShowHeatmap] = useState(false);
 
   return (
@@ -53,8 +55,8 @@ export default function WorldMapClient({
       )}
 
       <MapContainer
-        center={initialCenter}
-        zoom={initialZoom}
+        center={center}
+        zoom={zoom}
         minZoom={2}
         worldCopyJump
         className="h-full w-full"
@@ -85,7 +87,7 @@ export default function WorldMapClient({
           ))}
         </MarkerClusterGroup>
 
-        <FitToPins pins={pins} />
+        {initialCenter && <FitToPins pins={pins} />}
       </MapContainer>
     </div>
   );
