@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { MapPin } from '@/lib/types';
+import { formatDate } from '@/lib/utils';
 
 export function AdventurePopupCard({ pin }: { pin: MapPin }) {
   return (
@@ -19,6 +20,9 @@ export function AdventurePopupCard({ pin }: { pin: MapPin }) {
       </div>
       <div className="p-2.5">
         <p className="truncate font-display text-sm font-bold text-ink">{pin.title}</p>
+        {pin.dateVisited && (
+          <p className="text-xs font-semibold text-ink-soft">{formatDate(pin.dateVisited)}</p>
+        )}
         <p className="truncate text-xs font-semibold text-ink-soft">{pin.locationLabel}</p>
         <div className="mt-1.5 flex items-center justify-between text-xs font-bold text-ink-soft">
           <span>@{pin.username}</span>
