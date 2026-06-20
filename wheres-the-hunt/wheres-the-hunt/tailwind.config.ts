@@ -6,9 +6,9 @@ const config: Config = {
     extend: {
       colors: {
         forest: {
-          DEFAULT: '#2E3D33',
-          dark: '#1C2820',
-          light: '#4A5F4F',
+          DEFAULT: '#3D5445',
+          dark: '#2A3D32',
+          light: '#5A7060',
         },
         earth: {
           DEFAULT: '#7A5C3E',

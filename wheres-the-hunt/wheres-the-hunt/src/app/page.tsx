@@ -106,8 +106,8 @@ export default async function HomePage() {
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <LinkButton href="/upload" size="lg" variant="secondary" className="w-full justify-center sm:w-auto">Share your story</LinkButton>
-              <a href="/map" className="inline-flex w-full items-center justify-center rounded-card border-2 border-cream/60 px-7 py-3 text-base font-semibold text-cream transition-all hover:border-cream hover:bg-cream/10 sm:w-auto">Read the stories</a>
-              <a href={`/profile/${profile.username}`} className="inline-flex w-full items-center justify-center rounded-card border-2 border-cream/60 px-7 py-3 text-base font-semibold text-cream transition-all hover:border-cream hover:bg-cream/10 sm:w-auto">My profile</a>
+              <a href="/map" className="inline-flex w-full items-center justify-center rounded-card bg-cream px-7 py-3 text-base font-semibold text-forest transition-all hover:bg-cream-dark sm:w-auto">Read the stories</a>
+              <a href={`/profile/${profile.username}`} className="inline-flex w-full items-center justify-center rounded-card border border-cream/40 px-7 py-3 text-base font-semibold text-cream/80 transition-all hover:border-cream/70 hover:text-cream sm:w-auto">My profile</a>
             </div>
           </div>
         </section>

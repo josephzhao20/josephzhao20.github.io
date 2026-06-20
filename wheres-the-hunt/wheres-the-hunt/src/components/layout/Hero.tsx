@@ -33,7 +33,7 @@ export function Hero() {
           </LinkButton>
           <Link
             href="/signup"
-            className="inline-flex w-full items-center justify-center rounded-card border-2 border-cream/60 px-7 py-3 text-base font-semibold text-cream transition-all hover:border-cream hover:bg-cream/10 sm:w-auto"
+            className="inline-flex w-full items-center justify-center rounded-card bg-cream px-7 py-3 text-base font-semibold text-forest transition-all hover:bg-cream-dark sm:w-auto"
           >
             Share your story
           </Link>
