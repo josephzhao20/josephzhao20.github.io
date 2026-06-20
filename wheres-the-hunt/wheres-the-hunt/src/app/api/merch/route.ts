@@ -11,6 +11,7 @@ const merchSchema = z.object({
   image_url: z.string().url().nullable().optional().or(z.literal('')).transform(v => v || null),
   buy_url: z.string().url().nullable().optional().or(z.literal('')).transform(v => v || null),
   in_stock: z.boolean().optional(),
+  is_featured: z.boolean().optional(),
   sort_order: z.number().int().optional(),
 });
 

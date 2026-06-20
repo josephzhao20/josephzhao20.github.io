@@ -21,6 +21,7 @@ type MerchItemRow = {
   image_url: string | null;
   buy_url: string | null;
   in_stock: boolean;
+  is_featured: boolean;
   sort_order: number;
   created_at: string;
 }

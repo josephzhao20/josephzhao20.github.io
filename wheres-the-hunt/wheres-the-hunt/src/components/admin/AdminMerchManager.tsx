@@ -20,7 +20,7 @@ const CATEGORY_EMOJI: Record<MerchCategory, string> = {
 };
 
 function blankForm() {
-  return { name: '', description: '', category: 'shirt' as MerchCategory, price: '', buy_url: '', in_stock: true, sort_order: '0' };
+  return { name: '', description: '', category: 'shirt' as MerchCategory, price: '', buy_url: '', in_stock: true, is_featured: false, sort_order: '0' };
 }
 
 export function AdminMerchManager({ items: initial }: { items: MerchItem[] }) {
@@ -58,6 +58,7 @@ export function AdminMerchManager({ items: initial }: { items: MerchItem[] }) {
       price: item.price != null ? String(item.price) : '',
       buy_url: item.buy_url ?? '',
       in_stock: item.in_stock,
+      is_featured: item.is_featured,
       sort_order: String(item.sort_order),
     });
     setImageFile(null);
@@ -98,6 +99,7 @@ export function AdminMerchManager({ items: initial }: { items: MerchItem[] }) {
         image_url,
         buy_url: form.buy_url || null,
         in_stock: form.in_stock,
+        is_featured: form.is_featured,
         sort_order: parseInt(form.sort_order) || 0,
       };
 
@@ -197,10 +199,17 @@ export function AdminMerchManager({ items: initial }: { items: MerchItem[] }) {
                 onChange={e => setForm(f => ({ ...f, sort_order: e.target.value }))}
                 className="w-full rounded-trail border-2 border-ink px-3 py-2 font-semibold focus:outline-none" />
             </div>
-            <div className="flex items-center gap-3 pt-5">
-              <input type="checkbox" id="in_stock" checked={form.in_stock}
-                onChange={e => setForm(f => ({ ...f, in_stock: e.target.checked }))} className="h-4 w-4" />
-              <label htmlFor="in_stock" className="text-sm font-bold text-ink">In stock</label>
+            <div className="flex flex-col gap-3 pt-5">
+              <div className="flex items-center gap-3">
+                <input type="checkbox" id="in_stock" checked={form.in_stock}
+                  onChange={e => setForm(f => ({ ...f, in_stock: e.target.checked }))} className="h-4 w-4" />
+                <label htmlFor="in_stock" className="text-sm font-bold text-ink">In stock</label>
+              </div>
+              <div className="flex items-center gap-3">
+                <input type="checkbox" id="is_featured" checked={form.is_featured}
+                  onChange={e => setForm(f => ({ ...f, is_featured: e.target.checked }))} className="h-4 w-4" />
+                <label htmlFor="is_featured" className="text-sm font-bold text-ink">Featured</label>
+              </div>
             </div>
             <div className="sm:col-span-2">
               <label className="mb-1 block text-sm font-bold text-ink">Photo</label>
