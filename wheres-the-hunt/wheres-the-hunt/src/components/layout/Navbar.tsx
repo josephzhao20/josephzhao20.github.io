@@ -18,10 +18,11 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
 
         {/* Desktop nav */}
         <div className="hidden items-center gap-5 sm:flex">
-          <Link href="/map" className="text-sm font-bold text-ink-soft hover:text-ink">Map</Link>
-          <Link href="/merch" className="text-sm font-bold text-ink-soft hover:text-ink">Merch</Link>
+          <Link href="/" className="text-sm font-bold text-ink-soft hover:text-ink">Home</Link>
+          <Link href="/map" className="text-sm font-bold text-ink-soft hover:text-ink">Interactive Map</Link>
+          <Link href="/merch" className="text-sm font-bold text-ink-soft hover:text-ink">The Lodge Shop</Link>
           {profile && profile.upload_approved && (
-            <Link href="/upload" className="text-sm font-bold text-ink-soft hover:text-ink">Upload</Link>
+            <Link href="/upload" className="text-sm font-bold text-ink-soft hover:text-ink">Add New Adventure</Link>
           )}
           {profile?.is_admin && (
             <Link href="/admin" className="text-sm font-bold text-ink-soft hover:text-ink">Admin</Link>
@@ -29,7 +30,7 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
           {profile ? (
             <div className="flex items-center gap-4">
               <Link href={`/profile/${profile.username}`} className="text-sm font-bold text-ink hover:text-forest">
-                @{profile.username}
+                View Profile
               </Link>
               <SignOutButton />
             </div>
@@ -59,10 +60,11 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
       {open && (
         <div className="border-t-2 border-ink bg-cream px-5 py-4 sm:hidden">
           <div className="flex flex-col gap-4">
-            <Link href="/map" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Map</Link>
-            <Link href="/merch" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Merch</Link>
+            <Link href="/" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Home</Link>
+            <Link href="/map" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Interactive Map</Link>
+            <Link href="/merch" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>The Lodge Shop</Link>
             {profile && profile.upload_approved && (
-              <Link href="/upload" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Upload</Link>
+              <Link href="/upload" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Add New Adventure</Link>
             )}
             {profile?.is_admin && (
               <Link href="/admin" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Admin</Link>
@@ -70,7 +72,7 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
             {profile ? (
               <>
                 <Link href={`/profile/${profile.username}`} className="text-base font-bold text-ink" onClick={() => setOpen(false)}>
-                  @{profile.username}
+                  View Profile
                 </Link>
                 <SignOutButton />
               </>
