@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation';
 import { getCurrentProfile } from '@/lib/auth/roles';
 import { UploadForm } from '@/components/upload/UploadForm';
-import { RequestUploadButton } from '@/components/upload/RequestUploadButton';
 
 export const metadata = { title: "Share an adventure — Winning With The Hunt" };
 
@@ -26,14 +25,10 @@ export default async function UploadPage() {
   if (!profile.upload_approved) {
     return (
       <div className="mx-auto max-w-lg px-5 py-16 text-center">
-        <h1 className="font-display text-2xl font-bold text-ink">Almost there</h1>
+        <h1 className="font-display text-2xl font-bold text-ink">Uploads revoked</h1>
         <p className="mt-3 font-semibold text-ink-soft">
-          Posting adventures requires upload permission. Request it below and an admin will
-          review your account.
+          Your upload access has been revoked. Contact an admin if you think this is a mistake.
         </p>
-        <div className="mt-6 flex justify-center">
-          <RequestUploadButton alreadyRequested={profile.upload_requested} />
-        </div>
       </div>
     );
   }

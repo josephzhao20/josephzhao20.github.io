@@ -20,7 +20,7 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
         <div className="hidden items-center gap-5 sm:flex">
           <Link href="/map" className="text-sm font-bold text-ink-soft hover:text-ink">Map</Link>
           <Link href="/merch" className="text-sm font-bold text-ink-soft hover:text-ink">Merch</Link>
-          {profile?.upload_approved && (
+          {profile && profile.upload_approved && (
             <Link href="/upload" className="text-sm font-bold text-ink-soft hover:text-ink">Upload</Link>
           )}
           {profile?.is_admin && (
@@ -61,7 +61,7 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
           <div className="flex flex-col gap-4">
             <Link href="/map" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Map</Link>
             <Link href="/merch" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Merch</Link>
-            {profile?.upload_approved && (
+            {profile && profile.upload_approved && (
               <Link href="/upload" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Upload</Link>
             )}
             {profile?.is_admin && (

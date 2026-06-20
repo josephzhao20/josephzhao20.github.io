@@ -35,11 +35,7 @@ export default async function HomePage() {
                 : `You've pinned ${myAdventures.length} adventure${myAdventures.length === 1 ? '' : 's'} so far. Keep exploring.`}
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              {profile.upload_approved ? (
-                <LinkButton href="/upload" size="lg" className="w-full justify-center sm:w-auto">Share an adventure</LinkButton>
-              ) : (
-                <LinkButton href="/upload" size="lg" className="w-full justify-center sm:w-auto">Request upload access</LinkButton>
-              )}
+              <LinkButton href="/upload" size="lg" className="w-full justify-center sm:w-auto">Share an adventure</LinkButton>
               <LinkButton href="/map" variant="ghost" size="lg" className="w-full justify-center sm:w-auto">Explore the map</LinkButton>
               <LinkButton href={`/profile/${profile.username}`} variant="ghost" size="lg" className="w-full justify-center sm:w-auto">
                 My profile
