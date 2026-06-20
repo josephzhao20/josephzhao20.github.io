@@ -19,6 +19,7 @@ const createAdventureSchema = z.object({
   country: z.string().max(120).nullable().optional(),
   countryCode: z.string().max(4).nullable().optional(),
   region: z.string().max(120).nullable().optional(),
+  dateVisited: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).nullable().optional(),
   photos: z.array(photoSchema).min(1, 'At least one photo is required.').max(30),
 });
 
@@ -51,6 +52,7 @@ export async function POST(request: Request) {
         country: body.country ?? null,
         country_code: body.countryCode?.toUpperCase() ?? null,
         region: body.region ?? null,
+        date_visited: body.dateVisited ?? null,
       })
       .select('*')
       .single();

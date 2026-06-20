@@ -38,6 +38,7 @@ type AdventuresRow = {
   country: string | null;
   country_code: string | null;
   region: string | null;
+  date_visited: string | null;
   is_featured: boolean;
   featured_at: string | null;
   created_at: string;

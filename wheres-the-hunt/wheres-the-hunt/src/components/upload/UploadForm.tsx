@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
-import { extractFirstGps } from '@/lib/exif/extractGps';
+import { extractFirstGps, extractFirstDate } from '@/lib/exif/extractGps';
 import { PrivacyModeSelector } from '@/components/adventure/PrivacyModeSelector';
 import { LocationPicker } from '@/components/map/LocationPicker';
 import { Button } from '@/components/ui/Button';
@@ -34,6 +34,7 @@ export function UploadForm({ userId }: { userId: string }) {
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [dateVisited, setDateVisited] = useState('');
   const [privacyMode, setPrivacyMode] = useState<PrivacyMode>('exact');
 
   const [submitting, setSubmitting] = useState(false);
@@ -57,12 +58,15 @@ export function UploadForm({ userId }: { userId: string }) {
     setPhotos((prev) => [...prev, ...next]);
 
     setDetecting(true);
-    const gps = await extractFirstGps(files);
+    const [gps, date] = await Promise.all([extractFirstGps(files), extractFirstDate(files)]);
     setDetecting(false);
 
     if (gps && locationSource !== 'manual') {
       setLocation(gps);
       setLocationSource('exif');
+    }
+    if (date && !dateVisited) {
+      setDateVisited(date);
     }
   }
 
@@ -146,6 +150,7 @@ export function UploadForm({ userId }: { userId: string }) {
         body: JSON.stringify({
           title,
           description: description || null,
+          dateVisited: dateVisited || null,
           privacyMode,
           realLatitude: location.latitude,
           realLongitude: location.longitude,
@@ -240,6 +245,18 @@ export function UploadForm({ userId }: { userId: string }) {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             className="w-full rounded-trail border-2 border-ink bg-white px-3 py-2 font-semibold focus:outline-none"
+          />
+        </div>
+        <div>
+          <label htmlFor="date_visited" className="mb-1 block text-sm font-bold text-ink">
+            Date visited <span className="font-normal text-ink-soft">(optional — auto-detected from photo)</span>
+          </label>
+          <input
+            id="date_visited"
+            type="date"
+            value={dateVisited}
+            onChange={(e) => setDateVisited(e.target.value)}
+            className="w-full rounded-trail border-2 border-ink bg-white px-3 py-2 font-semibold focus:outline-none sm:w-56"
           />
         </div>
       </section>

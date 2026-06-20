@@ -42,7 +42,7 @@ export default async function AdventureDetailPage({ params }: Params) {
         <div>
           <h1 className="font-display text-2xl font-bold text-ink sm:text-4xl">{adventure.title}</h1>
           <p className="mt-2 text-sm font-bold text-ink-soft">
-            {locationLabel(adventure)} · {formatDate(adventure.created_at)}
+            {locationLabel(adventure)} · {adventure.date_visited ? formatDate(adventure.date_visited) : formatDate(adventure.created_at)}
           </p>
         </div>
         <LikeButton

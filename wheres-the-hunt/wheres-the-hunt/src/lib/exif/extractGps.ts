@@ -7,33 +7,46 @@ export interface ExifGps {
   longitude: number;
 }
 
-/**
- * Pulls GPS coordinates out of a photo's EXIF data, if present.
- * Returns null for screenshots, downloaded images, or anything whose EXIF
- * was stripped (e.g. by social media) — the upload flow falls back to
- * geocoding in that case (see LOCATION SYSTEM priority in the upload page).
- */
-export async function extractGps(file: File): Promise<ExifGps | null> {
+export interface ExifData {
+  gps: ExifGps | null;
+  /** ISO date string (YYYY-MM-DD) from DateTimeOriginal, or null if missing. */
+  dateVisited: string | null;
+}
+
+export async function extractExif(file: File): Promise<ExifData> {
   try {
-    const gps = await exifr.gps(file);
-    if (!gps || typeof gps.latitude !== 'number' || typeof gps.longitude !== 'number') {
-      return null;
-    }
-    return { latitude: gps.latitude, longitude: gps.longitude };
+    const data = await exifr.parse(file, { gps: true, pick: ['DateTimeOriginal', 'CreateDate'] });
+    const raw: Date | undefined = data?.DateTimeOriginal ?? data?.CreateDate;
+    const dateVisited = raw instanceof Date && !isNaN(raw.getTime())
+      ? raw.toISOString().slice(0, 10)
+      : null;
+
+    const gpsData = await exifr.gps(file).catch(() => null);
+    const gps =
+      gpsData && typeof gpsData.latitude === 'number' && typeof gpsData.longitude === 'number'
+        ? { latitude: gpsData.latitude, longitude: gpsData.longitude }
+        : null;
+
+    return { gps, dateVisited };
   } catch {
-    // Corrupt EXIF, unsupported format, etc. — treat as "no GPS data."
-    return null;
+    return { gps: null, dateVisited: null };
   }
 }
 
-/**
- * Extracts GPS from the first file in a batch that actually has it.
- * Used to seed the "detected location" preview in the upload flow.
- */
+/** Extracts GPS from the first file in a batch that has it. */
 export async function extractFirstGps(files: File[]): Promise<ExifGps | null> {
   for (const file of files) {
-    const gps = await extractGps(file);
+    const { gps } = await extractExif(file);
     if (gps) return gps;
+  }
+  return null;
+}
+
+/** Extracts the earliest date across a batch of files. */
+export async function extractFirstDate(files: File[]): Promise<string | null> {
+  for (const file of files) {
+    const { dateVisited } = await extractExif(file);
+    if (dateVisited) return dateVisited;
   }
   return null;
 }
