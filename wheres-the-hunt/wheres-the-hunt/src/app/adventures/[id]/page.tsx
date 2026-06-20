@@ -38,9 +38,9 @@ export default async function AdventureDetailPage({ params }: Params) {
         ← Back to the map
       </Link>
 
-      <div className="mt-4 flex flex-wrap items-start justify-between gap-4">
+      <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="font-display text-3xl font-bold text-ink sm:text-4xl">{adventure.title}</h1>
+          <h1 className="font-display text-2xl font-bold text-ink sm:text-4xl">{adventure.title}</h1>
           <p className="mt-2 text-sm font-bold text-ink-soft">
             {locationLabel(adventure)} · {formatDate(adventure.created_at)}
           </p>

@@ -34,14 +34,14 @@ export default async function HomePage() {
                 ? "You haven't pinned any adventures yet. Ready to share your first?"
                 : `You've pinned ${myAdventures.length} adventure${myAdventures.length === 1 ? '' : 's'} so far. Keep exploring.`}
             </p>
-            <div className="mt-6 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               {profile.upload_approved ? (
-                <LinkButton href="/upload" size="lg">Share an adventure</LinkButton>
+                <LinkButton href="/upload" size="lg" className="w-full justify-center sm:w-auto">Share an adventure</LinkButton>
               ) : (
-                <LinkButton href="/upload" size="lg">Request upload access</LinkButton>
+                <LinkButton href="/upload" size="lg" className="w-full justify-center sm:w-auto">Request upload access</LinkButton>
               )}
-              <LinkButton href="/map" variant="ghost" size="lg">Explore the map</LinkButton>
-              <LinkButton href={`/profile/${profile.username}`} variant="ghost" size="lg">
+              <LinkButton href="/map" variant="ghost" size="lg" className="w-full justify-center sm:w-auto">Explore the map</LinkButton>
+              <LinkButton href={`/profile/${profile.username}`} variant="ghost" size="lg" className="w-full justify-center sm:w-auto">
                 My profile
               </LinkButton>
             </div>
@@ -88,7 +88,7 @@ export default async function HomePage() {
                 Open full map
               </LinkButton>
             </div>
-            <div className="h-[520px] w-full overflow-hidden rounded-trail border-2 border-ink shadow-trail-lg">
+            <div className="h-[340px] w-full overflow-hidden rounded-trail border-2 border-ink shadow-trail-lg sm:h-[520px]">
               <WorldMap pins={pins} heatmapCounts={heatmap} />
             </div>
           </div>
@@ -132,7 +132,7 @@ export default async function HomePage() {
             </LinkButton>
           </div>
 
-          <div className="h-[520px] w-full overflow-hidden rounded-trail border-2 border-ink shadow-trail-lg">
+          <div className="h-[340px] w-full overflow-hidden rounded-trail border-2 border-ink shadow-trail-lg sm:h-[520px]">
             <WorldMap pins={pins} heatmapCounts={heatmap} />
           </div>
         </div>

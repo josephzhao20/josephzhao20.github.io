@@ -177,16 +177,16 @@ export function UploadForm({ userId }: { userId: string }) {
           We&rsquo;ll check for GPS data in your photos automatically.
         </p>
 
-        <div className="mt-3 flex flex-wrap gap-3">
+        <div className="mt-3 grid grid-cols-3 gap-3 sm:flex sm:flex-wrap">
           {photos.map((p, i) => (
-            <div key={i} className="relative h-24 w-24 overflow-hidden rounded-trail border-2 border-ink">
+            <div key={i} className="relative aspect-square overflow-hidden rounded-trail border-2 border-ink sm:h-24 sm:w-24">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={p.previewUrl} alt="" className="h-full w-full object-cover" />
               <button
                 type="button"
                 onClick={() => removePhoto(i)}
                 aria-label="Remove photo"
-                className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-ink text-xs font-bold text-cream"
+                className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-ink text-xs font-bold text-cream"
               >
                 ×
               </button>
@@ -196,7 +196,7 @@ export function UploadForm({ userId }: { userId: string }) {
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="flex h-24 w-24 flex-col items-center justify-center rounded-trail border-2 border-dashed border-ink/40 text-xs font-bold text-ink-soft hover:border-ink hover:text-ink"
+            className="flex aspect-square flex-col items-center justify-center rounded-trail border-2 border-dashed border-ink/40 text-xs font-bold text-ink-soft hover:border-ink hover:text-ink sm:h-24 sm:w-24"
           >
             + Add
           </button>
