@@ -22,7 +22,7 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
           <Link href="/map" className="text-sm font-bold text-ink-soft hover:text-ink">Interactive Map</Link>
           <Link href="/merch" className="text-sm font-bold text-ink-soft hover:text-ink">The Lodge Shop</Link>
           {profile && profile.upload_approved && (
-            <Link href="/upload" className="text-sm font-bold text-ink-soft hover:text-ink">Add New Adventure</Link>
+            <Link href="/upload" className="text-sm font-bold text-ink-soft hover:text-ink">Share Adventure</Link>
           )}
           {profile?.is_admin && (
             <Link href="/admin" className="text-sm font-bold text-ink-soft hover:text-ink">Admin</Link>
