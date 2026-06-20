@@ -19,11 +19,11 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
         {/* Desktop nav */}
         <div className="hidden items-center gap-5 sm:flex">
           <Link href="/" className="text-sm font-bold text-ink-soft hover:text-ink">Home</Link>
-          <Link href="/map" className="text-sm font-bold text-ink-soft hover:text-ink">Interactive Map</Link>
-          <Link href="/merch" className="text-sm font-bold text-ink-soft hover:text-ink">The Lodge Shop</Link>
           {profile && profile.upload_approved && (
             <Link href="/upload" className="text-sm font-bold text-ink-soft hover:text-ink">Share Adventure</Link>
           )}
+          <Link href="/map" className="text-sm font-bold text-ink-soft hover:text-ink">Interactive Map</Link>
+          <Link href="/merch" className="text-sm font-bold text-ink-soft hover:text-ink">The Lodge Shop</Link>
           {profile?.is_admin && (
             <Link href="/admin" className="text-sm font-bold text-ink-soft hover:text-ink">Admin</Link>
           )}
@@ -61,11 +61,11 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
         <div className="border-t-2 border-ink bg-cream px-5 py-4 sm:hidden">
           <div className="flex flex-col gap-4">
             <Link href="/" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Home</Link>
-            <Link href="/map" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Interactive Map</Link>
-            <Link href="/merch" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>The Lodge Shop</Link>
             {profile && profile.upload_approved && (
               <Link href="/upload" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Add New Adventure</Link>
             )}
+            <Link href="/map" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Interactive Map</Link>
+            <Link href="/merch" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>The Lodge Shop</Link>
             {profile?.is_admin && (
               <Link href="/admin" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Admin</Link>
             )}
