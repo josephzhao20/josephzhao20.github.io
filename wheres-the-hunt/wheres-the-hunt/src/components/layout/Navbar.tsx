@@ -20,7 +20,7 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
         <div className="hidden items-center gap-5 sm:flex">
           <Link href="/" className="text-sm font-bold text-ink-soft hover:text-ink">Home</Link>
           {profile && profile.upload_approved && (
-            <Link href="/upload" className="text-sm font-bold text-ink-soft hover:text-ink">Share Adventure</Link>
+            <Link href="/upload" className="text-sm font-bold text-ink-soft hover:text-ink">Share New Adventure</Link>
           )}
           <Link href="/map" className="text-sm font-bold text-ink-soft hover:text-ink">Interactive Map</Link>
           <Link href="/merch" className="text-sm font-bold text-ink-soft hover:text-ink">The Lodge Shop</Link>
@@ -62,7 +62,7 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
           <div className="flex flex-col gap-4">
             <Link href="/" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Home</Link>
             {profile && profile.upload_approved && (
-              <Link href="/upload" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Add New Adventure</Link>
+              <Link href="/upload" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Share New Adventure</Link>
             )}
             <Link href="/map" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Interactive Map</Link>
             <Link href="/merch" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>The Lodge Shop</Link>
