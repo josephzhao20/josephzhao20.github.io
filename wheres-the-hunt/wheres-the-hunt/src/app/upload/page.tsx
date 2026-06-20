@@ -3,7 +3,7 @@ import { getCurrentProfile } from '@/lib/auth/roles';
 import { UploadForm } from '@/components/upload/UploadForm';
 import { RequestUploadButton } from '@/components/upload/RequestUploadButton';
 
-export const metadata = { title: "Share an adventure — Where's The Hunt?" };
+export const metadata = { title: "Share an adventure — Winning With The Hunt" };
 
 export default async function UploadPage() {
   const profile = await getCurrentProfile();

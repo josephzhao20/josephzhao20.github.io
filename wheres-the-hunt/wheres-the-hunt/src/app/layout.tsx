@@ -25,7 +25,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Where's The Hunt? — Every pin tells a story.",
+  title: "Winning With The Hunt — Every pin tells a story.",
   description:
     "A community-driven map of adventures, memories, and places worth remembering. From family vacations and national parks to fishing trips and hidden gems, every pin represents a story waiting to be explored.",
 };

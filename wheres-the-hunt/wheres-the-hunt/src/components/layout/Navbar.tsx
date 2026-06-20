@@ -13,12 +13,13 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
         <Link href="/" className="flex items-center gap-2 font-display text-lg font-bold text-ink">
           <span className="inline-block h-2.5 w-2.5 rounded-full border-2 border-ink bg-sunset" />
-          Where&rsquo;s The Hunt?
+          Winning With The Hunt
         </Link>
 
         {/* Desktop nav */}
         <div className="hidden items-center gap-5 sm:flex">
           <Link href="/map" className="text-sm font-bold text-ink-soft hover:text-ink">Map</Link>
+          <Link href="/merch" className="text-sm font-bold text-ink-soft hover:text-ink">Merch</Link>
           {profile?.upload_approved && (
             <Link href="/upload" className="text-sm font-bold text-ink-soft hover:text-ink">Upload</Link>
           )}
@@ -59,6 +60,7 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
         <div className="border-t-2 border-ink bg-cream px-5 py-4 sm:hidden">
           <div className="flex flex-col gap-4">
             <Link href="/map" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Map</Link>
+            <Link href="/merch" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Merch</Link>
             {profile?.upload_approved && (
               <Link href="/upload" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Upload</Link>
             )}

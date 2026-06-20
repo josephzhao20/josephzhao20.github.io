@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { AuthForm } from '@/components/auth/AuthForm';
 
-export const metadata = { title: "Log in — Where's The Hunt?" };
+export const metadata = { title: "Log in — Winning With The Hunt" };
 
 export default async function LoginPage({
   searchParams,

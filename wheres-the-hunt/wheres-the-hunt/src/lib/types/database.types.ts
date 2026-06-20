@@ -10,6 +10,20 @@
 // keys on purpose, and `Functions` is declared even though it's unused.
 
 export type PrivacyMode = 'exact' | 'region' | 'country' | 'hidden';
+export type MerchCategory = 'book' | 'shirt' | 'hoodie' | 'hat' | 'tumbler';
+
+type MerchItemRow = {
+  id: string;
+  name: string;
+  description: string | null;
+  category: MerchCategory;
+  price: number | null;
+  image_url: string | null;
+  buy_url: string | null;
+  in_stock: boolean;
+  sort_order: number;
+  created_at: string;
+}
 
 type UsersRow = {
   id: string;
@@ -117,6 +131,12 @@ export type Database = {
         Update: Partial<LikesRow>;
         Relationships: [];
       };
+      merch_items: {
+        Row: MerchItemRow;
+        Insert: Partial<MerchItemRow> & Pick<MerchItemRow, 'name' | 'category'>;
+        Update: Partial<MerchItemRow>;
+        Relationships: [];
+      };
     };
     Views: {
       adventures_with_stats: {
@@ -140,6 +160,7 @@ export type Database = {
   };
 };
 
+export type MerchItem = MerchItemRow;
 export type UserRow = UsersRow;
 export type AdventureRow = AdventuresRow;
 export type AdventurePhotoRow = AdventurePhotosRow;
