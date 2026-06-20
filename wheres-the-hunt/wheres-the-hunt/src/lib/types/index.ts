@@ -12,6 +12,7 @@ export interface MapPin {
   userAvatarUrl: string | null;
   likeCount: number;
   isFeatured: boolean;
+  dateVisited: string | null;
 }
 
 export function toMapPin(row: AdventureWithStats): MapPin | null {
@@ -30,6 +31,7 @@ export function toMapPin(row: AdventureWithStats): MapPin | null {
     userAvatarUrl: row.user_avatar_url,
     likeCount: row.like_count,
     isFeatured: row.is_featured,
+    dateVisited: row.date_visited ?? null,
   };
 }
 

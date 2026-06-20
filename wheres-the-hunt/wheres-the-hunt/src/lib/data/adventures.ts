@@ -28,6 +28,88 @@ export async function getFeaturedAdventures(limit = 6): Promise<AdventureWithSta
   return (data as AdventureWithStats[] | null) ?? [];
 }
 
+/** Featured story spotlight: admin-featured overrides, else most-liked in last 90 days. */
+export async function getSpotlightStory(): Promise<AdventureWithStats | null> {
+  const supabase = await createClient();
+
+  // Admin-featured first
+  const { data: adminFeatured } = await supabase
+    .from('adventures_with_stats')
+    .select('*')
+    .eq('is_featured', true)
+    .neq('privacy_mode', 'hidden')
+    .order('featured_at', { ascending: false })
+    .limit(1)
+    .single();
+
+  if (adminFeatured) return adminFeatured as AdventureWithStats;
+
+  // Fallback: most-liked in last 90 days
+  const since = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString();
+  const { data: topLiked } = await supabase
+    .from('adventures_with_stats')
+    .select('*')
+    .neq('privacy_mode', 'hidden')
+    .gte('created_at', since)
+    .order('like_count', { ascending: false })
+    .limit(1)
+    .single();
+
+  return (topLiked as AdventureWithStats | null) ?? null;
+}
+
+export async function getRecentStories(limit = 6): Promise<AdventureWithStats[]> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from('adventures_with_stats')
+    .select('*')
+    .neq('privacy_mode', 'hidden')
+    .order('created_at', { ascending: false })
+    .limit(limit);
+
+  return (data as AdventureWithStats[] | null) ?? [];
+}
+
+export async function getTopStoriesLast3Months(limit = 5): Promise<AdventureWithStats[]> {
+  const supabase = await createClient();
+  const since = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString();
+  const { data } = await supabase
+    .from('adventures_with_stats')
+    .select('*')
+    .neq('privacy_mode', 'hidden')
+    .gte('created_at', since)
+    .order('like_count', { ascending: false })
+    .limit(limit);
+
+  return (data as AdventureWithStats[] | null) ?? [];
+}
+
+export async function searchStories(query: string, limit = 30): Promise<AdventureWithStats[]> {
+  const supabase = await createClient();
+  const q = `%${query.trim()}%`;
+  const { data } = await supabase
+    .from('adventures_with_stats')
+    .select('*')
+    .neq('privacy_mode', 'hidden')
+    .or(`title.ilike.${q},description.ilike.${q}`)
+    .order('created_at', { ascending: false })
+    .limit(limit);
+
+  return (data as AdventureWithStats[] | null) ?? [];
+}
+
+export async function getAllStories(limit = 50): Promise<AdventureWithStats[]> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from('adventures_with_stats')
+    .select('*')
+    .neq('privacy_mode', 'hidden')
+    .order('created_at', { ascending: false })
+    .limit(limit);
+
+  return (data as AdventureWithStats[] | null) ?? [];
+}
+
 export async function getGlobalHeatmap(): Promise<Record<string, number>> {
   const supabase = await createClient();
   const { data } = await supabase.from('country_heatmap').select('*');

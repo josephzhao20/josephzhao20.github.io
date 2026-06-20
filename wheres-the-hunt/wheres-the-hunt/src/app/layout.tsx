@@ -1,15 +1,14 @@
 import type { Metadata } from 'next';
-import { Fraunces, Work_Sans, JetBrains_Mono } from 'next/font/google';
+import { Roboto_Slab, Work_Sans, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { getCurrentProfile } from '@/lib/auth/roles';
 
-const fraunces = Fraunces({
+const robotoSlab = Roboto_Slab({
   subsets: ['latin'],
-  variable: '--font-fraunces',
+  variable: '--font-display',
   weight: ['500', '600', '700', '900'],
-  style: ['normal', 'italic'],
 });
 
 const workSans = Work_Sans({
@@ -36,7 +35,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <body
-        className={`${fraunces.variable} ${workSans.variable} ${jetbrainsMono.variable} font-body antialiased`}
+        className={`${robotoSlab.variable} ${workSans.variable} ${jetbrainsMono.variable} font-body antialiased`}
       >
         <div className="flex min-h-screen flex-col">
           <Navbar profile={profile} />

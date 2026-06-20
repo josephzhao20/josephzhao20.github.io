@@ -7,10 +7,9 @@ export function MissionStatement() {
       <div className="mx-auto max-w-2xl px-5 text-center">
         <h2 className="font-display text-2xl font-bold text-ink sm:text-3xl">Our mission</h2>
         <p className="mt-5 text-lg leading-relaxed text-ink-soft">
-          Winning With The Hunt is a community-driven map of adventures,
-          memories, and places worth remembering. From family vacations and
-          national parks to fishing trips and hidden gems, every pin
-          represents a story waiting to be explored.
+          Winning With The Hunt is where hunters, anglers, and outdoor families
+          keep the stories worth remembering. Not just where it happened — what
+          it meant. Every adventure tells a story. This is where it gets told.
         </p>
       </div>
     </section>

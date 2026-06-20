@@ -3,7 +3,7 @@ import type { UserStatsRow } from '@/lib/types/database.types';
 export function ProfileStats({ stats }: { stats: UserStatsRow | null }) {
   const items = [
     { label: 'Countries visited', value: stats?.countries_visited ?? 0 },
-    { label: 'Adventures', value: stats?.total_adventures ?? 0 },
+    { label: 'Stories', value: stats?.total_adventures ?? 0 },
     { label: 'Photos', value: stats?.total_photos ?? 0 },
   ];
 

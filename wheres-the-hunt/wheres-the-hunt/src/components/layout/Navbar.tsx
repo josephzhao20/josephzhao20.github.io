@@ -12,7 +12,7 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
     <header className="sticky top-0 z-50 border-b-2 border-ink bg-cream">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
         <Link href="/" className="flex items-center gap-2 font-display text-lg font-bold text-ink">
-          <span className="inline-block h-2.5 w-2.5 rounded-full border-2 border-ink bg-sunset" />
+          <span className="inline-block h-2.5 w-2.5 rounded-full border-2 border-ink bg-rust" />
           Winning With The Hunt
         </Link>
 
@@ -20,10 +20,11 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
         <div className="hidden items-center gap-5 sm:flex">
           <Link href="/" className="text-sm font-bold text-ink-soft hover:text-ink">Home</Link>
           {profile && profile.upload_approved && (
-            <Link href="/upload" className="text-sm font-bold text-ink-soft hover:text-ink">Share New Adventure</Link>
+            <Link href="/upload" className="text-sm font-bold text-ink-soft hover:text-ink">Share Your Story</Link>
           )}
-          <Link href="/map" className="text-sm font-bold text-ink-soft hover:text-ink">Interactive Map</Link>
+          <Link href="/map" className="text-sm font-bold text-ink-soft hover:text-ink">Explore</Link>
           <Link href="/merch" className="text-sm font-bold text-ink-soft hover:text-ink">The Lodge Shop</Link>
+          <Link href="/about" className="text-sm font-bold text-ink-soft hover:text-ink">Our Mission</Link>
           {profile?.is_admin && (
             <Link href="/admin" className="text-sm font-bold text-ink-soft hover:text-ink">Admin</Link>
           )}
@@ -62,10 +63,11 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
           <div className="flex flex-col gap-4">
             <Link href="/" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Home</Link>
             {profile && profile.upload_approved && (
-              <Link href="/upload" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Share New Adventure</Link>
+              <Link href="/upload" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Share Your Story</Link>
             )}
-            <Link href="/map" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Interactive Map</Link>
+            <Link href="/map" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Explore</Link>
             <Link href="/merch" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>The Lodge Shop</Link>
+            <Link href="/about" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Our Mission</Link>
             {profile?.is_admin && (
               <Link href="/admin" className="text-base font-bold text-ink" onClick={() => setOpen(false)}>Admin</Link>
             )}
