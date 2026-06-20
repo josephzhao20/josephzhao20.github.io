@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
       const user = data.user;
       const createdAt = new Date(user.created_at ?? '').getTime();
       const confirmedAt = new Date(user.email_confirmed_at ?? '').getTime();
-      const isNewSignup = Math.abs(createdAt - confirmedAt) < 60_000;
+      const isNewSignup = Math.abs(createdAt - confirmedAt) < 600_000;
 
       if (isNewSignup) {
         sendNewUserNotification({
