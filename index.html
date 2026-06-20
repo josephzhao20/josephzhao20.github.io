@@ -3,510 +3,755 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Joseph Zhao — Projects</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+<title>Joseph Zhao — Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #fdf9f3;
-    --ink: #1c1a17;
-    --ink-soft: #6b6458;
-    --yellow: #f9e045;
-    --yellow-dark: #c9b010;
-    --coral: #ff6b52;
-    --coral-light: #fff0ed;
-    --teal: #2ec4b6;
-    --teal-light: #e6faf9;
-    --purple: #9b72cf;
-    --purple-light: #f3eeff;
-    --blue: #4a90d9;
-    --blue-light: #eaf3ff;
-    --green: #52c46a;
-    --green-light: #edfff1;
-    --card-radius: 18px;
-    --shadow: 4px 4px 0px #1c1a17;
-    --shadow-hover: 6px 6px 0px #1c1a17;
+    --bg: #080810;
+    --surface: #0f0f1a;
+    --surface-2: #141422;
+    --border: #1a1a2e;
+    --border-bright: #252540;
+    --text: #e2e2f0;
+    --text-soft: #6868a0;
+    --text-muted: #30304a;
+    --accent: #7c6cff;
+    --accent-glow: #7c6cff40;
+    --green: #00e5a0;
+    --green-glow: #00e5a030;
+    --gold: #ffd85a;
+    --gold-glow: #ffd85a25;
+    --red: #ff5577;
+    --mono: 'JetBrains Mono', monospace;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Inter', sans-serif;
     background: var(--bg);
-    color: var(--ink);
+    color: var(--text);
     min-height: 100vh;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* ── Doodle background ── */
+  /* grid background */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     background-image:
-      radial-gradient(circle, #1c1a1712 1.5px, transparent 1.5px);
-    background-size: 28px 28px;
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
     pointer-events: none;
     z-index: 0;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
   }
+
+  /* glow orbs */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+  .orb-1 { width: 500px; height: 500px; background: #7c6cff18; top: -150px; left: -100px; }
+  .orb-2 { width: 400px; height: 400px; background: #00e5a012; bottom: 0; right: -100px; }
 
   /* ── Nav ── */
   nav {
-    position: relative;
-    z-index: 10;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.25rem 2.5rem;
-    border-bottom: 2.5px solid var(--ink);
-    background: var(--bg);
+    padding: 1rem 2.5rem;
+    background: #080810dd;
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
   }
 
   .nav-logo {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.35rem;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--accent);
     text-decoration: none;
     display: flex;
     align-items: center;
     gap: 8px;
   }
 
-  .nav-logo-dot {
-    width: 10px; height: 10px;
-    background: var(--yellow);
-    border-radius: 50%;
-    border: 2px solid var(--ink);
-    display: inline-block;
-  }
+  .nav-logo::before { content: '> '; color: var(--text-muted); }
 
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
+  .nav-right { display: flex; align-items: center; gap: 2rem; }
+
+  .nav-links { display: flex; gap: 1.5rem; list-style: none; }
 
   .nav-links a {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--ink-soft);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-soft);
     text-decoration: none;
+    font-family: var(--mono);
     transition: color 0.15s;
+    letter-spacing: 0.5px;
   }
+  .nav-links a:hover { color: var(--text); }
 
-  .nav-links a:hover { color: var(--ink); }
-
-  /* ── Hero ── */
-  .hero {
-    position: relative;
-    z-index: 1;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 5rem 2.5rem 3rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .hero-eyebrow {
-    font-size: 0.85rem;
-    font-weight: 800;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 0.75rem;
-    animation: fadeUp 0.5s ease both;
-  }
-
-  .hero-name {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(3rem, 8vw, 5.5rem);
-    font-weight: 800;
-    line-height: 1.0;
-    letter-spacing: -2px;
-    color: var(--ink);
-    animation: fadeUp 0.5s 0.1s ease both;
-  }
-
-  .hero-name .highlight {
-    display: inline-block;
-    background: var(--yellow);
-    border: 2.5px solid var(--ink);
-    border-radius: 8px;
-    padding: 0 10px;
-    transform: rotate(-1deg);
-    box-shadow: 3px 3px 0 var(--ink);
-  }
-
-  .hero-tagline {
-    margin-top: 1.5rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--ink-soft);
-    max-width: 520px;
-    line-height: 1.65;
-    animation: fadeUp 0.5s 0.2s ease both;
-  }
-
-  .hero-tagline .wink {
-    display: inline-block;
-    animation: wink 3s 2s infinite;
-  }
-
-  @keyframes wink {
-    0%, 90%, 100% { transform: rotate(0deg); }
-    95% { transform: rotate(20deg) scale(1.2); }
-  }
-
-  /* ── Squiggle divider ── */
-  .squiggle {
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 2.5rem;
-    position: relative;
-    z-index: 1;
-  }
-
-  /* ── Section label ── */
-  .section-label {
+  .nav-status {
     display: flex;
     align-items: center;
-    gap: 12px;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 2.5rem 2.5rem 1.25rem;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--green);
+    letter-spacing: 0.5px;
+  }
+  .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 6px var(--green);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ── Content ── */
+  .content {
     position: relative;
     z-index: 1;
-  }
-
-  .section-label h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-  }
-
-  .section-tag {
-    font-size: 0.75rem;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    background: var(--ink);
-    color: var(--bg);
-    padding: 4px 10px;
-    border-radius: 100px;
-  }
-
-  /* ── Projects grid ── */
-  .projects-grid {
-    max-width: 900px;
+    max-width: 860px;
     margin: 0 auto;
-    padding: 0 2.5rem 4rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.25rem;
-    position: relative;
-    z-index: 1;
+    padding: 0 2rem;
   }
 
-  /* ── Project card ── */
-  .project-card {
-    background: var(--white, #fff);
-    border: 2.5px solid var(--ink);
-    border-radius: var(--card-radius);
-    padding: 1.4rem;
-    box-shadow: var(--shadow);
-    transition: transform 0.15s, box-shadow 0.15s;
+  /* ── Hero / Player Card ── */
+  .hero { padding: 8rem 0 4rem; }
+
+  .player-card {
+    border: 1px solid var(--border-bright);
+    border-radius: 16px;
+    background: var(--surface);
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.1s ease forwards;
+    position: relative;
+  }
+
+  .player-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+
+  .player-card-top {
+    padding: 1.75rem 2rem;
     display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-    animation: fadeUp 0.4s ease both;
+    gap: 1.5rem;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--border);
   }
 
-  .project-card:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: var(--shadow-hover);
-  }
-
-  .project-card:active {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 var(--ink);
-  }
-
-  .project-card.placeholder {
-    border-style: dashed;
-    box-shadow: none;
-    background: transparent;
-    cursor: default;
-    opacity: 0.55;
-  }
-
-  .project-card.placeholder:hover {
-    transform: none;
-    box-shadow: none;
-  }
-
-  .card-emoji {
-    font-size: 2rem;
-    line-height: 1;
-    width: 52px; height: 52px;
+  .player-avatar {
+    width: 64px; height: 64px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #7c6cff, #a08cff);
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 12px;
-    border: 2px solid var(--ink);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
     flex-shrink: 0;
+    box-shadow: 0 0 30px #7c6cff30;
+    position: relative;
   }
 
-  .card-header {
+  .player-avatar::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 13px;
+    border: 1px solid #7c6cff60;
+  }
+
+  .player-info { flex: 1; }
+
+  .player-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+    margin-bottom: 0.3rem;
+  }
+
+  .player-class {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+
+  .player-bio {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    line-height: 1.65;
+    max-width: 480px;
+  }
+
+  .player-card-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stat-block {
+    padding: 1.1rem 1.5rem;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .stat-block:last-child { border-right: none; }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .stat-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .stat-value.green { color: var(--green); }
+  .stat-value.gold  { color: var(--gold); }
+  .stat-value.accent { color: var(--accent); }
+
+  .player-xp {
+    padding: 1.1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .xp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .xp-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .xp-value {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--accent);
+  }
+
+  .xp-bar-track {
+    height: 4px;
+    background: var(--border-bright);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .xp-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), #a08cff);
+    border-radius: 2px;
+    box-shadow: 0 0 8px var(--accent-glow);
+    transition: width 1.2s 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ── Section ── */
+  .section { padding: 3rem 0; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    white-space: nowrap;
+  }
+
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* ── Quest log ── */
+  .quest-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+
+  .quest-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 1.4rem 1.6rem;
+    background: var(--surface);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.12s;
+    position: relative;
+  }
+
+  .quest-card:hover { background: var(--surface-2); }
+
+  .quest-card:hover .quest-arrow { transform: translate(3px, -3px); opacity: 1; }
+  .quest-card:hover .quest-icon { box-shadow: 0 0 20px var(--accent-glow); border-color: var(--accent); }
+
+  .quest-icon {
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-bright);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .quest-body { flex: 1; min-width: 0; }
+
+  .quest-top {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 8px;
+    gap: 0.75rem;
+    margin-bottom: 0.35rem;
   }
 
-  .card-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.05rem;
-    font-weight: 800;
-    letter-spacing: -0.3px;
-    line-height: 1.2;
-  }
-
-  .card-arrow {
-    font-size: 1rem;
-    color: var(--ink-soft);
-    flex-shrink: 0;
-    margin-top: 2px;
-    transition: transform 0.15s;
-  }
-
-  .project-card:hover .card-arrow { transform: translate(2px, -2px); }
-
-  .card-desc {
-    font-size: 0.85rem;
+  .quest-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.92rem;
     font-weight: 600;
-    color: var(--ink-soft);
-    line-height: 1.55;
-    flex: 1;
+    color: var(--text);
+    letter-spacing: -0.2px;
   }
 
-  .card-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-top: 4px;
+  .quest-arrow {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    transition: transform 0.15s, opacity 0.15s;
+    opacity: 0.4;
+    margin-top: 2px;
   }
 
-  .tag {
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    padding: 3px 9px;
-    border-radius: 100px;
-    border: 1.5px solid currentColor;
+  .quest-desc {
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+    margin-bottom: 0.85rem;
   }
 
-  /* ── About section ── */
-  .about-section {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 2.5rem 5rem;
-    position: relative;
-    z-index: 1;
-  }
-
-  .about-card {
-    background: var(--yellow);
-    border: 2.5px solid var(--ink);
-    border-radius: var(--card-radius);
-    padding: 2rem 2.25rem;
-    box-shadow: var(--shadow);
-    display: flex;
-    align-items: flex-start;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  .about-avatar {
-    width: 72px; height: 72px;
-    border-radius: 50%;
-    background: var(--ink);
-    border: 2.5px solid var(--ink);
+  .quest-footer {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-family: 'Syne', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: var(--yellow);
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .quest-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-bright);
+    color: var(--text-soft);
+    letter-spacing: 0.3px;
+  }
+  .tag.accent { background: #7c6cff15; border-color: #7c6cff40; color: #a090ff; }
+  .tag.teal   { background: #00e5a015; border-color: #00e5a040; color: var(--green); }
+
+  .quest-reward {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  .quest-status {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--green);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .quest-status::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 5px var(--green);
+  }
+
+  /* ── Skills ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .skill-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 1.4rem;
+    background: var(--surface);
+  }
+
+  .skill-name {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-soft);
+    width: 100px;
     flex-shrink: 0;
+    letter-spacing: 0.3px;
   }
 
-  .about-text { flex: 1; min-width: 200px; }
-
-  .about-text h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 800;
-    margin-bottom: 0.5rem;
+  .skill-bar-track {
+    flex: 1;
+    height: 3px;
+    background: var(--border-bright);
+    border-radius: 2px;
+    overflow: hidden;
   }
 
-  .about-text p {
-    font-size: 0.95rem;
-    font-weight: 600;
-    line-height: 1.7;
-    color: #3a3520;
+  .skill-bar-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 2px;
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .skill-bar-fill.accent { background: linear-gradient(90deg, var(--accent), #a08cff); box-shadow: 0 0 6px var(--accent-glow); }
+  .skill-bar-fill.green  { background: linear-gradient(90deg, var(--green), #00ffcc);  box-shadow: 0 0 6px var(--green-glow); }
+  .skill-bar-fill.gold   { background: linear-gradient(90deg, var(--gold), #ffe99e);   box-shadow: 0 0 6px var(--gold-glow); }
+
+  .skill-level {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    width: 24px;
+    text-align: right;
+    flex-shrink: 0;
   }
 
   /* ── Footer ── */
   footer {
-    border-top: 2.5px solid var(--ink);
-    padding: 1.25rem 2.5rem;
-    text-align: center;
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--ink-soft);
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2rem;
     position: relative;
     z-index: 1;
-    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
   }
+
+  footer p {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+  }
+
+  footer .sep { color: var(--border-bright); }
 
   /* ── Animations ── */
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(18px); }
+    from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  .project-card:nth-child(1) { animation-delay: 0.05s; }
-  .project-card:nth-child(2) { animation-delay: 0.12s; }
-  .project-card:nth-child(3) { animation-delay: 0.19s; }
-  .project-card:nth-child(4) { animation-delay: 0.26s; }
-  .project-card:nth-child(5) { animation-delay: 0.33s; }
+  .quest-card { opacity: 0; animation: fadeUp 0.5s ease forwards; }
+  .quest-card:nth-child(1) { animation-delay: 0.3s; }
+  .quest-card:nth-child(2) { animation-delay: 0.4s; }
+  .quest-card:nth-child(3) { animation-delay: 0.5s; }
 
-  @media (max-width: 600px) {
-    nav { padding: 1rem 1.25rem; }
-    .hero { padding: 3rem 1.25rem 2rem; }
-    .section-label { padding: 2rem 1.25rem 1rem; }
-    .projects-grid { padding: 0 1.25rem 3rem; }
-    .about-section { padding: 0 1.25rem 3.5rem; }
+  .skills-grid { opacity: 0; animation: fadeUp 0.5s 0.5s ease forwards; }
+
+  /* ── Mobile ── */
+  @media (max-width: 640px) {
+    nav { padding: 0.9rem 1.25rem; }
+    .content { padding: 0 1.25rem; }
+    .hero { padding: 6.5rem 0 3rem; }
+    .player-card-top { flex-direction: column; gap: 1rem; }
+    .player-card-stats { grid-template-columns: repeat(2, 1fr); }
+    .stat-block:nth-child(2) { border-right: none; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .skill-row:nth-child(odd) { border-right: none; }
+    .nav-status { display: none; }
+    .nav-links { gap: 1rem; }
+    .quest-card { padding: 1.1rem; }
+    .quest-status { display: none; }
   }
 </style>
 </head>
 <body>
 
-<!-- Nav -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
 <nav>
-  <a class="nav-logo" href="#">
-    <span class="nav-logo-dot"></span>
-    jzhao
-  </a>
-  <ul class="nav-links">
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#about">About</a></li>
-  </ul>
-</nav>
-
-<!-- Hero -->
-<section class="hero">
-  <p class="hero-eyebrow">Hey there! 👋</p>
-  <h1 class="hero-name">
-    I'm <span class="highlight">Joseph</span><br/>Zhao.
-  </h1>
-  <p class="hero-tagline">
-    I build tools that actually get used — not just projects that sit on a shelf.
-    Scroll down to see what I've made so far. <span class="wink">🙂</span>
-  </p>
-</section>
-
-<!-- Projects -->
-<div class="section-label" id="projects">
-  <h2>Projects</h2>
-  <span class="section-tag">Made by me</span>
-</div>
-
-<div class="projects-grid">
-
-  <!-- Group Sorter -->
-  <a class="project-card" href="sorter/studentsorter.html" style="background: #fff;">
-    <div class="card-emoji" style="background: #e8f5e8;">🎓</div>
-    <div class="card-header">
-      <div class="card-title">Super Student Sorter</div>
-      <div class="card-arrow">↗</div>
-    </div>
-    <div class="card-desc">
-      Sorts 50–70 students into preference-based groups for field trips. Upload a CSV or enter names manually.
-    </div>
-    <div class="card-tags">
-      <span class="tag" style="color: #2d6a2d; border-color: #2d6a2d; background: #e8f5e8;">JavaScript</span>
-      <span class="tag" style="color: #c9960a; border-color: #c9960a; background: #fff8e1;">Algorithm</span>
-      <span class="tag" style="color: #185fa5; border-color: #185fa5; background: #e6f1fb;">HTML/CSS</span>
-    </div>
-  </a>
-
-  <!-- Insta -->
-  <a class="project-card" href="Insta/index.html" style="background: #fff;">
-    <div class="card-emoji" style="background: #e8f5e8;">🟥</div>
-    <div class="card-header">
-      <div class="card-title">Insta</div>
-      <div class="card-arrow">↗</div>
-    </div>
-    <div class="card-desc">
-      See who's not following you back or followers you've gained/lost over time.
-    </div>
-    <div class="card-tags">
-      <span class="tag" style="color: #2d6a2d; border-color: #2d6a2d; background: #e8f5e8;">JavaScript</span>
-      <span class="tag" style="color: #c9960a; border-color: #c9960a; background: #fff8e1;">Algorithm</span>
-      <span class="tag" style="color: #185fa5; border-color: #185fa5; background: #e6f1fb;">HTML/CSS</span>
-    </div>
-  </a>
-
-
-  <!-- Where's The Hunt -->
-  <a class="project-card" href="https://josephzhao20-github-io.vercel.app/" target="_blank" style="background: #fff;">
-    <div class="card-emoji" style="background: #edf7ee;">🧭</div>
-    <div class="card-header">
-      <div class="card-title">Where's The Hunt?</div>
-      <div class="card-arrow">↗</div>
-    </div>
-    <div class="card-desc">
-      A map-first adventure sharing platform. Pin your trips to a world map, share photo albums, and explore stories from others.
-    </div>
-    <div class="card-tags">
-      <span class="tag" style="color: #2d6a2d; border-color: #2d6a2d; background: #e8f5e8;">Next.js</span>
-      <span class="tag" style="color: #185fa5; border-color: #185fa5; background: #e6f1fb;">Supabase</span>
-      <span class="tag" style="color: #7a4f9a; border-color: #7a4f9a; background: #f3eeff;">TypeScript</span>
-    </div>
-  </a>
-
-</div>
-
-<!-- About -->
-<div class="section-label" id="about">
-  <h2>About</h2>
-</div>
-
-<section class="about-section">
-  <div class="about-card">
-    <div class="about-avatar">JZ</div>
-    <div class="about-text">
-      <h3>Hi, I'm Joseph Zhao</h3>
-      <p>
-        A developer who loves building tools that make real life a little easier.
-        I prefer to build projects that actually get used — which is why I only have a few at the moment. 🙂
-      </p>
+  <a class="nav-logo" href="#">jzhao</a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#quests">quests</a></li>
+      <li><a href="#skills">skills</a></li>
+    </ul>
+    <div class="nav-status">
+      <span class="status-dot"></span>
+      available
     </div>
   </div>
-</section>
+</nav>
+
+<div class="content">
+
+  <!-- Player Card -->
+  <section class="hero">
+    <div class="player-card">
+      <div class="player-card-top">
+        <div class="player-avatar">JZ</div>
+        <div class="player-info">
+          <div class="player-name">Joseph Zhao</div>
+          <div class="player-class">// Full-Stack Developer</div>
+          <p class="player-bio">
+            I build tools that actually get used — not just projects that sit on a shelf.
+          </p>
+        </div>
+      </div>
+
+      <div class="player-card-stats">
+        <div class="stat-block">
+          <span class="stat-label">Projects</span>
+          <span class="stat-value green">3</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-label">Status</span>
+          <span class="stat-value accent" style="font-size:0.9rem; padding-top:4px;">Builder</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-label">Quests</span>
+          <span class="stat-value gold">3/∞</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-label">Rank</span>
+          <span class="stat-value" style="font-size:0.9rem; padding-top:4px;">Dev III</span>
+        </div>
+      </div>
+
+      <div class="player-xp">
+        <div class="xp-header">
+          <span class="xp-label">XP — Level 12</span>
+          <span class="xp-value">7,400 / 10,000</span>
+        </div>
+        <div class="xp-bar-track">
+          <div class="xp-bar-fill" data-width="74"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quest Log -->
+  <section class="section" id="quests">
+    <div class="section-header">
+      <span class="section-title">// quest_log</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="quest-list">
+
+      <a class="quest-card" href="sorter/studentsorter.html">
+        <span class="quest-status">completed</span>
+        <div class="quest-icon">🎓</div>
+        <div class="quest-body">
+          <div class="quest-top">
+            <span class="quest-name">Super Student Sorter</span>
+            <span class="quest-arrow">↗</span>
+          </div>
+          <p class="quest-desc">
+            Sorts 50–70 students into preference-based groups for field trips. Upload a CSV or enter names manually.
+          </p>
+          <div class="quest-footer">
+            <div class="quest-tags">
+              <span class="tag">JavaScript</span>
+              <span class="tag">Algorithm</span>
+              <span class="tag">HTML/CSS</span>
+            </div>
+            <div class="quest-reward">⭐ +1,200 XP</div>
+          </div>
+        </div>
+      </a>
+
+      <a class="quest-card" href="Insta/index.html">
+        <span class="quest-status">completed</span>
+        <div class="quest-icon">📊</div>
+        <div class="quest-body">
+          <div class="quest-top">
+            <span class="quest-name">Insta</span>
+            <span class="quest-arrow">↗</span>
+          </div>
+          <p class="quest-desc">
+            See who's not following you back or followers you've gained/lost over time.
+          </p>
+          <div class="quest-footer">
+            <div class="quest-tags">
+              <span class="tag">JavaScript</span>
+              <span class="tag">Algorithm</span>
+              <span class="tag">HTML/CSS</span>
+            </div>
+            <div class="quest-reward">⭐ +1,400 XP</div>
+          </div>
+        </div>
+      </a>
+
+      <a class="quest-card" href="https://josephzhao20-github-io.vercel.app/" target="_blank">
+        <span class="quest-status">completed</span>
+        <div class="quest-icon">🧭</div>
+        <div class="quest-body">
+          <div class="quest-top">
+            <span class="quest-name">Where's The Hunt?</span>
+            <span class="quest-arrow">↗</span>
+          </div>
+          <p class="quest-desc">
+            A map-first adventure sharing platform. Pin your trips to a world map, share photo albums, and explore stories from others.
+          </p>
+          <div class="quest-footer">
+            <div class="quest-tags">
+              <span class="tag accent">Next.js</span>
+              <span class="tag teal">Supabase</span>
+              <span class="tag accent">TypeScript</span>
+            </div>
+            <div class="quest-reward">⭐ +4,800 XP</div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="section" id="skills">
+    <div class="section-header">
+      <span class="section-title">// skill_tree</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-row">
+        <span class="skill-name">JavaScript</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill accent" data-width="88"></div></div>
+        <span class="skill-level">88</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">TypeScript</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill accent" data-width="75"></div></div>
+        <span class="skill-level">75</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Next.js</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill green" data-width="70"></div></div>
+        <span class="skill-level">70</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">React</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill green" data-width="72"></div></div>
+        <span class="skill-level">72</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">HTML / CSS</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill gold" data-width="90"></div></div>
+        <span class="skill-level">90</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">SQL</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill gold" data-width="65"></div></div>
+        <span class="skill-level">65</span>
+      </div>
+    </div>
+  </section>
+
+</div>
 
 <footer>
-  Built by Joseph Zhao &nbsp;·&nbsp; GitHub Pages
+  <p>Joseph Zhao</p>
+  <p class="sep">·</p>
+  <p>GitHub Pages</p>
+  <p class="sep">·</p>
+  <p style="color: var(--accent);">// keep building</p>
 </footer>
+
+<script>
+  // Animate bars on load
+  function animateBars() {
+    document.querySelectorAll('[data-width]').forEach(el => {
+      setTimeout(() => { el.style.width = el.dataset.width + '%'; }, 300);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', animateBars);
+  } else {
+    animateBars();
+  }
+</script>
 
 </body>
 </html>
