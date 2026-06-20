@@ -24,8 +24,7 @@ export function LocationPicker({ latitude, longitude, onChange }: LocationPicker
   const [results, setResults] = useState<GeocodeResult[]>([]);
   const [searching, setSearching] = useState(false);
 
-  async function runSearch(e: React.FormEvent) {
-    e.preventDefault();
+  async function runSearch() {
     if (!query.trim()) return;
     setSearching(true);
     try {
@@ -45,21 +44,23 @@ export function LocationPicker({ latitude, longitude, onChange }: LocationPicker
 
   return (
     <div className="flex flex-col gap-3">
-      <form onSubmit={runSearch} className="flex gap-2">
+      <div className="flex gap-2">
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); runSearch(); } }}
           placeholder="Search a place (e.g. Yosemite National Park)"
           className="flex-1 rounded-trail border-2 border-ink bg-white px-3 py-2 text-sm font-semibold placeholder:text-ink-soft/60 focus:outline-none"
         />
         <button
-          type="submit"
+          type="button"
+          onClick={runSearch}
           disabled={searching}
           className="rounded-trail border-2 border-ink bg-forest px-4 py-2 text-sm font-bold text-cream shadow-trail disabled:opacity-60"
         >
           {searching ? 'Searching…' : 'Search'}
         </button>
-      </form>
+      </div>
 
       {results.length > 0 && (
         <ul className="flex flex-col divide-y divide-ink/10 rounded-trail border-2 border-ink bg-white">
