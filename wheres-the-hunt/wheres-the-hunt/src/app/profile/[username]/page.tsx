@@ -37,7 +37,7 @@ export default async function ProfilePage({ params }: Params) {
       </div>
 
       <div className="mt-8">
-        <h2 className="mb-3 font-display text-lg font-bold text-ink">Where they&rsquo;ve been</h2>
+        <h2 className="mb-3 font-display text-lg font-bold text-ink">Where you&rsquo;ve been</h2>
         <div className="h-80 w-full overflow-hidden rounded-trail border-2 border-ink shadow-trail">
           <HeatmapOnlyMap counts={heatmap} baseColor="#9B72CF" />
         </div>
