@@ -67,15 +67,15 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* The show */}
+      {/* Youtube */}
       <section className="mb-14">
-        <p className="mb-1 text-xs font-bold uppercase tracking-widest text-ink-soft">The Show</p>
+        <p className="mb-1 text-xs font-bold uppercase tracking-widest text-ink-soft">Youtube</p>
         <h2 className="mb-4 font-display text-2xl font-bold text-ink">More 2 the Hunt</h2>
         <p className="mb-5 text-base leading-relaxed text-ink-soft">
-          Watch the show that started it all. Season after season, Brian takes you into
+          Watch on Youtube what started it all. Season after season, Brian takes you into
           the field — not just for the shot, but for the story behind it.
         </p>
-        <LinkButton href="https://youtube.com" variant="ghost" size="sm">
+        <LinkButton href="https://www.youtube.com/@More2TheHunt" variant="ghost" size="sm">
           Watch on YouTube ↗
         </LinkButton>
       </section>
