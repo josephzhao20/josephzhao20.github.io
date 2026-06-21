@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
@@ -38,7 +37,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   };
 }
 
-async function getAdjacentStories(currentId: string, createdAt: string) {
+async function getAdjacentStories(createdAt: string) {
   const supabase = await createClient();
   const [{ data: prev }, { data: next }] = await Promise.all([
     supabase
@@ -48,7 +47,7 @@ async function getAdjacentStories(currentId: string, createdAt: string) {
       .lt('created_at', createdAt)
       .order('created_at', { ascending: false })
       .limit(1)
-      .single(),
+      .maybeSingle(),
     supabase
       .from('adventures_with_stats')
       .select('id, title')
@@ -56,7 +55,7 @@ async function getAdjacentStories(currentId: string, createdAt: string) {
       .gt('created_at', createdAt)
       .order('created_at', { ascending: true })
       .limit(1)
-      .single(),
+      .maybeSingle(),
   ]);
   return {
     prev: prev as Pick<AdventureWithStats, 'id' | 'title'> | null,
@@ -79,38 +78,17 @@ export default async function AdventureDetailPage({ params }: Params) {
 
   const [liked, adjacent] = await Promise.all([
     profile ? hasLiked(profile.id, id) : Promise.resolve(false),
-    getAdjacentStories(id, adventure.created_at),
+    getAdjacentStories(adventure.created_at),
   ]);
 
   const pin = toMapPin(adventure);
   const photoList = (photos as AdventurePhotoRow[] | null) ?? [];
-  // Gallery shows all photos; hero shows first — skip first in gallery to avoid duplication
-  const galleryPhotos = photoList.slice(1);
 
   return (
     <article className="mx-auto max-w-4xl px-5 py-12">
       <Link href="/map" className="text-sm font-bold text-ink-soft hover:text-ink">
         ← Back to stories
       </Link>
-
-      {/* Hero photo — full width, dominant */}
-      {photoList.length > 0 && (
-        <div className="relative mt-6 aspect-[16/9] w-full overflow-hidden rounded-card bg-stone/30 shadow-card-lg">
-          <Image
-            src={photoList[0].image_url}
-            alt={adventure.title}
-            fill
-            sizes="(max-width: 768px) 100vw, 896px"
-            className="object-cover"
-            priority
-          />
-          {adventure.is_featured && (
-            <span className="absolute left-4 top-4 rounded-full border-2 border-ink bg-rust px-3 py-1 text-xs font-bold uppercase tracking-wide text-cream">
-              Featured
-            </span>
-          )}
-        </div>
-      )}
 
       {/* Title + date */}
       <div className="mt-6">
@@ -128,7 +106,7 @@ export default async function AdventureDetailPage({ params }: Params) {
           <Tag tone="forest">
             <Link href={`/profile/${adventure.username}`}>@{adventure.username}</Link>
           </Tag>
-          {adventure.is_featured && !photoList.length && <Tag tone="rust">Featured</Tag>}
+          {adventure.is_featured && <Tag tone="rust">Featured</Tag>}
         </div>
         <LikeButton
           adventureId={adventure.id}
@@ -143,19 +121,19 @@ export default async function AdventureDetailPage({ params }: Params) {
         <AdventureActions adventure={adventure} />
       )}
 
-      {/* The story — dominant content block */}
+      {/* All photos in gallery */}
+      {photoList.length > 0 && (
+        <div className="mt-8">
+          <PhotoGallery photos={photoList} title={adventure.title} />
+        </div>
+      )}
+
+      {/* The story */}
       {adventure.description && (
         <div className="mt-8 border-t border-ink/10 pt-8">
           <p className="whitespace-pre-line text-lg leading-[1.85] text-ink">
             {adventure.description}
           </p>
-        </div>
-      )}
-
-      {/* Photo gallery — remaining photos after hero */}
-      {galleryPhotos.length > 0 && (
-        <div className="mt-10">
-          <PhotoGallery photos={galleryPhotos} title={adventure.title} />
         </div>
       )}
 
@@ -176,13 +154,19 @@ export default async function AdventureDetailPage({ params }: Params) {
       {(adjacent.prev || adjacent.next) && (
         <div className="mt-12 flex items-center justify-between border-t border-ink/10 pt-8 text-sm font-semibold">
           {adjacent.prev ? (
-            <Link href={`/adventures/${adjacent.prev.id}`} className="group flex items-center gap-2 text-ink-soft hover:text-ink">
+            <Link
+              href={`/adventures/${adjacent.prev.id}`}
+              className="group flex items-center gap-2 text-ink-soft hover:text-ink"
+            >
               <span className="transition-transform group-hover:-translate-x-1">←</span>
               <span className="line-clamp-1 max-w-[180px] sm:max-w-xs">{adjacent.prev.title}</span>
             </Link>
           ) : <span />}
           {adjacent.next ? (
-            <Link href={`/adventures/${adjacent.next.id}`} className="group flex items-center gap-2 text-right text-ink-soft hover:text-ink">
+            <Link
+              href={`/adventures/${adjacent.next.id}`}
+              className="group flex items-center gap-2 text-right text-ink-soft hover:text-ink"
+            >
               <span className="line-clamp-1 max-w-[180px] sm:max-w-xs">{adjacent.next.title}</span>
               <span className="transition-transform group-hover:translate-x-1">→</span>
             </Link>

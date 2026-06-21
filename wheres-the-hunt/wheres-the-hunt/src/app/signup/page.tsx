@@ -15,7 +15,7 @@ export default async function SignupPage({
       <h1 className="font-display text-3xl font-bold text-ink">Join the hunt</h1>
       <p className="mt-2 text-sm font-semibold text-ink-soft">
         Create a free account to like adventures and build a profile. Once registered, you can
-        freely post your own adventures.
+        freely post your own adventures!
       </p>
 
       <div className="mt-8">
