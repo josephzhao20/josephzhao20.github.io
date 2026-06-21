@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/Button';
 
@@ -61,6 +62,12 @@ export default function ForgotPasswordPage() {
           </Button>
         </form>
       )}
+
+      <div className="mt-6">
+        <Link href="/login" className="text-sm font-semibold text-forest hover:underline">
+          ← Back to login
+        </Link>
+      </div>
     </div>
   );
 }

@@ -59,7 +59,7 @@ export default function AboutPage() {
               wildlife and wild places.
             </p>
             <div className="mt-4">
-              <LinkButton href="https://more2thehunt.com" variant="ghost" size="sm">
+              <LinkButton href="https://www.amazon.com/WINNING-WILDLIFE-ACHIEVEMENT-OUTDOOR-BASED-GOAL-ORIENTED/dp/B0DPB7FJM1" variant="ghost" size="sm">
                 Get the book ↗
               </LinkButton>
             </div>
