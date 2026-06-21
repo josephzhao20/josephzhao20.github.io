@@ -23,6 +23,7 @@ export function AdventurePopupCard({ pin }: { pin: MapPin }) {
         {pin.dateVisited && (
           <p className="mt-0.5 text-[11px] font-semibold text-stone">{formatDate(pin.dateVisited)}</p>
         )}
+
         <p className="mt-0.5 truncate text-[11px] font-semibold text-stone">{pin.locationLabel}</p>
         <div className="mt-2 flex items-center justify-between border-t border-cream-dark pt-2">
           <span className="text-[11px] font-bold text-earth">@{pin.username}</span>

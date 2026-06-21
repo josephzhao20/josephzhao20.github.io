@@ -39,7 +39,7 @@ export function Hero() {
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:gap-4">
               <LinkButton href="/map" size="lg" variant="secondary" className="w-full justify-center sm:w-auto">
-                Read other stories
+                Explore other stories
               </LinkButton>
               <Link
                 href="/signup"

@@ -15,6 +15,7 @@ export function AdventureActions({ adventure }: { adventure: AdventureWithStats 
 
   const [title, setTitle] = useState(adventure.title);
   const [description, setDescription] = useState(adventure.description ?? '');
+  const [dateVisited, setDateVisited] = useState(adventure.date_visited ?? '');
   const [privacyMode, setPrivacyMode] = useState<PrivacyMode>(adventure.privacy_mode);
   const [location, setLocation] = useState({
     latitude: adventure.real_latitude,
@@ -45,6 +46,7 @@ export function AdventureActions({ adventure }: { adventure: AdventureWithStats 
         body: JSON.stringify({
           title,
           description: description || null,
+          dateVisited: dateVisited || null,
           privacyMode,
           realLatitude: location.latitude,
           realLongitude: location.longitude,
@@ -124,6 +126,18 @@ export function AdventureActions({ adventure }: { adventure: AdventureWithStats 
             maxLength={2000}
             rows={4}
             className="w-full rounded-trail border-2 border-ink bg-white px-3 py-2 font-semibold focus:outline-none"
+          />
+        </div>
+
+        <div>
+          <label className="mb-1 block text-sm font-bold text-ink">
+            Date visited <span className="font-normal text-ink-soft">(optional)</span>
+          </label>
+          <input
+            type="date"
+            value={dateVisited}
+            onChange={(e) => setDateVisited(e.target.value)}
+            className="w-full rounded-trail border-2 border-ink bg-white px-3 py-2 font-semibold focus:outline-none sm:w-56"
           />
         </div>
 

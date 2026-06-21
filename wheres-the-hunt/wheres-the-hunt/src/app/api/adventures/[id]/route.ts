@@ -8,6 +8,7 @@ import type { AdventureRow } from '@/lib/types/database.types';
 const updateSchema = z.object({
   title: z.string().trim().min(1).max(120).optional(),
   description: z.string().trim().max(2000).nullable().optional(),
+  dateVisited: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).nullable().optional(),
   privacyMode: z.enum(['exact', 'region', 'country', 'hidden']).optional(),
   realLatitude: z.number().min(-90).max(90).optional(),
   realLongitude: z.number().min(-180).max(180).optional(),
@@ -43,6 +44,7 @@ export async function PATCH(request: Request, { params }: Params) {
     const update: Partial<AdventureRow> = {};
     if (body.title !== undefined) update.title = body.title;
     if (body.description !== undefined) update.description = body.description;
+    if (body.dateVisited !== undefined) update.date_visited = body.dateVisited;
     if (body.country !== undefined) update.country = body.country;
     if (body.countryCode !== undefined) update.country_code = body.countryCode?.toUpperCase() ?? null;
     if (body.region !== undefined) update.region = body.region;
