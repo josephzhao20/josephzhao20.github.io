@@ -13,7 +13,9 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
     <header className="sticky top-0 z-50 bg-forest-dark shadow-nav">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
         <Link href="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
-          <Image src="/logo.png" alt="Winning With The Hunt" width={36} height={36} className="rounded-full" />
+          <div className="relative h-9 w-9 flex-shrink-0 overflow-hidden rounded-full">
+            <Image src="/logo.png" alt="Winning With The Hunt" fill className="object-cover" />
+          </div>
           <span className="font-display text-base font-bold tracking-wide text-cream">Winning With The Hunt</span>
         </Link>
 

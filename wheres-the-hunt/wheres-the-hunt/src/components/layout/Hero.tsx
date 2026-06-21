@@ -10,14 +10,9 @@ export function Hero() {
 
         {/* Mobile: logo centered at top */}
         <div className="mb-6 flex justify-center sm:hidden">
-          <Image
-            src="/logo.png"
-            alt="Winning With The Hunt"
-            width={140}
-            height={140}
-            className="rounded-full opacity-95"
-            priority
-          />
+          <div className="relative h-36 w-36 overflow-hidden rounded-full opacity-95">
+            <Image src="/logo.png" alt="Winning With The Hunt" fill className="object-cover" priority />
+          </div>
         </div>
 
         {/* Desktop: two-column layout */}
@@ -64,14 +59,9 @@ export function Hero() {
 
           {/* Right — logo, desktop only */}
           <div className="hidden flex-shrink-0 sm:block">
-            <Image
-              src="/logo.png"
-              alt="Winning With The Hunt"
-              width={300}
-              height={300}
-              className="rounded-full opacity-95 drop-shadow-xl"
-              priority
-            />
+            <div className="relative h-96 w-96 overflow-hidden rounded-full opacity-95 drop-shadow-xl lg:h-[420px] lg:w-[420px]">
+              <Image src="/logo.png" alt="Winning With The Hunt" fill className="object-cover" priority />
+            </div>
           </div>
         </div>
 
