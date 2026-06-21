@@ -34,7 +34,7 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
           {profile ? (
             <div className="flex items-center gap-4 border-l border-cream/20 pl-6">
               <Link href={`/profile/${profile.username}`} className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">
-                @{profile.username}
+                View Profile
               </Link>
               <SignOutButton />
             </div>
@@ -77,7 +77,7 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
             {profile ? (
               <>
                 <Link href={`/profile/${profile.username}`} className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>
-                  @{profile.username}
+                  View Profile
                 </Link>
                 <SignOutButton />
               </>
