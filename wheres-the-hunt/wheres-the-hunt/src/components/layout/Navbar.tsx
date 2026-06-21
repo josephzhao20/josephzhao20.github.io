@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import type { UserRow } from '@/lib/types/database.types';
 import { SignOutButton } from './AuthMenu';
 
@@ -11,8 +12,9 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
   return (
     <header className="sticky top-0 z-50 bg-forest-dark shadow-nav">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
-        <Link href="/" className="font-display text-base font-bold tracking-wide text-cream hover:text-cream/80 transition-colors">
-          Winning With The Hunt
+        <Link href="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
+          <Image src="/logo.png" alt="Winning With The Hunt" width={36} height={36} className="rounded-full" />
+          <span className="font-display text-base font-bold tracking-wide text-cream">Winning With The Hunt</span>
         </Link>
 
         {/* Desktop nav */}
