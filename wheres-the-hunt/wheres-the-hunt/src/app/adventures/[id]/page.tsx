@@ -95,9 +95,9 @@ export default async function AdventureDetailPage({ params }: Params) {
         <h1 className="font-display text-3xl font-bold leading-tight text-ink sm:text-4xl">
           {adventure.title}
         </h1>
-        <p className="mt-2 text-sm font-bold text-ink-soft">
-          {adventure.date_visited ? formatDate(adventure.date_visited) : formatDate(adventure.created_at)}
-        </p>
+        {adventure.date_visited && (
+          <p className="mt-2 text-sm font-bold text-ink-soft">{formatDate(adventure.date_visited)}</p>
+        )}
       </div>
 
       {/* Author row + like button */}
