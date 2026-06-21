@@ -2,27 +2,27 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import type { ButtonHTMLAttributes } from 'react';
 
-type Variant = 'primary' | 'secondary' | 'ghost' | 'danger';
+type Variant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'outline';
 type Size = 'sm' | 'md' | 'lg';
 
 const VARIANT_CLASSES: Record<Variant, string> = {
-  primary: 'bg-forest text-cream border-ink hover:bg-forest-dark',
-  secondary: 'bg-rust text-cream border-ink hover:bg-rust-dark',
-  ghost: 'bg-transparent text-ink border-ink hover:bg-ink/5',
-  danger: 'bg-red-600 text-cream border-ink hover:bg-red-700',
+  primary:   'bg-forest text-cream border-transparent hover:bg-forest-dark',
+  secondary: 'bg-rust text-cream border-transparent hover:bg-rust-dark',
+  ghost:     'bg-transparent text-ink border-ink/30 hover:border-ink hover:bg-ink/5',
+  outline:   'bg-transparent text-forest border-forest hover:bg-forest hover:text-cream',
+  danger:    'bg-red-700 text-cream border-transparent hover:bg-red-800',
 };
 
 const SIZE_CLASSES: Record<Size, string> = {
-  sm: 'px-3 py-1.5 text-sm',
-  md: 'px-5 py-2.5 text-base',
-  lg: 'px-7 py-3.5 text-lg',
+  sm: 'px-3.5 py-1.5 text-sm',
+  md: 'px-5 py-2.5 text-sm',
+  lg: 'px-7 py-3 text-base',
 };
 
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-trail border-2 font-bold ' +
-  'shadow-trail transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 ' +
-  'active:translate-x-0.5 active:translate-y-0.5 active:shadow-none disabled:opacity-50 ' +
-  'disabled:pointer-events-none disabled:translate-x-0 disabled:translate-y-0 disabled:shadow-trail';
+  'inline-flex items-center justify-center gap-2 rounded-card border font-semibold ' +
+  'transition-all duration-150 hover:shadow-card active:scale-[0.98] ' +
+  'disabled:opacity-50 disabled:pointer-events-none tracking-wide';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;

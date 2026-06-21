@@ -68,7 +68,7 @@ export default async function ExplorePage({ searchParams }: PageProps) {
       </p>
 
       {/* Interactive map — compact */}
-      <div className="mt-8 h-64 w-full overflow-hidden rounded-trail border-2 border-ink shadow-trail-lg sm:h-80">
+      <div className="mt-8 h-64 w-full overflow-hidden rounded-card shadow-card-lg sm:h-80">
         <WorldMap pins={pins} heatmapCounts={heatmap} />
       </div>
 

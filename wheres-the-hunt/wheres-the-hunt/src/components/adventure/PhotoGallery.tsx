@@ -11,7 +11,7 @@ export function PhotoGallery({ photos, title }: { photos: AdventurePhotoRow[]; t
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-trail border-2 border-ink bg-stone sm:aspect-[16/9]">
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-card bg-stone/30 shadow-card sm:aspect-[16/9]">
         <Image
           src={photos[active].image_url}
           alt={`${title} — photo ${active + 1} of ${photos.length}`}
@@ -30,8 +30,8 @@ export function PhotoGallery({ photos, title }: { photos: AdventurePhotoRow[]; t
               onClick={() => setActive(i)}
               aria-label={`Show photo ${i + 1}`}
               aria-current={i === active}
-              className={`relative h-16 w-20 flex-shrink-0 overflow-hidden rounded-md border-2 ${
-                i === active ? 'border-rust' : 'border-ink/30'
+              className={`relative h-16 w-20 flex-shrink-0 overflow-hidden rounded-md border-2 transition-all ${
+                i === active ? 'border-rust shadow-card' : 'border-transparent opacity-60 hover:opacity-100'
               }`}
             >
               <Image src={photo.image_url} alt="" fill sizes="80px" className="object-cover" />

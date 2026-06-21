@@ -36,14 +36,14 @@ export default async function AdventureDetailPage({ params }: Params) {
   const photoList = (photos as AdventurePhotoRow[] | null) ?? [];
 
   return (
-    <article className="mx-auto max-w-4xl px-5 py-10">
+    <article className="mx-auto max-w-4xl px-5 py-12">
       <Link href="/map" className="text-sm font-bold text-ink-soft hover:text-ink">
         ← Back to stories
       </Link>
 
       {/* Hero photo — full width, dominant */}
       {photoList.length > 0 && (
-        <div className="relative mt-6 aspect-[16/9] w-full overflow-hidden rounded-trail border-2 border-ink bg-stone">
+        <div className="relative mt-6 aspect-[16/9] w-full overflow-hidden rounded-card bg-stone/30 shadow-card-lg">
           <Image
             src={photoList[0].image_url}
             alt={adventure.title}
@@ -114,7 +114,7 @@ export default async function AdventureDetailPage({ params }: Params) {
             <span>📍</span>
             <span>{locationLabel(adventure)}</span>
           </div>
-          <div className="mt-3 h-48 w-full overflow-hidden rounded-trail border-2 border-ink">
+          <div className="mt-3 h-48 w-full overflow-hidden rounded-card shadow-card">
             <WorldMap pins={[pin]} initialCenter={[pin.latitude, pin.longitude]} initialZoom={9} />
           </div>
         </div>

@@ -15,51 +15,66 @@ function SpotlightCard({ story }: { story: AdventureWithStats }) {
   return (
     <Link
       href={`/adventures/${story.id}`}
-      className="group flex flex-col overflow-hidden rounded-trail border-2 border-ink bg-white shadow-trail transition-transform hover:-translate-y-1 sm:flex-row"
+      className="group flex flex-col overflow-hidden rounded-card bg-white shadow-card-lg transition-all duration-300 hover:shadow-card-hover sm:flex-row"
     >
-      <div className="relative h-64 w-full overflow-hidden border-b-2 border-ink bg-stone sm:h-auto sm:w-2/5 sm:border-b-0 sm:border-r-2">
+      <div className="relative h-64 w-full overflow-hidden bg-stone/30 sm:h-auto sm:w-2/5">
         {story.cover_image_url ? (
           <Image
             src={story.cover_image_url}
             alt={story.title}
             fill
             sizes="(max-width: 640px) 100vw, 40vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
             priority
           />
         ) : (
-          <div className="flex h-full items-center justify-center text-5xl">⛰</div>
+          <div className="flex h-full items-center justify-center text-5xl text-stone">⛰</div>
         )}
         {story.is_featured && (
-          <span className="absolute left-3 top-3 rounded-full border-2 border-ink bg-rust px-3 py-1 text-xs font-bold uppercase tracking-wide text-cream">
+          <span className="absolute left-3 top-3 rounded-full bg-rust px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-cream">
             Featured
           </span>
         )}
       </div>
       <div className="flex flex-1 flex-col justify-between p-6 sm:p-8">
         <div>
-          <p className="mb-2 text-xs font-bold uppercase tracking-widest text-ink-soft">
+          <p className="mb-3 text-[11px] font-bold uppercase tracking-[2px] text-stone">
             {story.date_visited ? formatDate(story.date_visited) : formatDate(story.created_at)}
             {' · '}
             {locationLabel(story)}
           </p>
-          <h2 className="font-display text-2xl font-bold leading-tight text-ink sm:text-3xl">
+          <h2 className="font-display text-2xl font-bold leading-snug text-ink transition-colors group-hover:text-forest sm:text-3xl">
             {story.title}
           </h2>
           {story.description && (
-            <p className="mt-3 line-clamp-3 text-base leading-relaxed text-ink-soft">
+            <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-ink/60">
               {story.description}
             </p>
           )}
         </div>
-        <div className="mt-6 flex items-center justify-between">
-          <span className="text-sm font-bold text-forest">@{story.username}</span>
-          <span className="flex items-center gap-1.5 text-sm font-bold text-ink-soft">
-            ♥ {story.like_count}
-          </span>
+        <div className="mt-6 flex items-center justify-between border-t border-cream-dark pt-4">
+          <span className="text-xs font-bold text-earth">@{story.username}</span>
+          <span className="text-xs font-semibold text-stone">♥ {story.like_count}</span>
         </div>
       </div>
     </Link>
+  );
+}
+
+function Section({ children, tonal = false }: { children: React.ReactNode; tonal?: boolean }) {
+  return (
+    <section className={`py-16 ${tonal ? 'bg-cream-dark/40' : 'bg-cream'}`}>
+      <div className="mx-auto max-w-6xl px-5">{children}</div>
+    </section>
+  );
+}
+
+function SectionHeader({ title, action }: { title: string; action?: React.ReactNode }) {
+  return (
+    <div className="mb-8 flex items-end justify-between">
+      <h2 className="font-display text-2xl font-bold text-ink sm:text-3xl">{title}</h2>
+      {action}
+    </div>
   );
 }
 
@@ -78,81 +93,65 @@ export default async function HomePage() {
     return (
       <>
         {/* Welcome back hero */}
-        <section className="border-b-2 border-ink bg-cream py-14">
+        <section className="bg-forest py-16">
           <div className="mx-auto max-w-6xl px-5">
-            <p className="mb-2 text-sm font-bold uppercase tracking-widest text-ink-soft">
-              Welcome back
-            </p>
-            <h1 className="font-display text-4xl font-bold text-ink sm:text-5xl">
-              Hey, <span className="italic text-forest">@{profile.username}</span> 👋
+            <p className="mb-2 text-xs font-bold uppercase tracking-[3px] text-cream/60">Welcome back</p>
+            <h1 className="font-display text-4xl font-bold text-cream sm:text-5xl">
+              Hey, <span className="italic text-rust-light">@{profile.username}</span>
             </h1>
-            <p className="mt-3 text-base font-semibold text-ink-soft">
+            <p className="mt-3 text-sm font-semibold text-cream/70">
               {myAdventures.length === 0
                 ? "You haven't shared any stories yet. Ready to tell your first?"
-                : `You've shared ${myAdventures.length} stor${myAdventures.length === 1 ? 'y' : 'ies'} so far. Keep exploring.`}
+                : `You've shared ${myAdventures.length} stor${myAdventures.length === 1 ? 'y' : 'ies'} so far. Keep going.`}
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <LinkButton href="/upload" size="lg" className="w-full justify-center sm:w-auto">Share your story</LinkButton>
-              <LinkButton href="/map" variant="ghost" size="lg" className="w-full justify-center sm:w-auto">Read the stories</LinkButton>
-              <LinkButton href={`/profile/${profile.username}`} variant="ghost" size="lg" className="w-full justify-center sm:w-auto">
-                My profile
-              </LinkButton>
+              <LinkButton href="/upload" size="lg" variant="secondary" className="w-full justify-center sm:w-auto">Share your story</LinkButton>
+              <a href="/map" className="inline-flex w-full items-center justify-center rounded-card bg-cream px-7 py-3 text-base font-semibold text-forest transition-all hover:bg-cream-dark sm:w-auto">Read the stories</a>
+              <a href={`/profile/${profile.username}`} className="inline-flex w-full items-center justify-center rounded-card border border-cream/40 px-7 py-3 text-base font-semibold text-cream/80 transition-all hover:border-cream/70 hover:text-cream sm:w-auto">My profile</a>
             </div>
           </div>
         </section>
 
-        {/* Spotlight */}
         {spotlight && (
-          <section className="border-b-2 border-ink bg-cream py-14">
-            <div className="mx-auto max-w-6xl px-5">
-              <h2 className="mb-6 font-display text-2xl font-bold text-ink sm:text-3xl">Story spotlight</h2>
-              <SpotlightCard story={spotlight} />
-            </div>
-          </section>
+          <Section>
+            <SectionHeader title="Story spotlight" />
+            <SpotlightCard story={spotlight} />
+          </Section>
         )}
 
-        {/* My recent stories */}
         {myAdventures.length > 0 && (
-          <section className="border-b-2 border-ink bg-cream py-14">
-            <div className="mx-auto max-w-6xl px-5">
-              <div className="mb-6 flex items-end justify-between">
-                <h2 className="font-display text-2xl font-bold text-ink sm:text-3xl">My stories</h2>
-                <Link href={`/profile/${profile.username}`} className="text-sm font-bold text-forest underline">View all</Link>
-              </div>
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {myAdventures.slice(0, 6).map((a) => <AdventureCard key={a.id} adventure={a} />)}
-              </div>
+          <Section tonal>
+            <SectionHeader
+              title="My stories"
+              action={<Link href={`/profile/${profile.username}`} className="text-sm font-semibold text-forest hover:underline">View all</Link>}
+            />
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {myAdventures.slice(0, 6).map((a) => <AdventureCard key={a.id} adventure={a} />)}
             </div>
-          </section>
+          </Section>
         )}
 
-        {/* Recent community stories */}
         {recent.length > 0 && (
-          <section className="border-b-2 border-ink bg-cream py-14">
-            <div className="mx-auto max-w-6xl px-5">
-              <h2 className="mb-6 font-display text-2xl font-bold text-ink sm:text-3xl">Recent stories</h2>
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {recent.map((a) => <AdventureCard key={a.id} adventure={a} />)}
-              </div>
+          <Section>
+            <SectionHeader title="Recent stories" />
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {recent.map((a) => <AdventureCard key={a.id} adventure={a} />)}
             </div>
-          </section>
+          </Section>
         )}
 
-        {/* Small map module */}
-        <section className="border-b-2 border-ink bg-cream py-14">
-          <div className="mx-auto max-w-6xl px-5">
-            <div className="mb-4 flex items-end justify-between">
-              <div>
-                <h2 className="font-display text-xl font-bold text-ink">See where these stories happened</h2>
-                <p className="mt-1 text-sm font-semibold text-ink-soft">{pins.length.toLocaleString()} stories on the map</p>
-              </div>
-              <LinkButton href="/map" variant="ghost" size="sm" className="hidden sm:inline-flex">Open full map</LinkButton>
+        <Section tonal>
+          <div className="mb-5 flex items-end justify-between">
+            <div>
+              <h2 className="font-display text-xl font-bold text-ink">See where these stories happened</h2>
+              <p className="mt-1 text-sm text-stone">{pins.length.toLocaleString()} stories on the map</p>
             </div>
-            <div className="h-[280px] w-full overflow-hidden rounded-trail border-2 border-ink shadow-trail-lg">
-              <WorldMap pins={pins} heatmapCounts={heatmap} />
-            </div>
+            <LinkButton href="/map" variant="outline" size="sm" className="hidden sm:inline-flex">Open full map</LinkButton>
           </div>
-        </section>
+          <div className="h-[260px] w-full overflow-hidden rounded-card shadow-card-lg">
+            <WorldMap pins={pins} heatmapCounts={heatmap} />
+          </div>
+        </Section>
       </>
     );
   }
@@ -161,46 +160,37 @@ export default async function HomePage() {
     <>
       <Hero />
 
-      {/* Featured story spotlight */}
       {spotlight && (
-        <section className="border-b-2 border-ink bg-cream py-14">
-          <div className="mx-auto max-w-6xl px-5">
-            <h2 className="mb-6 font-display text-2xl font-bold text-ink sm:text-3xl">Story spotlight</h2>
-            <SpotlightCard story={spotlight} />
-          </div>
-        </section>
+        <Section>
+          <SectionHeader title="Story spotlight" />
+          <SpotlightCard story={spotlight} />
+        </Section>
       )}
 
-      {/* Recent community stories */}
       {recent.length > 0 && (
-        <section className="border-b-2 border-ink bg-cream py-14">
-          <div className="mx-auto max-w-6xl px-5">
-            <div className="mb-6 flex items-end justify-between">
-              <h2 className="font-display text-2xl font-bold text-ink sm:text-3xl">Recent stories</h2>
-              <LinkButton href="/map" variant="ghost" size="sm" className="hidden sm:inline-flex">Read all stories</LinkButton>
-            </div>
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {recent.map((a) => <AdventureCard key={a.id} adventure={a} />)}
-            </div>
+        <Section tonal>
+          <SectionHeader
+            title="Recent stories"
+            action={<LinkButton href="/map" variant="outline" size="sm">Read all stories</LinkButton>}
+          />
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {recent.map((a) => <AdventureCard key={a.id} adventure={a} />)}
           </div>
-        </section>
+        </Section>
       )}
 
-      {/* Small map module */}
-      <section className="border-b-2 border-ink bg-cream py-14">
-        <div className="mx-auto max-w-6xl px-5">
-          <div className="mb-4 flex items-end justify-between">
-            <div>
-              <h2 className="font-display text-xl font-bold text-ink">See where these stories happened</h2>
-              <p className="mt-1 text-sm font-semibold text-ink-soft">{pins.length.toLocaleString()} stories on the map</p>
-            </div>
-            <LinkButton href="/map" variant="ghost" size="sm" className="hidden sm:inline-flex">Open full map</LinkButton>
+      <Section>
+        <div className="mb-5 flex items-end justify-between">
+          <div>
+            <h2 className="font-display text-xl font-bold text-ink">See where these stories happened</h2>
+            <p className="mt-1 text-sm text-stone">{pins.length.toLocaleString()} stories on the map</p>
           </div>
-          <div className="h-[280px] w-full overflow-hidden rounded-trail border-2 border-ink shadow-trail-lg">
-            <WorldMap pins={pins} heatmapCounts={heatmap} />
-          </div>
+          <LinkButton href="/map" variant="outline" size="sm" className="hidden sm:inline-flex">Open full map</LinkButton>
         </div>
-      </section>
+        <div className="h-[260px] w-full overflow-hidden rounded-card shadow-card-lg">
+          <WorldMap pins={pins} heatmapCounts={heatmap} />
+        </div>
+      </Section>
 
       <MissionStatement />
     </>
