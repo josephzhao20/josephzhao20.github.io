@@ -24,9 +24,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Winning With The Hunt — Every pin tells a story.",
+  title: "Winning With The Hunt — Every adventure tells a story.",
   description:
-    "A community-driven map of adventures, memories, and places worth remembering. From family vacations and national parks to fishing trips and hidden gems, every pin represents a story waiting to be explored.",
+    "A community where hunters, anglers, and outdoor families keep the stories worth remembering. Every adventure tells a story. This is where it gets told.",
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

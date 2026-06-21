@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { getMerchItems } from '@/lib/data/merch';
 import type { MerchItem, MerchCategory } from '@/lib/types/database.types';
 
-export const metadata = { title: "The Lodge — Winning With The Hunt" };
+export const metadata = { title: "The Lodge Shop — Winning With The Hunt" };
 
 const APPAREL: MerchCategory[] = ['shirt', 'hoodie', 'hat'];
 
@@ -91,7 +91,7 @@ export default async function MerchPage() {
             Welcome to
           </p>
           <h1 className="font-display text-5xl font-bold text-[#f5ede0] drop-shadow-lg sm:text-6xl">
-            The More 2 The Hunt Lodge
+            The Lodge Shop
           </h1>
           <p className="mx-auto mt-4 max-w-md text-sm font-semibold leading-relaxed text-[#c4a070]">
             Hunting-themed gear and the book that started it all. Made for people who live for the outdoors.
@@ -143,7 +143,9 @@ export default async function MerchPage() {
           <div className="mt-20 border-t border-[#4a2510] pt-8 text-center">
             <p className="text-sm font-semibold text-[#a07040]">
               Questions about an order?{' '}
-              <span className="font-bold text-[#d4891a]">Reach out to More 2 The Hunt directly.</span>
+              <a href="mailto:winningwiththehunt@gmail.com" className="font-bold text-[#d4891a] hover:underline">
+                Reach out to More 2 The Hunt directly.
+              </a>
             </p>
           </div>
         </div>

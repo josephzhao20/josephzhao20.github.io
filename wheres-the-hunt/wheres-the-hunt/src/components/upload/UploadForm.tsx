@@ -46,9 +46,13 @@ export function UploadForm({ userId }: { userId: string }) {
   // whatever GPS we pulled from EXIF. Priority 3 (geocoder) happens because
   // the LocationPicker's search box is how a "manual" pick gets made when
   // there's no EXIF to seed it. ──────────────────────────────────────────
+  const MAX_PHOTOS = 10;
+
   async function handleFilesSelected(fileList: FileList | null) {
     if (!fileList || fileList.length === 0) return;
-    const files = Array.from(fileList);
+    const incoming = Array.from(fileList);
+    const remaining = MAX_PHOTOS - photos.length;
+    const files = incoming.slice(0, remaining);
 
     const next: SelectedPhoto[] = files.map((file) => ({
       file,
@@ -200,13 +204,15 @@ export function UploadForm({ userId }: { userId: string }) {
             </div>
           ))}
 
-          <button
-            type="button"
-            onClick={() => fileInputRef.current?.click()}
-            className="flex aspect-square flex-col items-center justify-center rounded-trail border-2 border-dashed border-ink/40 text-xs font-bold text-ink-soft hover:border-ink hover:text-ink sm:h-24 sm:w-24"
-          >
-            + Add
-          </button>
+          {photos.length < MAX_PHOTOS && (
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="flex aspect-square flex-col items-center justify-center rounded-trail border-2 border-dashed border-ink/40 text-xs font-bold text-ink-soft hover:border-ink hover:text-ink sm:h-24 sm:w-24"
+            >
+              + Add
+            </button>
+          )}
           <input
             ref={fileInputRef}
             type="file"
@@ -216,7 +222,10 @@ export function UploadForm({ userId }: { userId: string }) {
             onChange={(e) => handleFilesSelected(e.target.files)}
           />
         </div>
-        {detecting && <p className="mt-2 text-xs font-bold text-ink-soft">Scanning for GPS data…</p>}
+        <p className="mt-2 text-xs font-semibold text-ink-soft">
+          {photos.length}/10 photos — choose wisely, 10 is the max per story.
+        </p>
+        {detecting && <p className="mt-1 text-xs font-bold text-ink-soft">Scanning for GPS data…</p>}
       </section>
 
       {/* Title / description */}

@@ -1,4 +1,4 @@
-export function Footer() {
+export function Footer({ showMapCredit = false }: { showMapCredit?: boolean }) {
   return (
     <footer className="bg-forest-dark py-10">
       <div className="mx-auto max-w-6xl px-5">
@@ -11,17 +11,25 @@ export function Footer() {
             <a href="https://more2thehunt.com" target="_blank" rel="noopener noreferrer" className="hover:text-cream transition-colors">
               More 2 the Hunt ↗
             </a>
-            <a href="https://more2thehunt.com" target="_blank" rel="noopener noreferrer" className="hover:text-cream transition-colors">
+            <a
+              href="https://www.amazon.com/WINNING-WILDLIFE-ACHIEVEMENT-OUTDOOR-BASED-GOAL-ORIENTED/dp/B0DPB7FJM1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-cream transition-colors"
+            >
               The Book ↗
             </a>
             <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-cream transition-colors">
+              {/* TODO: replace with official YouTube channel URL */}
               Watch the Show ↗
             </a>
           </div>
         </div>
-        <div className="mt-8 border-t border-cream/10 pt-6 text-xs text-cream/40">
-          Map data © OpenStreetMap contributors
-        </div>
+        {showMapCredit && (
+          <div className="mt-8 border-t border-cream/10 pt-6 text-xs text-cream/40">
+            Map data © OpenStreetMap contributors
+          </div>
+        )}
       </div>
     </footer>
   );
