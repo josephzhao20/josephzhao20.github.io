@@ -52,7 +52,7 @@ export default async function ProfilePage({ params }: Params) {
 
       {/* Heatmap — demoted below the grid */}
       <div className="mt-12">
-        <h2 className="mb-3 font-display text-base font-bold text-ink-soft">Where they&rsquo;ve been</h2>
+        <h2 className="mb-3 font-display text-base font-bold text-ink-soft">Where you&rsquo;ve been</h2>
         <div className="h-56 w-full overflow-hidden rounded-card shadow-card">
           <HeatmapOnlyMap counts={heatmap} baseColor="#9B72CF" />
         </div>

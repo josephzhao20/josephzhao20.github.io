@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import type { UserRow } from '@/lib/types/database.types';
 import { SignOutButton } from './AuthMenu';
 
@@ -11,8 +12,11 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
   return (
     <header className="sticky top-0 z-50 bg-forest-dark shadow-nav">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
-        <Link href="/" className="font-display text-base font-bold tracking-wide text-cream hover:text-cream/80 transition-colors">
-          Winning With The Hunt
+        <Link href="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
+          <div className="relative h-9 w-9 flex-shrink-0 overflow-hidden rounded-full">
+            <Image src="/logo.png" alt="Winning With The Hunt" fill className="object-cover" />
+          </div>
+          <span className="font-display text-base font-bold tracking-wide text-cream">Winning With The Hunt</span>
         </Link>
 
         {/* Desktop nav */}
@@ -30,7 +34,7 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
           {profile ? (
             <div className="flex items-center gap-4 border-l border-cream/20 pl-6">
               <Link href={`/profile/${profile.username}`} className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">
-                @{profile.username}
+                View Profile
               </Link>
               <SignOutButton />
             </div>
@@ -73,7 +77,7 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
             {profile ? (
               <>
                 <Link href={`/profile/${profile.username}`} className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>
-                  @{profile.username}
+                  View Profile
                 </Link>
                 <SignOutButton />
               </>
