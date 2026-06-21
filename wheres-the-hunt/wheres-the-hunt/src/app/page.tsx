@@ -10,6 +10,7 @@ import { getCurrentProfile } from '@/lib/auth/roles';
 import { locationLabel } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
 import type { AdventureWithStats } from '@/lib/types/database.types';
+import { Analytics } from "@vercel/analytics/next"
 
 function SpotlightCard({ story }: { story: AdventureWithStats }) {
   return (

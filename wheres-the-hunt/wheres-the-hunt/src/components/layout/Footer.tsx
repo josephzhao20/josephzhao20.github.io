@@ -1,4 +1,4 @@
-export function Footer({ showMapCredit = false }: { showMapCredit?: boolean }) {
+export function Footer() {
   return (
     <footer className="bg-forest-dark py-10">
       <div className="mx-auto max-w-6xl px-5">
@@ -25,11 +25,6 @@ export function Footer({ showMapCredit = false }: { showMapCredit?: boolean }) {
             </a>
           </div>
         </div>
-        {showMapCredit && (
-          <div className="mt-8 border-t border-cream/10 pt-6 text-xs text-cream/40">
-            Map data © OpenStreetMap contributors
-          </div>
-        )}
       </div>
     </footer>
   );
