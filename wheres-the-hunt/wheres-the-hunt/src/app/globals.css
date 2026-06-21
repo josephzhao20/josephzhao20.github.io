@@ -21,6 +21,18 @@ body {
   font-family: var(--font-worksans), sans-serif;
 }
 
+/* Cap Leaflet's internal z-indices so the sticky navbar (z-50 = 50) always wins. */
+.leaflet-pane,
+.leaflet-top,
+.leaflet-bottom,
+.leaflet-control {
+  z-index: 10 !important;
+}
+
+.leaflet-popup-pane {
+  z-index: 15 !important;
+}
+
 .leaflet-popup-content-wrapper {
   border-radius: 14px;
   border: 2px solid #211d17;
