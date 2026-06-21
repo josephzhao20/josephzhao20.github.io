@@ -88,10 +88,10 @@ export default async function MerchPage() {
         {/* Header */}
         <div className="lodge-header-bg px-5 py-14 text-center">
           <p className="mb-2 font-display text-sm font-bold uppercase tracking-[4px] text-[#d4891a]">
-            More 2 The Hunt
+            Welcome to
           </p>
           <h1 className="font-display text-5xl font-bold text-[#f5ede0] drop-shadow-lg sm:text-6xl">
-            The Lodge
+            The More 2 The Hunt Lodge
           </h1>
           <p className="mx-auto mt-4 max-w-md text-sm font-semibold leading-relaxed text-[#c4a070]">
             Hunting-themed gear and the book that started it all. Made for people who live for the outdoors.

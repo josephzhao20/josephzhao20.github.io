@@ -34,12 +34,12 @@ export function Hero() {
 
             <p className="mt-2 max-w-xl text-sm leading-relaxed text-cream/65 sm:text-base">
               A place to keep the stories worth telling — the hunts, the catches,
-              the trips that meant something.
+              the trips that mean something.
             </p>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:gap-4">
               <LinkButton href="/map" size="lg" variant="secondary" className="w-full justify-center sm:w-auto">
-                Read the stories
+                Read other stories
               </LinkButton>
               <Link
                 href="/signup"
