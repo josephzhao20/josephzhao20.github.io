@@ -41,7 +41,6 @@ export async function extractExif(file: File): Promise<ExifData> {
       tiff: true,
       exif: true,
       gps: true,
-      ifd0: true,
     }).catch(() => null);
 
     const dateVisited =
