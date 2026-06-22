@@ -19,9 +19,9 @@ export function Footer() {
             >
               The Book ↗
             </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-cream transition-colors">
+            <a href="https://www.youtube.com/@More2TheHunt" target="_blank" rel="noopener noreferrer" className="hover:text-cream transition-colors">
               {/* TODO: replace with official YouTube channel URL */}
-              Watch the Show ↗
+              Watch on Youtube ↗
             </a>
           </div>
         </div>
