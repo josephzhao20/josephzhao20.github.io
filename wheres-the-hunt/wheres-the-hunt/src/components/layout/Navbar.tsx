@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { UserRow } from '@/lib/types/database.types';
 import { SignOutButton } from './AuthMenu';
+import { BRAND_NAME } from '@/lib/constants';
 
 export function Navbar({ profile }: { profile: UserRow | null }) {
   const [open, setOpen] = useState(false);
@@ -16,7 +17,7 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
           <div className="relative h-9 w-9 flex-shrink-0 overflow-hidden rounded-full">
             <Image src="/logo.png" alt="Winning With The Hunt" fill className="object-cover" />
           </div>
-          <span className="font-display text-base font-bold tracking-wide text-cream">Winning With The Hunt</span>
+          <span className="font-display text-base font-bold tracking-wide text-cream">{BRAND_NAME}</span>
         </Link>
 
         {/* Desktop nav */}
@@ -25,7 +26,8 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
           {profile && profile.upload_approved && (
             <Link href="/upload" className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">Share Your Story</Link>
           )}
-          <Link href="/map" className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">Explore</Link>
+          <Link href="/stories" className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">Stories</Link>
+          <Link href="/map" className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">Map</Link>
           <Link href="/merch" className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">The Lodge Shop</Link>
           <Link href="/about" className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">Our Mission</Link>
           {profile?.is_admin && (
@@ -68,7 +70,8 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
             {profile && profile.upload_approved && (
               <Link href="/upload" className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>Share Your Story</Link>
             )}
-            <Link href="/map" className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>Explore</Link>
+            <Link href="/stories" className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>Stories</Link>
+            <Link href="/map" className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>Map</Link>
             <Link href="/merch" className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>The Lodge Shop</Link>
             <Link href="/about" className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>Our Mission</Link>
             {profile?.is_admin && (
