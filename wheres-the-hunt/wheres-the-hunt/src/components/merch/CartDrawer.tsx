@@ -113,6 +113,8 @@ export function CartDrawer() {
             </div>
             <a
               href={cart.checkoutUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className={`block w-full rounded py-3 text-center font-bold text-[#f5ede0] transition-opacity ${
                 loading ? 'bg-[#FF9900]/60 pointer-events-none' : 'bg-[#FF9900] hover:bg-[#FFAD33]'
               }`}
