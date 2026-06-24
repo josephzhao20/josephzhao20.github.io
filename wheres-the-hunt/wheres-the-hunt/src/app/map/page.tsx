@@ -8,7 +8,10 @@ import { locationLabel } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
 import type { AdventureWithStats } from '@/lib/types/database.types';
 
-export const metadata = { title: "Explore — Winning With The Hunt" };
+export const metadata = {
+  title: "Explore — Winning With The Hunt",
+  description: "Discover hunts, catches, and outdoor memories from the community. Browse the interactive map or search stories by keyword.",
+};
 
 interface PageProps {
   searchParams: Promise<{ q?: string }>;
@@ -73,17 +76,22 @@ export default async function ExplorePage({ searchParams }: PageProps) {
       </div>
 
       {/* Featured stories — top liked in past 3 months */}
-      {topStories.length > 0 && (
-        <section className="mt-12">
-          <div className="mb-4 flex items-baseline justify-between">
-            <h2 className="font-display text-xl font-bold text-ink">Top Stories</h2>
-            <span className="text-xs font-bold text-ink-soft">Most liked · last 3 months</span>
-          </div>
-          <div className="flex gap-4 overflow-x-auto pb-3">
-            {topStories.map(a => <HorizontalStoryCard key={a.id} adventure={a} />)}
-          </div>
-        </section>
-      )}
+      {topStories.length > 0 && (() => {
+        const hasLikes = topStories.some(a => a.like_count > 0);
+        return (
+          <section className="mt-12">
+            <div className="mb-4 flex items-baseline justify-between">
+              <h2 className="font-display text-xl font-bold text-ink">
+                {hasLikes ? 'Top Stories' : 'Community Stories'}
+              </h2>
+              {hasLikes && <span className="text-xs font-bold text-ink-soft">Most liked · last 3 months</span>}
+            </div>
+            <div className="flex gap-4 overflow-x-auto pb-3">
+              {topStories.map(a => <HorizontalStoryCard key={a.id} adventure={a} />)}
+            </div>
+          </section>
+        );
+      })()}
 
       {/* Recently shared */}
       {recentStories.length > 0 && (

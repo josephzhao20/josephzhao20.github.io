@@ -1,6 +1,9 @@
 import { LinkButton } from '@/components/ui/Button';
 
-export const metadata = { title: "Our Mission — Winning With The Hunt" };
+export const metadata = {
+  title: "Our Mission — Winning With The Hunt",
+  description: "Learn about Winning With The Hunt, the companion community for More 2 the Hunt. Built for hunters, anglers, and outdoor families who believe every adventure tells a story.",
+};
 
 export default function AboutPage() {
   return (

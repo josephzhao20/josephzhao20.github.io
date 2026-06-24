@@ -1,7 +1,10 @@
 import Link from 'next/link';
 import { AuthForm } from '@/components/auth/AuthForm';
 
-export const metadata = { title: "Log in — Winning With The Hunt" };
+export const metadata = {
+  title: "Log in — Winning With The Hunt",
+  description: "Log in to like stories, share your own adventures, and connect with the Winning With The Hunt community.",
+};
 
 export default async function LoginPage({
   searchParams,

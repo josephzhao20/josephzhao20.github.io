@@ -2,7 +2,10 @@ import Image from 'next/image';
 import { getMerchItems } from '@/lib/data/merch';
 import type { MerchItem, MerchCategory } from '@/lib/types/database.types';
 
-export const metadata = { title: "The Lodge Shop — Winning With The Hunt" };
+export const metadata = {
+  title: "The Lodge Shop — Winning With The Hunt",
+  description: "Shop More 2 the Hunt gear — the book, apparel, and field essentials. Hunting-themed merchandise made for people who live for the outdoors.",
+};
 
 const APPAREL: MerchCategory[] = ['shirt', 'hoodie', 'hat'];
 
@@ -41,18 +44,18 @@ function MerchCard({ item }: { item: MerchItem }) {
           ) : (
             <span className="text-sm font-semibold text-[#8b6040]">Price varies</span>
           )}
-          {item.buy_url && item.in_stock ? (
+          {item.in_stock ? (
             <a
-              href={item.buy_url}
+              href={item.buy_url ?? 'https://more2thehunt.com' /* TODO: replace with direct purchase link */}
               target="_blank"
               rel="noopener noreferrer"
               className="lodge-buy-btn inline-flex items-center gap-1 rounded px-3 py-1.5 text-sm font-bold"
             >
               Buy ↗
             </a>
-          ) : item.buy_url ? (
+          ) : (
             <span className="text-sm font-semibold text-[#8b6040]">Sold out</span>
-          ) : null}
+          )}
         </div>
       </div>
     </div>

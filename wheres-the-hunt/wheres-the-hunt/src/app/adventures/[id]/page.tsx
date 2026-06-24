@@ -8,6 +8,7 @@ import { hasLiked } from '@/lib/data/users';
 import { locationLabel, toMapPin } from '@/lib/types';
 import { PhotoGallery } from '@/components/adventure/PhotoGallery';
 import { LikeButton } from '@/components/adventure/LikeButton';
+import { ShareButton } from '@/components/adventure/ShareButton';
 import { AdventureActions } from '@/components/adventure/AdventureActions';
 import { Tag } from '@/components/ui/Tag';
 import { WorldMap } from '@/components/map/WorldMap';
@@ -31,10 +32,18 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     : `A story by @${adventure.username} on Winning With The Hunt.`;
   const image = adventure.cover_image_url ?? undefined;
 
+  const url = `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://josephzhao20-github-io.vercel.app'}/adventures/${id}`;
+
   return {
     title,
     description,
-    openGraph: { title, description, images: image ? [image] : [] },
+    openGraph: {
+      title,
+      description,
+      images: image ? [image] : [],
+      url,
+      type: 'article',
+    },
     twitter: { card: 'summary_large_image', title, description, images: image ? [image] : [] },
   };
 }
@@ -112,12 +121,15 @@ export default async function AdventureDetailPage({ params }: Params) {
           </Tag>
           {adventure.is_featured && <Tag tone="rust">Featured</Tag>}
         </div>
-        <LikeButton
-          adventureId={adventure.id}
-          initialLikeCount={adventure.like_count}
-          initiallyLiked={liked}
-          isSignedIn={!!profile}
-        />
+        <div className="flex items-center gap-2">
+          <ShareButton />
+          <LikeButton
+            adventureId={adventure.id}
+            initialLikeCount={adventure.like_count}
+            initiallyLiked={liked}
+            isSignedIn={!!profile}
+          />
+        </div>
       </div>
 
       {/* Edit/delete for owner/admin */}
