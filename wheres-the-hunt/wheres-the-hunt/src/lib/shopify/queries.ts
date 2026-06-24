@@ -53,7 +53,6 @@ export const GET_PRODUCTS = `
                 title
                 price { amount currencyCode }
                 availableForSale
-                quantityAvailable
               }
             }
           }

@@ -13,7 +13,6 @@ export interface ShopifyProductVariant {
   title: string;
   price: ShopifyMoneyV2;
   availableForSale: boolean;
-  quantityAvailable: number | null;
 }
 
 export interface ShopifyProduct {
