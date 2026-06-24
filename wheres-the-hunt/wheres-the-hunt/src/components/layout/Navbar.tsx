@@ -22,9 +22,7 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
         {/* Desktop nav */}
         <div className="hidden items-center gap-6 sm:flex">
           <Link href="/" className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">Home</Link>
-          {profile && profile.upload_approved && (
-            <Link href="/upload" className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">Share Your Story</Link>
-          )}
+          <Link href="/upload" className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">Share Your Story</Link>
           <Link href="/map" className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">Explore</Link>
           <Link href="/merch" className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">The Lodge Shop</Link>
           <Link href="/about" className="text-sm font-semibold text-cream/70 hover:text-cream transition-colors">Our Mission</Link>
@@ -65,9 +63,7 @@ export function Navbar({ profile }: { profile: UserRow | null }) {
         <div className="border-t border-cream/10 bg-forest-dark px-5 py-5 sm:hidden">
           <div className="flex flex-col gap-5">
             <Link href="/" className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>Home</Link>
-            {profile && profile.upload_approved && (
-              <Link href="/upload" className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>Share Your Story</Link>
-            )}
+            <Link href="/upload" className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>Share Your Story</Link>
             <Link href="/map" className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>Explore</Link>
             <Link href="/merch" className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>The Lodge Shop</Link>
             <Link href="/about" className="text-base font-semibold text-cream/80 hover:text-cream" onClick={() => setOpen(false)}>Our Mission</Link>

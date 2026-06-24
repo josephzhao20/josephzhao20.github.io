@@ -1,6 +1,7 @@
-import { redirect } from 'next/navigation';
+import Link from 'next/link';
 import { getCurrentProfile } from '@/lib/auth/roles';
 import { UploadForm } from '@/components/upload/UploadForm';
+import { LinkButton } from '@/components/ui/Button';
 
 export const metadata = { title: "Share your story — Winning With The Hunt" };
 
@@ -8,7 +9,23 @@ export default async function UploadPage() {
   const profile = await getCurrentProfile();
 
   if (!profile) {
-    redirect('/login?next=/upload');
+    return (
+      <div className="mx-auto max-w-lg px-5 py-20 text-center">
+        <p className="mb-3 text-4xl">🧭</p>
+        <h1 className="font-display text-3xl font-bold text-ink">Share your story</h1>
+        <p className="mt-3 font-semibold text-ink-soft">
+          Create a free account to pin your hunts, catches, and outdoor memories to the map.
+        </p>
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+          <LinkButton href="/signup?next=/upload" size="lg">Create a free account</LinkButton>
+          <LinkButton href="/login?next=/upload" variant="ghost" size="lg">Log in</LinkButton>
+        </div>
+        <p className="mt-6 text-sm text-ink-soft">
+          Already have an account?{' '}
+          <Link href="/login?next=/upload" className="font-bold text-forest underline">Log in</Link>
+        </p>
+      </div>
+    );
   }
 
   if (profile.suspended) {
