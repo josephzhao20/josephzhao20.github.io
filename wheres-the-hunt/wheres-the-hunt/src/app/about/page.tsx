@@ -54,7 +54,7 @@ export default function AboutPage() {
           </div>
           <div>
             <p className="mb-1 text-xs font-bold uppercase tracking-widest text-ink-soft">The Book</p>
-            <h2 className="font-display text-xl font-bold text-ink">Winning With The Wildlife</h2>
+            <h2 className="font-display text-xl font-bold text-ink">Winning With The Wild Life</h2>
             <p className="mt-3 text-sm leading-relaxed text-ink-soft">
               Brian's book lays out the philosophy behind the hunt — how time in the
               outdoors builds the kind of character that carries over into every part of

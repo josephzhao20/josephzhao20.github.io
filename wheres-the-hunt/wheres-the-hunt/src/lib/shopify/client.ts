@@ -1,17 +1,15 @@
-// Storefront API token is intentionally public — Shopify embeds it in client-side JS
-const SHOPIFY_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN || 'bn1q6k-zq.myshopify.com';
-const SHOPIFY_TOKEN  = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN || 'eca4da324d51186104512b11301581dc';
+import { SHOPIFY_ENDPOINT, SHOPIFY_TOKEN } from './config';
 
 export async function shopifyFetch<T = unknown>({
   query,
   variables,
+  cache,
 }: {
   query: string;
   variables?: Record<string, unknown>;
+  cache?: RequestCache;
 }): Promise<T> {
-  const endpoint = `https://${SHOPIFY_DOMAIN}/api/2024-01/graphql.json`;
-
-  const res = await fetch(endpoint, {
+  const res = await fetch(SHOPIFY_ENDPOINT, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -19,6 +17,7 @@ export async function shopifyFetch<T = unknown>({
     },
     body: JSON.stringify({ query, variables }),
     next: { revalidate: 60 },
+    cache,
   });
 
   if (!res.ok) {

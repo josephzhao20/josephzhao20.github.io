@@ -3,24 +3,19 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
 import type { ShopifyCart } from '@/lib/shopify/types';
 import { CART_CREATE, CART_LINES_ADD, CART_LINES_REMOVE, CART_LINES_UPDATE, GET_CART } from '@/lib/shopify/queries';
+import { SHOPIFY_ENDPOINT, SHOPIFY_TOKEN } from '@/lib/shopify/config';
 
 const CART_ID_KEY = 'wwth_shopify_cart_id';
 
-const SHOPIFY_DOMAIN = 'bn1q6k-zq.myshopify.com';
-const SHOPIFY_TOKEN  = 'eca4da324d51186104512b11301581dc';
-
 async function storefrontFetch<T>(query: string, variables: Record<string, unknown>): Promise<T> {
-  const res = await fetch(
-    `https://${SHOPIFY_DOMAIN}/api/2024-01/graphql.json`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': SHOPIFY_TOKEN,
-      },
-      body: JSON.stringify({ query, variables }),
-    }
-  );
+  const res = await fetch(SHOPIFY_ENDPOINT, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Shopify-Storefront-Access-Token': SHOPIFY_TOKEN,
+    },
+    body: JSON.stringify({ query, variables }),
+  });
   const json = await res.json() as { data: T };
   return json.data;
 }

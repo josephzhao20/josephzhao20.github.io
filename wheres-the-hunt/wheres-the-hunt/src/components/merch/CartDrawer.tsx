@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import Image from 'next/image';
 import { useCart } from './CartContext';
 
@@ -9,6 +10,13 @@ function formatMoney(amount: string, currency: string) {
 
 export function CartDrawer() {
   const { cart, cartOpen, closeCart, removeFromCart, updateQuantity, loading } = useCart();
+
+  useEffect(() => {
+    if (!cartOpen) return;
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') closeCart(); };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [cartOpen, closeCart]);
   const lines = cart?.lines.edges.map(e => e.node) ?? [];
 
   return (
@@ -25,6 +33,7 @@ export function CartDrawer() {
       {/* Drawer */}
       <div
         role="dialog"
+        aria-modal="true"
         aria-label="Shopping cart"
         className={`fixed right-0 top-0 z-[201] flex h-full w-full max-w-sm flex-col bg-[#f5ede0] shadow-2xl transition-transform duration-300 ${
           cartOpen ? 'translate-x-0' : 'translate-x-full'

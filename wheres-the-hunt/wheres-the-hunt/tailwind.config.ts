@@ -16,9 +16,9 @@ const config: Config = {
           light: '#9C7A54',
         },
         rust: {
-          DEFAULT: '#FF9900',
-          dark: '#E68A00',
-          light: '#FFAD33',
+          DEFAULT: '#C9602E',
+          dark: '#A14B22',
+          light: '#DD8456',
         },
         cream: {
           DEFAULT: '#F6F1E7',
