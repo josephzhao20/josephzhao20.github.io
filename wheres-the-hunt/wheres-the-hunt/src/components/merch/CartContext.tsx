@@ -75,7 +75,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }
 
       setCart(newCart);
-      setCartOpen(true);
     } finally {
       setLoading(false);
     }
