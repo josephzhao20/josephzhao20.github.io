@@ -115,7 +115,7 @@ export function ShopifyProductCard({ product }: { product: ShopifyProduct }) {
           </select>
         )}
 
-        <div className="mt-auto flex items-center justify-between pt-3">
+        <div className="mt-auto flex flex-col gap-2 pt-3">
           <div className="flex items-baseline gap-2">
             <span className="font-display text-lg font-bold text-[#E68A00]">
               {formatMoney(
@@ -134,13 +134,13 @@ export function ShopifyProductCard({ product }: { product: ShopifyProduct }) {
             <button
               onClick={handleAddToCart}
               disabled={adding || loading}
-              className="lodge-buy-btn inline-flex items-center gap-1 rounded px-3 py-1.5 text-sm font-bold disabled:opacity-60"
+              className="lodge-buy-btn w-full rounded py-2 text-sm font-bold disabled:opacity-60"
               aria-label={`Add ${product.title} to cart`}
             >
               {adding ? 'Adding…' : 'Add to cart'}
             </button>
           ) : (
-            <span className="text-sm font-semibold text-[#8b6040]">Sold out</span>
+            <span className="text-center text-sm font-semibold text-[#8b6040]">Sold out</span>
           )}
         </div>
       </div>
