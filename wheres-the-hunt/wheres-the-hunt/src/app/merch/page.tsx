@@ -78,7 +78,7 @@ export default async function MerchPage() {
 
           {/* Header */}
           <div className="lodge-header-bg px-5 py-14 text-center">
-            <p className="mb-2 font-display text-sm font-bold uppercase tracking-[4px] text-[#d4891a]">
+            <p className="mb-2 font-display text-sm font-bold uppercase tracking-[4px] text-[#FF9900]">
               Welcome to
             </p>
             <h1 className="font-display text-5xl font-bold text-[#f5ede0] drop-shadow-lg sm:text-6xl">
@@ -149,7 +149,7 @@ export default async function MerchPage() {
             <div className="mt-20 border-t border-[#4a2510] pt-8 text-center">
               <p className="text-sm font-semibold text-[#a07040]">
                 Questions about an order?{' '}
-                <a href="mailto:winningwiththehunt@gmail.com" className="font-bold text-[#d4891a] hover:underline">
+                <a href="mailto:winningwiththehunt@gmail.com" className="font-bold text-[#FF9900] hover:underline">
                   Reach out to More 2 The Hunt directly.
                 </a>
               </p>

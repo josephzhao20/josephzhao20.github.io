@@ -26,7 +26,7 @@ export function CartButton() {
         aria-label={`Open cart (${itemCount} item${itemCount !== 1 ? 's' : ''})`}
         className={`fixed bottom-6 right-6 z-[199] flex h-16 w-16 items-center justify-center rounded-full shadow-2xl transition-all duration-200 hover:scale-110 active:scale-95 ${
           pulse ? 'scale-125' : 'scale-100'
-        } ${itemCount > 0 ? 'bg-[#d4891a]' : 'bg-[#8b4c12]'}`}
+        } ${itemCount > 0 ? 'bg-[#FF9900]' : 'bg-[#8b4c12]'}`}
         style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.5), 0 0 0 3px #6b3d1a' }}
       >
         <span className="text-2xl">🛒</span>
@@ -41,11 +41,11 @@ export function CartButton() {
       <button
         onClick={openCart}
         aria-label="Open cart"
-        className="relative flex items-center gap-3 rounded-lg border-2 border-[#d4891a] bg-[#d4891a] px-6 py-3 text-base font-bold text-[#2a1408] shadow-lg transition-all hover:bg-[#e8a030] hover:shadow-xl active:scale-95"
+        className="relative flex items-center gap-3 rounded-lg border-2 border-[#E68A00] bg-[#FF9900] px-6 py-3 text-base font-bold text-[#111] shadow-lg transition-all hover:bg-[#FFAD33] hover:shadow-xl active:scale-95"
       >
         🛒 View Cart
         {itemCount > 0 && (
-          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#2a1408] text-xs font-bold text-[#d4891a]">
+          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#2a1408] text-xs font-bold text-[#FF9900]">
             {itemCount}
           </span>
         )}

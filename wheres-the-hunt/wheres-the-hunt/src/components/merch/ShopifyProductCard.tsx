@@ -85,7 +85,7 @@ export function ShopifyProductCard({ product }: { product: ShopifyProduct }) {
         )}
 
         <div className="mt-auto flex items-center justify-between pt-3">
-          <span className="font-display text-lg font-bold text-[#8b4c12]">
+          <span className="font-display text-lg font-bold text-[#E68A00]">
             {formatMoney(
               selectedVariant?.price.amount ?? product.priceRange.minVariantPrice.amount,
               selectedVariant?.price.currencyCode ?? product.priceRange.minVariantPrice.currencyCode

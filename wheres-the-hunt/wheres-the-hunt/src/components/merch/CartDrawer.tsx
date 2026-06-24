@@ -64,7 +64,7 @@ export function CartDrawer() {
                       {line.merchandise.title !== 'Default Title' && (
                         <p className="text-xs text-[#8b6040]">{line.merchandise.title}</p>
                       )}
-                      <p className="text-sm font-bold text-[#8b4c12]">
+                      <p className="text-sm font-bold text-[#E68A00]">
                         {formatMoney(line.merchandise.price.amount, line.merchandise.price.currencyCode)}
                       </p>
                       <div className="flex items-center gap-2">
@@ -98,14 +98,14 @@ export function CartDrawer() {
           <div className="border-t border-[#6b3d1a]/30 px-5 py-4">
             <div className="mb-4 flex items-center justify-between">
               <span className="font-semibold text-[#6b4423]">Total</span>
-              <span className="font-display text-lg font-bold text-[#8b4c12]">
+              <span className="font-display text-lg font-bold text-[#E68A00]">
                 {formatMoney(cart.cost.totalAmount.amount, cart.cost.totalAmount.currencyCode)}
               </span>
             </div>
             <a
               href={cart.checkoutUrl}
               className={`block w-full rounded py-3 text-center font-bold text-[#f5ede0] transition-opacity ${
-                loading ? 'bg-[#8b4c12]/60 pointer-events-none' : 'bg-[#8b4c12] hover:bg-[#a05a1a]'
+                loading ? 'bg-[#FF9900]/60 pointer-events-none' : 'bg-[#FF9900] hover:bg-[#FFAD33]'
               }`}
             >
               {loading ? 'Updating…' : 'Checkout →'}
