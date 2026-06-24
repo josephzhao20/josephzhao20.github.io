@@ -6,14 +6,17 @@ import { CART_CREATE, CART_LINES_ADD, CART_LINES_REMOVE, CART_LINES_UPDATE, GET_
 
 const CART_ID_KEY = 'wwth_shopify_cart_id';
 
+const SHOPIFY_DOMAIN = 'bn1q6k-zq.myshopify.com';
+const SHOPIFY_TOKEN  = 'eca4da324d51186104512b11301581dc';
+
 async function storefrontFetch<T>(query: string, variables: Record<string, unknown>): Promise<T> {
   const res = await fetch(
-    `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN}/api/2024-01/graphql.json`,
+    `https://${SHOPIFY_DOMAIN}/api/2024-01/graphql.json`,
     {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN!,
+        'X-Shopify-Storefront-Access-Token': SHOPIFY_TOKEN,
       },
       body: JSON.stringify({ query, variables }),
     }
