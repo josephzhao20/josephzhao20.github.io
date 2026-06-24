@@ -41,11 +41,11 @@ export function CartButton() {
       <button
         onClick={openCart}
         aria-label="Open cart"
-        className="relative flex items-center gap-2 rounded border border-[#6b3d1a]/50 bg-[#3d1f08]/40 px-4 py-2 text-sm font-bold text-[#f5ede0] transition-colors hover:bg-[#3d1f08]/70"
+        className="relative flex items-center gap-3 rounded-lg border-2 border-[#d4891a] bg-[#d4891a] px-6 py-3 text-base font-bold text-[#2a1408] shadow-lg transition-all hover:bg-[#e8a030] hover:shadow-xl active:scale-95"
       >
-        🛒 Cart
+        🛒 View Cart
         {itemCount > 0 && (
-          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#d4891a] text-[10px] font-bold text-white">
+          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#2a1408] text-xs font-bold text-[#d4891a]">
             {itemCount}
           </span>
         )}
