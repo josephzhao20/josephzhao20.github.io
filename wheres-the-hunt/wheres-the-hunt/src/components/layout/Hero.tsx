@@ -19,10 +19,6 @@ export function Hero() {
         <div className="flex items-center justify-between gap-10">
           {/* Left — text content */}
           <div className="flex-1">
-            <p className="mb-4 text-xs font-bold uppercase tracking-[3px] text-rust-light">
-              Brought to you by More 2 the Hunt
-            </p>
-
             <h1 className="font-display text-3xl font-bold leading-[1.08] text-cream sm:text-5xl lg:text-6xl">
               <span className="italic text-rust-light">Winning</span>{' '}
               With The Hunt

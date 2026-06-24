@@ -7,9 +7,7 @@ import type { GeocodeResult } from '@/lib/types';
 const LocationPickerClient = dynamic(() => import('./LocationPickerClient'), {
   ssr: false,
   loading: () => (
-    <div className="flex h-full w-full items-center justify-center bg-stone/40">
-      <p className="font-display text-sm font-bold text-ink-soft">Loading map…</p>
-    </div>
+    <div className="h-full w-full animate-pulse rounded-lg bg-stone/40" />
   ),
 });
 

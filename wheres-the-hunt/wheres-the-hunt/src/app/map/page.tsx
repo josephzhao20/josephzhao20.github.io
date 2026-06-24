@@ -55,13 +55,17 @@ export default async function ExplorePage({ searchParams }: PageProps) {
   const { q } = await searchParams;
   const searchQuery = q?.trim() ?? '';
 
-  const [pins, heatmap, topStories, recentStories, results] = await Promise.all([
+  const [pins, heatmap, topStories, recentStories, results, allForCount] = await Promise.all([
     getMapPins(),
     getGlobalHeatmap(),
     getTopStoriesLast3Months(5),
     getRecentStories(5),
     searchQuery ? searchStories(searchQuery) : getAllStories(50),
+    getAllStories(11), // just enough to check if > 10
   ]);
+
+  const totalStories = allForCount.length;
+  const showCuratedSections = totalStories > 10;
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-10">
@@ -75,8 +79,8 @@ export default async function ExplorePage({ searchParams }: PageProps) {
         <WorldMap pins={pins} heatmapCounts={heatmap} />
       </div>
 
-      {/* Featured stories — top liked in past 3 months */}
-      {topStories.length > 0 && (() => {
+      {/* Curated sections — only when > 10 stories exist */}
+      {showCuratedSections && topStories.length > 0 && (() => {
         const hasLikes = topStories.some(a => a.like_count > 0);
         return (
           <section className="mt-12">
@@ -93,8 +97,7 @@ export default async function ExplorePage({ searchParams }: PageProps) {
         );
       })()}
 
-      {/* Recently shared */}
-      {recentStories.length > 0 && (
+      {showCuratedSections && recentStories.length > 0 && (
         <section className="mt-12">
           <div className="mb-4 flex items-baseline justify-between">
             <h2 className="font-display text-xl font-bold text-ink">Recently Shared</h2>
@@ -109,7 +112,7 @@ export default async function ExplorePage({ searchParams }: PageProps) {
       {/* Search + all stories */}
       <section className="mt-12">
         <h2 className="mb-4 font-display text-xl font-bold text-ink">
-          {searchQuery ? `Results for "${searchQuery}"` : 'All Stories'}
+          {searchQuery ? `Results for "${searchQuery}"` : (showCuratedSections ? 'All Stories' : 'Stories from the community')}
         </h2>
         <div className="mb-6">
           <StorySearchInput defaultValue={searchQuery} />
