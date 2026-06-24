@@ -52,6 +52,7 @@ export const GET_PRODUCTS = `
                 id
                 title
                 price { amount currencyCode }
+                compareAtPrice { amount currencyCode }
                 availableForSale
               }
             }

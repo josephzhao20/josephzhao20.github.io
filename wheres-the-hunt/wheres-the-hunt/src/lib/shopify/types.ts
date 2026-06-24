@@ -12,6 +12,7 @@ export interface ShopifyProductVariant {
   id: string;
   title: string;
   price: ShopifyMoneyV2;
+  compareAtPrice: ShopifyMoneyV2 | null;
   availableForSale: boolean;
 }
 
