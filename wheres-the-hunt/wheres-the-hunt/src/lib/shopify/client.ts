@@ -1,6 +1,6 @@
-// Values are read at request time so env var updates take effect without rebuilding
-function getDomain() { return process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN ?? ''; }
-function getToken()  { return process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN ?? ''; }
+// Storefront API token is intentionally public — Shopify embeds it in client-side JS
+const SHOPIFY_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN || 'bn1q6k-zq.myshopify.com';
+const SHOPIFY_TOKEN  = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN || 'eca4da324d51186104512b11301581dc';
 
 export async function shopifyFetch<T = unknown>({
   query,
@@ -9,18 +9,16 @@ export async function shopifyFetch<T = unknown>({
   query: string;
   variables?: Record<string, unknown>;
 }): Promise<T> {
-  const domain = getDomain();
-  const token = getToken();
-  const endpoint = `https://${domain}/api/2024-01/graphql.json`;
+  const endpoint = `https://${SHOPIFY_DOMAIN}/api/2024-01/graphql.json`;
 
   const res = await fetch(endpoint, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'X-Shopify-Storefront-Access-Token': token,
+      'X-Shopify-Storefront-Access-Token': SHOPIFY_TOKEN,
     },
     body: JSON.stringify({ query, variables }),
-    next: { revalidate: 60 }, // cache product data for 60s server-side
+    next: { revalidate: 60 },
   });
 
   if (!res.ok) {
