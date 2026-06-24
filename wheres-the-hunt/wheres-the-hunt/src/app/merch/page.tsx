@@ -61,8 +61,10 @@ export default async function MerchPage() {
 
   try {
     products = await getShopifyProducts(50);
-  } catch {
+    console.log('[Lodge] Loaded', products.length, 'products');
+  } catch (err) {
     fetchError = true;
+    console.error('[Lodge] Fetch failed:', String(err));
   }
 
   const { featured, apparel, basecamp } = categorise(products);
