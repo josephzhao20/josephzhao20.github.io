@@ -36,6 +36,7 @@ export function UploadForm({ userId }: { userId: string }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [dateVisited, setDateVisited] = useState('');
+  const [exifDate, setExifDate] = useState(''); // preserved so user can restore after accidental tap
   const [privacyMode, setPrivacyMode] = useState<PrivacyMode>('exact');
 
   const [submitting, setSubmitting] = useState(false);
@@ -70,7 +71,8 @@ export function UploadForm({ userId }: { userId: string }) {
       setLocation(gps);
       setLocationSource('exif');
     }
-    if (date && !dateVisited) {
+    if (date && !exifDate) {
+      setExifDate(date);
       setDateVisited(date);
     }
   }
@@ -264,13 +266,38 @@ export function UploadForm({ userId }: { userId: string }) {
           <label htmlFor="date_visited" className="mb-1 block text-sm font-bold text-ink">
             Date visited <span className="font-normal text-ink-soft">(optional — auto-detected from photo)</span>
           </label>
-          <input
-            id="date_visited"
-            type="date"
-            value={dateVisited}
-            onChange={(e) => setDateVisited(e.target.value)}
-            className="w-full rounded-trail border-2 border-ink bg-white px-3 py-2 font-semibold focus:outline-none sm:w-56"
-          />
+          <div className="flex flex-wrap items-center gap-2">
+            <input
+              id="date_visited"
+              type="date"
+              value={dateVisited}
+              onChange={(e) => setDateVisited(e.target.value)}
+              className="rounded-trail border-2 border-ink bg-white px-3 py-2 font-semibold focus:outline-none"
+            />
+            {/* Restore EXIF date if user accidentally overwrote it */}
+            {exifDate && dateVisited !== exifDate && (
+              <button
+                type="button"
+                onClick={() => setDateVisited(exifDate)}
+                className="text-xs font-bold text-forest underline hover:text-forest-dark"
+              >
+                ↩ Restore photo date
+              </button>
+            )}
+            {/* Clear date entirely */}
+            {dateVisited && (
+              <button
+                type="button"
+                onClick={() => setDateVisited('')}
+                className="text-xs font-semibold text-ink-soft hover:text-ink"
+              >
+                Clear
+              </button>
+            )}
+          </div>
+          {exifDate && dateVisited === exifDate && (
+            <p className="mt-1 text-xs text-ink-soft">📷 Date detected from photo metadata</p>
+          )}
         </div>
       </section>
 
