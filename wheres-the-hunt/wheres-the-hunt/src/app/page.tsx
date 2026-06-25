@@ -85,35 +85,28 @@ function EmptyState({ isLoggedIn }: { isLoggedIn: boolean }) {
   return (
     <Section>
       <div className="flex flex-col items-center py-16 text-center">
-        {/* Illustrated empty state */}
         <div className="mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-forest/10">
           <span className="text-6xl">🧭</span>
         </div>
         <h2 className="font-display text-2xl font-bold text-ink sm:text-3xl">
-          The map is waiting to be filled.
+          The frontier is open.
         </h2>
         <p className="mt-3 max-w-md text-base font-semibold text-ink-soft">
-          No stories have been pinned yet. Every great community starts with a first story — be the one to kick it off.
+          Be among the first to pin your coordinates and archive your legendary harvest.
+          Early stories carry the most weight — this one could set the tone for everything that follows.
         </p>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          {isLoggedIn ? (
-            <LinkButton href="/upload" size="lg" variant="secondary">
-              Share the first story
+        {isLoggedIn && (
+          <div className="mt-8">
+            <LinkButton
+              href="/upload"
+              size="lg"
+              variant="secondary"
+              className="transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:shadow-md"
+            >
+              Pin your first story
             </LinkButton>
-          ) : (
-            <>
-              <LinkButton href="/signup" size="lg" variant="secondary">
-                Create an account
-              </LinkButton>
-              <LinkButton href="/login" size="lg" variant="ghost">
-                Log in
-              </LinkButton>
-            </>
-          )}
-        </div>
-        <p className="mt-6 text-sm text-ink-soft">
-          Stories of hunts, catches, and outdoor adventures — pinned to a real map.
-        </p>
+          </div>
+        )}
       </div>
     </Section>
   );
@@ -148,9 +141,9 @@ export default async function HomePage() {
                 : `You've shared ${myAdventures.length} stor${myAdventures.length === 1 ? 'y' : 'ies'} so far. Keep going.`}
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <LinkButton href="/upload" size="lg" variant="secondary" className="w-full justify-center sm:w-auto">Share your story</LinkButton>
-              <a href="/map" className="inline-flex w-full items-center justify-center rounded-card bg-cream px-7 py-3 text-base font-semibold text-forest transition-all hover:bg-cream-dark sm:w-auto">Read other stories</a>
-              <a href={`/profile/${profile.username}`} className="inline-flex w-full items-center justify-center rounded-card border border-cream/40 px-7 py-3 text-base font-semibold text-cream/80 transition-all hover:border-cream/70 hover:text-cream sm:w-auto">My profile</a>
+              <LinkButton href="/upload" size="lg" variant="secondary" className="w-full justify-center transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:shadow-md sm:w-auto">Share your story</LinkButton>
+              <a href="/map" className="inline-flex w-full items-center justify-center rounded-card bg-cream px-7 py-3 text-base font-semibold text-forest transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:bg-cream-dark hover:shadow-md sm:w-auto">Read other stories</a>
+              <a href={`/profile/${profile.username}`} className="inline-flex w-full items-center justify-center rounded-card border border-cream/40 px-7 py-3 text-base font-semibold text-cream/80 transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:border-cream/70 hover:text-cream sm:w-auto">My profile</a>
             </div>
           </div>
         </section>
@@ -192,7 +185,7 @@ export default async function HomePage() {
           <div className="mb-5 flex items-end justify-between">
             <div>
               <h2 className="font-display text-xl font-bold text-ink">See where these stories happened</h2>
-              <p className="mt-1 text-sm text-stone">{pins.length.toLocaleString()} stories on the map</p>
+              {pins.length > 0 && <p className="mt-1 text-sm text-stone">{pins.length.toLocaleString()} stories on the map</p>}
             </div>
             <LinkButton href="/map" variant="outline" size="sm" className="hidden sm:inline-flex">Open full map</LinkButton>
           </div>
