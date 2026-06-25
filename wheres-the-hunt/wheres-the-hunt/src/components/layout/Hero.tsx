@@ -9,7 +9,7 @@ export function Hero() {
   const [coverVisible, setCoverVisible] = useState(true);
 
   useEffect(() => {
-    const t = setTimeout(() => setCoverVisible(false), 4500);
+    const t = setTimeout(() => setCoverVisible(false), 5000);
     return () => clearTimeout(t);
   }, []);
 
