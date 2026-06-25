@@ -1,54 +1,60 @@
 import Link from 'next/link';
 import { LinkButton } from '@/components/ui/Button';
-import { HeroVideo } from './HeroVideo';
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-forest">
-      <div className="relative mx-auto max-w-6xl px-5 py-12 sm:py-20">
-        <div className="flex flex-col gap-10 sm:flex-row sm:items-center sm:gap-12">
+    <section className="relative w-full overflow-hidden">
 
-          {/* Left — text content */}
-          <div className="flex-1">
-            <h1 className="font-display text-3xl font-bold leading-[1.08] text-cream sm:text-5xl lg:text-6xl">
-              <span className="text-rust-light">Winning</span>{' '}
-              With The Hunt
-            </h1>
+      {/* ── Video background layer ── */}
+      <div className="absolute inset-0">
+        <iframe
+          src="https://www.youtube.com/embed/WnYnZBp2IX0?autoplay=1&mute=1&loop=1&playlist=WnYnZBp2IX0&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1"
+          title="More 2 The Hunt - Introduction"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          className="absolute inset-0 h-full w-full scale-125 object-cover pointer-events-none"
+          style={{ border: 0 }}
+        />
+      </div>
 
-            <p className="mt-4 text-sm font-semibold text-cream/80 sm:text-base">
-              Every adventure tells a story.
-            </p>
+      {/* ── Contrast overlay ── */}
+      <div className="absolute inset-0 bg-black/50 mix-blend-multiply pointer-events-none" />
 
-            <p className="mt-2 max-w-xl text-sm leading-relaxed text-cream/65 sm:text-base">
-              A place to keep the stories worth telling — the hunts, the catches,
-              the trips that mean something.
-            </p>
+      {/* ── Foreground text content ── */}
+      <div className="relative z-10 mx-auto max-w-6xl px-5 py-24 sm:py-36">
+        <div className="max-w-2xl">
+          <h1 className="font-display text-4xl font-bold leading-[1.08] text-cream sm:text-5xl lg:text-6xl">
+            <span className="text-rust-light">Winning</span>{' '}
+            With The Hunt
+          </h1>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
-              <LinkButton
-                href="/signup"
-                size="lg"
-                variant="secondary"
-                className="w-full justify-center transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:shadow-md sm:w-auto"
-              >
-                Share your story
-              </LinkButton>
-              <Link
-                href="/map"
-                className="inline-flex w-full items-center justify-center rounded-card border-2 border-cream/60 px-7 py-3 text-base font-semibold text-cream transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:border-cream hover:bg-cream/10 hover:shadow-md sm:w-auto"
-              >
-                Read other stories
-              </Link>
-            </div>
+          <p className="mt-4 text-base font-semibold text-cream/90 sm:text-lg">
+            Every adventure tells a story.
+          </p>
+
+          <p className="mt-2 max-w-xl text-sm leading-relaxed text-cream/70 sm:text-base">
+            A place to keep the stories worth telling — the hunts, the catches,
+            the trips that mean something.
+          </p>
+
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
+            <LinkButton
+              href="/signup"
+              size="lg"
+              variant="secondary"
+              className="w-full justify-center transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:shadow-md sm:w-auto"
+            >
+              Share your story
+            </LinkButton>
+            <Link
+              href="/map"
+              className="inline-flex w-full items-center justify-center rounded-card border-2 border-cream/60 px-7 py-3 text-base font-semibold text-cream transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:border-cream hover:bg-cream/10 hover:shadow-md sm:w-auto"
+            >
+              Read other stories
+            </Link>
           </div>
-
-          {/* Right — video card, desktop only */}
-          <div className="hidden w-full max-w-md flex-shrink-0 sm:block lg:max-w-lg">
-            <HeroVideo />
-          </div>
-
         </div>
       </div>
+
     </section>
   );
 }
