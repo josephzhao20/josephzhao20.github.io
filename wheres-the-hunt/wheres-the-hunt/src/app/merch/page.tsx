@@ -77,17 +77,17 @@ export default async function MerchPage() {
         <div className="lodge-content">
 
           {/* Header */}
-          <div className="lodge-header-bg px-5 py-14 text-center">
+          <div className="lodge-header-bg px-5 py-6 text-center sm:py-14">
             <p className="mb-2 font-display text-sm font-bold uppercase tracking-[4px] text-[#FF9900]">
               Welcome to
             </p>
-            <h1 className="font-display text-5xl font-bold text-[#f5ede0] drop-shadow-lg sm:text-6xl">
+            <h1 className="font-display text-3xl font-bold text-[#f5ede0] drop-shadow-lg sm:text-6xl">
               The Lodge Shop
             </h1>
-            <p className="mx-auto mt-4 max-w-md text-sm font-semibold leading-relaxed text-[#c4a070]">
+            <p className="mx-auto mt-2 hidden max-w-md text-sm font-semibold leading-relaxed text-[#c4a070] sm:block sm:mt-4">
               Hunting-themed gear and the book that started it all. Made for people who live for the outdoors.
             </p>
-            <div className="mx-auto mt-6 h-px max-w-xs bg-gradient-to-r from-transparent via-[#6b3d1a] to-transparent" />
+            <div className="mx-auto mt-4 h-px max-w-xs bg-gradient-to-r from-transparent via-[#6b3d1a] to-transparent sm:mt-6" />
           </div>
 
           {/* Content */}
