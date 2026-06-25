@@ -77,21 +77,18 @@ export default async function MerchPage() {
         <div className="lodge-content">
 
           {/* Header */}
-          <div className="lodge-header-bg px-5 py-6 text-center sm:py-14">
-            <p className="mb-2 font-display text-sm font-bold uppercase tracking-[4px] text-[#FF9900]">
+          <div className="lodge-header-bg px-5 py-4 text-center sm:py-8">
+            <p className="mb-1 font-display text-xs font-bold uppercase tracking-[4px] text-[#FF9900] sm:text-sm sm:mb-2">
               Welcome to
             </p>
-            <h1 className="font-display text-3xl font-bold text-[#f5ede0] drop-shadow-lg sm:text-6xl">
+            <h1 className="font-display text-2xl font-bold text-[#f5ede0] drop-shadow-lg sm:text-4xl">
               The Lodge Shop
             </h1>
-            <p className="mx-auto mt-2 hidden max-w-md text-sm font-semibold leading-relaxed text-[#c4a070] sm:block sm:mt-4">
-              Hunting-themed gear and the book that started it all. Made for people who live for the outdoors.
-            </p>
-            <div className="mx-auto mt-4 h-px max-w-xs bg-gradient-to-r from-transparent via-[#6b3d1a] to-transparent sm:mt-6" />
+            <div className="mx-auto mt-3 h-px max-w-xs bg-gradient-to-r from-transparent via-[#6b3d1a] to-transparent sm:mt-5" />
           </div>
 
           {/* Content */}
-          <div className="mx-auto max-w-6xl px-5 py-14">
+          <div className="mx-auto max-w-6xl px-5 py-6 sm:py-10">
             {fetchError ? (
               <p className="py-20 text-center font-semibold text-[#c4a070]">
                 Unable to load products right now — please try again shortly.
