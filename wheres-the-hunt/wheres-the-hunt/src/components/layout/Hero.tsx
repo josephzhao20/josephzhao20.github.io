@@ -16,7 +16,7 @@ export function Hero() {
   return (
     <section
       className="relative w-full overflow-hidden"
-      style={{ height: 'calc(100vh - 57px)' }}
+      style={{ height: 'calc(100dvh - 57px)' }}
     >
 
       {/* ── Desktop: YouTube cinematic background loop ── */}

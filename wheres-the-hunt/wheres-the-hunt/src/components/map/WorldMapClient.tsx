@@ -48,7 +48,7 @@ export default function WorldMapClient({
       {heatmapCounts && (
         <button
           onClick={() => setShowHeatmap((v) => !v)}
-          className="absolute right-3 top-3 z-[1000] rounded-trail border-2 border-ink bg-cream px-3 py-1.5 text-sm font-bold shadow-trail"
+          className="absolute right-3 top-3 z-[40] rounded-trail border-2 border-ink bg-cream px-3 py-1.5 text-sm font-bold shadow-trail"
         >
           {showHeatmap ? 'Hide heatmap' : 'Show heatmap'}
         </button>
