@@ -3,12 +3,12 @@ import { LinkButton } from '@/components/ui/Button';
 
 export function Hero() {
   return (
-    <section className="relative w-full overflow-hidden">
+    <section className="relative w-full overflow-hidden" style={{ height: 'calc(100vh - 57px)' }}>
 
       {/* ── Video background layer ── */}
       <div className="absolute inset-0">
         <iframe
-          src="https://www.youtube.com/embed/WnYnZBp2IX0?autoplay=1&mute=1&loop=1&playlist=WnYnZBp2IX0&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1"
+          src="https://www.youtube.com/embed/WnYnZBp2IX0?autoplay=1&mute=1&loop=1&playlist=WnYnZBp2IX0&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&start=5"
           title="More 2 The Hunt - Introduction"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           className="absolute inset-0 h-full w-full scale-125 object-cover pointer-events-none"
