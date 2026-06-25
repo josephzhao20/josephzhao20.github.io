@@ -88,9 +88,6 @@ export default async function MerchPage() {
               Hunting-themed gear and the book that started it all. Made for people who live for the outdoors.
             </p>
             <div className="mx-auto mt-6 h-px max-w-xs bg-gradient-to-r from-transparent via-[#6b3d1a] to-transparent" />
-            <div className="mt-6 flex justify-center">
-              <CartButton />
-            </div>
           </div>
 
           {/* Content */}
