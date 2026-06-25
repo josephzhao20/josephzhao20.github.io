@@ -9,7 +9,7 @@ export function Hero() {
   const [coverVisible, setCoverVisible] = useState(true);
 
   useEffect(() => {
-    const t = setTimeout(() => setCoverVisible(false), 4000);
+    const t = setTimeout(() => setCoverVisible(false), 4500);
     return () => clearTimeout(t);
   }, []);
 
@@ -22,7 +22,7 @@ export function Hero() {
       {/* ── Desktop: YouTube cinematic background loop ── */}
       <div className="hidden md:block absolute inset-0 w-full h-full overflow-hidden">
         <iframe
-          src="https://www.youtube.com/embed/WnYnZBp2IX0?autoplay=1&mute=1&loop=1&playlist=WnYnZBp2IX0&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&start=5&disablekb=1"
+          src="https://www.youtube.com/embed/WnYnZBp2IX0?autoplay=1&mute=1&loop=1&playlist=WnYnZBp2IX0&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1"
           title="More 2 The Hunt - Introduction"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           className="absolute inset-0 w-full h-full object-cover pointer-events-none scale-125"
