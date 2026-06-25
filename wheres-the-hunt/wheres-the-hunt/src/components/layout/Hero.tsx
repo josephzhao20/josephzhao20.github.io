@@ -1,26 +1,43 @@
+'use client';
+
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { LinkButton } from '@/components/ui/Button';
 
 export function Hero() {
+  const [coverVisible, setCoverVisible] = useState(true);
+
+  // Hide the cover after the video has had time to start playing
+  useEffect(() => {
+    const t = setTimeout(() => setCoverVisible(false), 1800);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <section className="relative w-full overflow-hidden" style={{ height: 'calc(100vh - 57px)' }}>
 
       {/* ── Video background layer ── */}
       <div className="absolute inset-0">
         <iframe
-          src="https://www.youtube.com/embed/WnYnZBp2IX0?autoplay=1&mute=1&loop=1&playlist=WnYnZBp2IX0&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&start=5"
+          src="https://www.youtube.com/embed/WnYnZBp2IX0?autoplay=1&mute=1&loop=1&playlist=WnYnZBp2IX0&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&start=5&disablekb=1"
           title="More 2 The Hunt - Introduction"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          className="absolute inset-0 h-full w-full scale-125 object-cover pointer-events-none"
+          className="absolute inset-0 h-full w-full scale-125 pointer-events-none"
           style={{ border: 0 }}
         />
       </div>
 
+      {/* ── Startup cover — hides YouTube's initial UI flash, fades out ── */}
+      <div
+        className="absolute inset-0 z-10 bg-forest transition-opacity duration-700"
+        style={{ opacity: coverVisible ? 1 : 0, pointerEvents: 'none' }}
+      />
+
       {/* ── Contrast overlay ── */}
-      <div className="absolute inset-0 bg-black/50 mix-blend-multiply pointer-events-none" />
+      <div className="absolute inset-0 z-10 bg-black/50 mix-blend-multiply pointer-events-none" />
 
       {/* ── Foreground text content ── */}
-      <div className="relative z-10 mx-auto max-w-6xl px-5 py-24 sm:py-36">
+      <div className="relative z-20 mx-auto flex h-full max-w-6xl flex-col justify-center px-5 py-24 sm:py-36">
         <div className="max-w-2xl">
           <h1 className="font-display text-4xl font-bold leading-[1.08] text-cream sm:text-5xl lg:text-6xl">
             <span className="text-rust-light">Winning</span>{' '}
