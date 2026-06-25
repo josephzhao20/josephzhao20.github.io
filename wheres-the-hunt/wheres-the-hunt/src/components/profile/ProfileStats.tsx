@@ -2,9 +2,9 @@ import type { UserStatsRow } from '@/lib/types/database.types';
 
 export function ProfileStats({ stats }: { stats: UserStatsRow | null }) {
   const items = [
-    { label: 'Countries visited', value: stats?.countries_visited ?? 0 },
-    { label: 'Stories', value: stats?.total_adventures ?? 0 },
-    { label: 'Photos', value: stats?.total_photos ?? 0 },
+    { label: 'Countries', value: stats?.countries_visited ?? 0, emoji: '🌍' },
+    { label: 'Stories', value: stats?.total_adventures ?? 0, emoji: '📖' },
+    { label: 'Photos', value: stats?.total_photos ?? 0, emoji: '📷' },
   ];
 
   return (
@@ -12,10 +12,11 @@ export function ProfileStats({ stats }: { stats: UserStatsRow | null }) {
       {items.map((item) => (
         <div
           key={item.label}
-          className="rounded-trail border-2 border-ink bg-white p-4 text-center shadow-trail"
+          className="flex flex-col items-center rounded-card bg-white p-4 text-center shadow-card"
         >
-          <p className="font-mono text-3xl font-bold text-forest">{item.value}</p>
-          <p className="mt-1 text-xs font-bold uppercase tracking-wide text-ink-soft">
+          <span className="mb-1 text-xl">{item.emoji}</span>
+          <p className="font-display text-2xl font-bold text-forest sm:text-3xl">{item.value}</p>
+          <p className="mt-1 text-xs font-bold uppercase tracking-wide text-stone">
             {item.label}
           </p>
         </div>
