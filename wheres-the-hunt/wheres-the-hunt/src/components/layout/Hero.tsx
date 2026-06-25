@@ -28,20 +28,23 @@ export function Hero() {
               Every adventure tells a story.
             </p>
 
-            <p className="mt-2 max-w-xl text-sm leading-relaxed text-cream/65 sm:text-base">
+            {/* Body copy hidden on mobile to keep both CTAs above the fold */}
+            <p className="mt-2 hidden max-w-xl text-sm leading-relaxed text-cream/65 sm:block sm:text-base">
               A place to keep the stories worth telling — the hunts, the catches,
               the trips that mean something.
             </p>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:gap-4">
-              <LinkButton href="/map" size="lg" variant="secondary" className="w-full justify-center sm:w-auto">
-                Explore other stories
-              </LinkButton>
-              <Link
-                href="/signup"
-                className="inline-flex w-full items-center justify-center rounded-card bg-cream px-7 py-3 text-base font-semibold text-forest transition-all hover:bg-cream-dark sm:w-auto"
-              >
+              {/* Primary action: sign up / share */}
+              <LinkButton href="/signup" size="lg" variant="secondary" className="w-full justify-center sm:w-auto">
                 Share your story
+              </LinkButton>
+              {/* Secondary action: browse */}
+              <Link
+                href="/map"
+                className="inline-flex w-full items-center justify-center rounded-card border-2 border-cream/60 px-7 py-3 text-base font-semibold text-cream transition-all hover:border-cream hover:bg-cream/10 sm:w-auto"
+              >
+                Read the stories
               </Link>
             </div>
 
