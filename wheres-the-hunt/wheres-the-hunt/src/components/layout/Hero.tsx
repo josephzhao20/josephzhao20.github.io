@@ -9,7 +9,7 @@ export function Hero() {
 
   // Hide the cover after the video has had time to start playing
   useEffect(() => {
-    const t = setTimeout(() => setCoverVisible(false), 3500);
+    const t = setTimeout(() => setCoverVisible(false), 4000);
     return () => clearTimeout(t);
   }, []);
 
