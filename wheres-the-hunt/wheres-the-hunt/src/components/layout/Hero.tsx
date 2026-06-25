@@ -44,7 +44,7 @@ export function Hero() {
                 href="/map"
                 className="inline-flex w-full items-center justify-center rounded-card border-2 border-cream/60 px-7 py-3 text-base font-semibold text-cream transition-all hover:border-cream hover:bg-cream/10 sm:w-auto"
               >
-                Read the stories
+                Read other stories
               </Link>
             </div>
 
