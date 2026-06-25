@@ -1,17 +1,14 @@
 import Link from 'next/link';
 import { LinkButton } from '@/components/ui/Button';
-import { TopoLines } from '@/components/ui/TopoLines';
 
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-forest">
-      {/* Decorative topo lines — desktop right column replacement for logo */}
-      <TopoLines className="pointer-events-none absolute -right-16 -top-16 hidden h-[520px] w-[520px] text-cream/10 sm:block" />
+      <div className="relative mx-auto max-w-6xl px-5 py-12 sm:py-20">
+        <div className="flex flex-col gap-10 sm:flex-row sm:items-center sm:gap-12">
 
-      <div className="relative mx-auto max-w-6xl px-5 py-12 sm:py-28">
-        <div className="flex items-center justify-between gap-10">
-          {/* Left — text content (full width on mobile) */}
-          <div className="w-full sm:max-w-2xl">
+          {/* Left — text content */}
+          <div className="flex-1">
             <h1 className="font-display text-3xl font-bold leading-[1.08] text-cream sm:text-5xl lg:text-6xl">
               <span className="italic text-rust-light">Winning</span>{' '}
               With The Hunt
@@ -43,6 +40,20 @@ export function Hero() {
               </Link>
             </div>
           </div>
+
+          {/* Right — YouTube embed, desktop only */}
+          <div className="hidden w-full max-w-md flex-shrink-0 sm:block lg:max-w-lg">
+            <div className="aspect-video w-full overflow-hidden rounded-card shadow-card-lg">
+              <iframe
+                src="https://www.youtube.com/embed/WnYnZBp2IX0?start=2&rel=0&modestbranding=1"
+                title="More 2 the Hunt — Winning With The Hunt"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="h-full w-full"
+              />
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
