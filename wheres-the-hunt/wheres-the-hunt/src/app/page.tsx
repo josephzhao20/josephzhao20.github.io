@@ -79,6 +79,44 @@ function SectionHeader({ title, action }: { title: string; action?: React.ReactN
   );
 }
 
+function EmptyState({ isLoggedIn }: { isLoggedIn: boolean }) {
+  return (
+    <Section>
+      <div className="flex flex-col items-center py-16 text-center">
+        {/* Illustrated empty state */}
+        <div className="mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-forest/10">
+          <span className="text-6xl">🧭</span>
+        </div>
+        <h2 className="font-display text-2xl font-bold text-ink sm:text-3xl">
+          The map is waiting to be filled.
+        </h2>
+        <p className="mt-3 max-w-md text-base font-semibold text-ink-soft">
+          No stories have been pinned yet. Every great community starts with a first story — be the one to kick it off.
+        </p>
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          {isLoggedIn ? (
+            <LinkButton href="/upload" size="lg" variant="secondary">
+              Share the first story
+            </LinkButton>
+          ) : (
+            <>
+              <LinkButton href="/signup" size="lg" variant="secondary">
+                Create an account
+              </LinkButton>
+              <LinkButton href="/login" size="lg" variant="ghost">
+                Log in
+              </LinkButton>
+            </>
+          )}
+        </div>
+        <p className="mt-6 text-sm text-ink-soft">
+          Stories of hunts, catches, and outdoor adventures — pinned to a real map.
+        </p>
+      </div>
+    </Section>
+  );
+}
+
 export default async function HomePage() {
   const profile = await getCurrentProfile();
 
@@ -89,6 +127,8 @@ export default async function HomePage() {
     getRecentStories(6),
     profile ? getUserAdventures(profile.id) : Promise.resolve([]),
   ]);
+
+  const hasAnyCommunityContent = spotlight !== null || recent.length > 0;
 
   if (profile) {
     return (
@@ -107,7 +147,7 @@ export default async function HomePage() {
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <LinkButton href="/upload" size="lg" variant="secondary" className="w-full justify-center sm:w-auto">Share your story</LinkButton>
-              <a href="/map" className="inline-flex w-full items-center justify-center rounded-card bg-cream px-7 py-3 text-base font-semibold text-forest transition-all hover:bg-cream-dark sm:w-auto">Read the stories</a>
+              <a href="/map" className="inline-flex w-full items-center justify-center rounded-card bg-cream px-7 py-3 text-base font-semibold text-forest transition-all hover:bg-cream-dark sm:w-auto">Read other stories</a>
               <a href={`/profile/${profile.username}`} className="inline-flex w-full items-center justify-center rounded-card border border-cream/40 px-7 py-3 text-base font-semibold text-cream/80 transition-all hover:border-cream/70 hover:text-cream sm:w-auto">My profile</a>
             </div>
           </div>
@@ -141,6 +181,11 @@ export default async function HomePage() {
           </Section>
         )}
 
+        {/* Empty state — shown when there's no community content at all */}
+        {!hasAnyCommunityContent && myAdventures.length === 0 && (
+          <EmptyState isLoggedIn />
+        )}
+
         <Section tonal>
           <div className="mb-5 flex items-end justify-between">
             <div>
@@ -172,13 +217,16 @@ export default async function HomePage() {
         <Section tonal>
           <SectionHeader
             title="Recent stories"
-            action={<LinkButton href="/map" variant="outline" size="sm">Read the stories</LinkButton>}
+            action={<LinkButton href="/map" variant="outline" size="sm">Read other stories</LinkButton>}
           />
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {recent.map((a) => <AdventureCard key={a.id} adventure={a} />)}
           </div>
         </Section>
       )}
+
+      {/* Empty state for guests when no community content exists */}
+      {!hasAnyCommunityContent && <EmptyState isLoggedIn={false} />}
 
       <Section>
         <div className="mb-5 flex items-end justify-between">
