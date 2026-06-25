@@ -10,7 +10,7 @@ export function Hero() {
           {/* Left — text content */}
           <div className="flex-1">
             <h1 className="font-display text-3xl font-bold leading-[1.08] text-cream sm:text-5xl lg:text-6xl">
-              <span className="italic text-rust-light">Winning</span>{' '}
+              <span className="text-rust-light">Winning</span>{' '}
               With The Hunt
             </h1>
 
