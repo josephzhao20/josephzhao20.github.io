@@ -72,6 +72,7 @@ export default async function MerchPage() {
   return (
     <CartProvider>
       <CartDrawer />
+      <CartButton />
 
       <div className="lodge-bg min-h-screen">
         <div className="lodge-content">
