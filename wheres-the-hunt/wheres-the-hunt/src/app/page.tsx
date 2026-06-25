@@ -12,6 +12,8 @@ import { formatDate } from '@/lib/utils';
 import type { AdventureWithStats } from '@/lib/types/database.types';
 import { Analytics } from "@vercel/analytics/next"
 
+export const dynamic = 'force-dynamic';
+
 function SpotlightCard({ story }: { story: AdventureWithStats }) {
   return (
     <Link
