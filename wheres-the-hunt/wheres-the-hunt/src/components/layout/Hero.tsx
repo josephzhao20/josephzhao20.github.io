@@ -45,7 +45,7 @@ export function Hero() {
           <div className="hidden w-full max-w-md flex-shrink-0 sm:block lg:max-w-lg">
             <div className="aspect-video w-full overflow-hidden rounded-card shadow-card-lg">
               <iframe
-                src="https://www.youtube.com/embed/WnYnZBp2IX0?start=2&rel=0&modestbranding=1"
+                src="https://www.youtube.com/embed/WnYnZBp2IX0?start=2&rel=0&modestbranding=1&autoplay=1&mute=1"
                 title="More 2 the Hunt — Winning With The Hunt"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
